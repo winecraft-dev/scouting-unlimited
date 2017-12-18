@@ -47,7 +47,26 @@ $action = isset($_GET['do']) ? $_GET['do'] : 'display';
 
 switch($controller)
 {
+  case 'login':
+    (new LoginController($action))->executeAction();
+    break;
+  case 'dataentry':
+    (new DataEntryController($action))->executeAction();
+    break;
+  case 'teams':
+    (new TeamsController($action))->executeAction();
+    break;
+  case 'rankings':
+    (new TeamsController('rankings'))->executeAction();
+    break;
+  case 'adminpanel':
+    (new AdminPanelController('rankings'))->executeAction();
+    break;
+  case 'schedule':
+    (new ScheduleController('rankings'))->executeAction();
+    break;
 	default:
+	  (new ErrorView())->render();
 		break;
 }
 
