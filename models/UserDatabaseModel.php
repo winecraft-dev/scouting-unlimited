@@ -9,7 +9,9 @@ class UserDatabaseModel extends DatabaseModel
     $query->execute();
 
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    return (new User($result));
+    if($result !== false)
+      return (new User($result));
+    return false;  
   }
   
   public function getFromName($name)
@@ -20,7 +22,9 @@ class UserDatabaseModel extends DatabaseModel
     $query->execute();
 
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    return (new User($result));
+    if($result !== false)
+      return (new User($result));
+    return false;  
   }
   
   public function getUsers()
@@ -35,7 +39,8 @@ class UserDatabaseModel extends DatabaseModel
     $users = array();
     foreach($result as $val)
     {
-      $users[] = (new User($val));
+      if($val !== false)
+        $users[] = (new User($val));
     }
     return $users;
   }
