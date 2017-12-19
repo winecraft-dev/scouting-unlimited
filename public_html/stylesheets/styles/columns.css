@@ -1,0 +1,68 @@
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+html {
+  height: 100%;
+}
+body {
+  font-family: 'PT Sans', sans-serif;
+  height: 100%;
+  margin: 0px;
+  
+  background-color: #e8e8e8;
+}
+
+#pageview {
+  -webkit-filter: opacity(0%);
+  filter: opacity(0%);
+}
+
+select {
+    background-color: #565656;
+    border-color: transparent;
+    border-radius: 2px;
+    outline-color: transparent;
+    color: #FFFFFF;
+}
+
+a:link {
+  text-decoration: none;
+  color: #06c000;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #76c777;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #76c777;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #333333;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #333333;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #333333;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #333333;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #333333;
+}

@@ -78,6 +78,15 @@ class LoginController extends Controller
     $name = isset($_POST['name']) ? $_POST['name'] : null;
     $password = isset($_POST['password']) ? $_POST['password'] : null;
     
+    $model = new UserDatabaseModel();
+    $user = $model->getFromName($name);
+    
+    if($user !== false)
+    {
+      echo "User Exists";
+      return;
+    } 
+    
     if(strlen($password) < 8)
     {
       echo "Password must be greater than 8 characters";

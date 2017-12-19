@@ -46,7 +46,7 @@ class UserDatabaseModel extends DatabaseModel
     $query = self::$conn->prepare('INSERT INTO users ' .
         '(name, password) VALUES (:name, :password)');
     $query->bindValue(':name', $name);
-    $query->bindValue(':password', $password);
+    $query->bindValue(':password', $hash);
     
     if($query->execute() === false) 
       return false;
