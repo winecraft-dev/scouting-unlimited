@@ -1,0 +1,34 @@
+.page {
+  padding-top: 70px;
+  height: auto;
+  min-height: 93vh;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.page-content {
+  height: auto;
+  min-height: 93vh;
+  width: 100%;
+  background-color: white;
+  padding: 15px;
+}
+
+.page-footer {
+  height: auto;
+  text-align: center;
+  background: #171717;
+  color: #aaaaaa;
+  padding: 10px;
+  display: block;
+  margin: auto;
+}
+
+p.page-footer-text {
+  display: block;
+  margin: 5px;
+}
+
+p.page-footer-copyright {
+  font-size: 12px;
+}

@@ -16,6 +16,7 @@ include ('./stylesheets/icon-font.css');
 $mainFiles = [
   'columns.css',
 	'page.css',
+	'menu.css',
 	'login.css'
 ];
 

@@ -15,8 +15,9 @@
   background-repeat: no-repeat;
   margin: auto;
   display: block;
-  width: 63px;
-  height: 63px;
+  width: 43px;
+  height: 43px;
+  margin-bottom: 20px;
 }
 
 .login-daddy-table

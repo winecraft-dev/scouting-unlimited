@@ -28,7 +28,7 @@ class LoginController extends Controller
     }
     else
     {
-      header("Location: /?p=membershub");
+      header("Location: /?p=dataentry");
     }  
   }
   
@@ -62,7 +62,7 @@ class LoginController extends Controller
       }
       else
       {
-        echo "/?p=membershub";
+        echo "/?p=dataentry";
       }
       return;
     }

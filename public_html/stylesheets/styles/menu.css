@@ -1,0 +1,25 @@
+.menu-bar {
+  background-color: black;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+}
+
+.menu-bar-content {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.menu-bar-logo {
+  position: relative;
+  background-image: url("/images/login-logo.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover; 
+  background-size: cover;
+  height: 70px;
+  width: 70px;
+}
+
+.menu-bar-icon {
+  
+}

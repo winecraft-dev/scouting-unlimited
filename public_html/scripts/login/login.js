@@ -26,7 +26,7 @@ $(document).ready(function() {
     
     if(name.length == 0 || password.length == 0)
     {
-    	$('.login-pending').replaceWith('<button class="login-button">Login</button>');
+    	$('.login-pending').replaceWith('<button id="login" class="login-button">Login</button>');
       $(".login-form-message").text("Please enter a username and password");
       $({blurRadius: 0}).animate({blurRadius: 100}, {
         duration: 500,
