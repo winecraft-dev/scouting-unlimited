@@ -17,9 +17,9 @@ class AdminPanelView implements View {
           </head>
           <body>
           <p class="words">Put in event code:</p>
-          <form class="loadData" method="post">
+          <form class="loadData" action="/?controller=admin&action=loadSchedule" method="post">
                 <input type="text" name="eventCode"><br><br>
-                <input type="submit" value="data_load" name="loadData"> //load team list,match schedule,rankings
+                <input type="submit" value="data_load" name="loadData"> 
           </form>
           </body>
         </html>
