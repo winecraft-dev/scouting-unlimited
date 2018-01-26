@@ -17,7 +17,7 @@ class DataEntryController extends Controller
   {
     if(Session::isLoggedIn())
     {
-      (new DataEntryView())->render();
+      (new ModulesView())->render();
     }
     else
     {

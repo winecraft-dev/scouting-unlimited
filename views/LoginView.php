@@ -14,7 +14,7 @@ class LoginView implements View
         <meta name="theme-color" content="#222222">
         <link rel="stylesheet" type="text/css" href="/SuperCSSLoader.php">
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="/scripts/login/login.js"></script>
+        <script src="/scripts/login.js"></script>
       </head>
       <body>
         <div class="login-page">

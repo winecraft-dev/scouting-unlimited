@@ -26,16 +26,9 @@ abstract class PageView implements View
   }
 
   function renderMenus()
-  { 
-    $user = Session::getLoggedInUser(); ?>
-      <!-- Menu code here, someday -->
-      <body>
-        <div class="menu-bar">
-          <div class="menu-bar-content">
-            <div class="menu-bar-logo"></div>
-          </div>
-        </div>
-    <?php 
+  { ?>
+    <body>
+    <?php (new MenuView())->render();
   }
   
   abstract protected function renderBody();

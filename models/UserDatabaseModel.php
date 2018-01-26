@@ -27,24 +27,6 @@ class UserDatabaseModel extends DatabaseModel
     return false;  
   }
   
-  public function getUsers()
-  {
-    $query = self::$conn->prepare(
-        'SELECT users.* ' .
-        'FROM users ' .
-        'WHERE users.approved=0 ' .
-        'ORDER BY users.user_type, users.last_name, users.first_name');
-    $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    $users = array();
-    foreach($result as $val)
-    {
-      if($val !== false)
-        $users[] = (new User($val));
-    }
-    return $users;
-  }
-  
   public function createUser($name, $password)
   {
     $hash = (new PasswordHash($name, $password))->hash();
