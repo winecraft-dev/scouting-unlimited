@@ -16,16 +16,39 @@ class AdminPanelController extends Controller
     }
   }  
   
+  public function loadTeams()
+  {
+    if(Session::isLoggedIn())
+    {
+      if(Session::getLoggedInUser()->administrator == 1)
+      {
+		    if(empty($_POST['eventCode']))
+		    {
+			    header("Location: /?p=adminpanel");
+		    }
+		    else
+		    {
+		      (new TeamsDatabaseModel())->loadTeamsFromApi($_POST['eventCode']);
+	      }
+	    }
+	  }
+  }
+  
   public function loadSchedule()
   {
-		if(empty($_POST['eventCode']))
-		{
-			header("Location: /?controller=admin&action=display");
-		}
-		else
-		{
-		  (new MatchScheduleDatabaseModel())->loadSchedule($_POST['eventCode']);
-		  header("Location: /?controller=admin&action=display&loaded=true");
+    if(Session::isLoggedIn())
+    {
+      if(Session::getLoggedInUser()->administrator == 1)
+      {
+		    if(empty($_POST['eventCode']))
+		    {
+			    header("Location: /?p=adminpanel");
+		    }
+		    else
+		    {
+		      (new MatchScheduleDatabaseModel())->loadMatchesFromApi($_POST['eventCode']);
+	      }
+	    }
 	  }
   }
 }    

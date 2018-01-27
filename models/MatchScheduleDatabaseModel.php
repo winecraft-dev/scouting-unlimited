@@ -42,7 +42,7 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 		);
 		
 		$context = stream_context_create($opts);
-		$url = "https://frc-api.firstinspires.org/v2.0/2017/schedule/" . $eventCode . "?tournamentLevel=qual";
+		$url = "https://frc-api.firstinspires.org/v2.0/2018/schedule/" . $eventCode . "?tournamentLevel=qual";
 		$response = file_get_contents($url, false, $context);
 		$json = json_decode($response, true);
 		
