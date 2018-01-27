@@ -8,6 +8,7 @@
 .menu-bar-content {
   padding-left: 15%;
   padding-right: 15%;
+  width: 70%;
 }
 
 .menu-bar-logo {
@@ -18,8 +19,17 @@
   background-size: cover;
   height: 70px;
   width: 70px;
+  margin: 0px;
 }
 
 .menu-bar-icon {
-  
+  background-image: url("/images/dropdown.png");
+  height: 70px;
+  width: 70px;
+  position: relative;
+  top: -70px;
+  float: right;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover; 
+  background-size: cover;
 }

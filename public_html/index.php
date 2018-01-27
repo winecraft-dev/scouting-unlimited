@@ -60,10 +60,10 @@ switch($controller)
     (new TeamsController('rankings'))->executeAction();
     break;
   case 'adminpanel':
-    (new AdminPanelController('rankings'))->executeAction();
+    (new AdminPanelController($action))->executeAction();
     break;
   case 'schedule':
-    (new ScheduleController('rankings'))->executeAction();
+    (new ScheduleController($action))->executeAction();
     break;
 	default:
 	  (new ErrorView())->render();

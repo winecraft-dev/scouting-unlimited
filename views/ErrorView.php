@@ -12,13 +12,12 @@ class ErrorView
         <meta name="theme-color" content="#222222">
         <link rel="stylesheet" type="text/css" href="/SuperCSSLoader.php">
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script type="text/javascript" src="/scripts/pageloadblur.js"></script>
   		</head>
   		<body>
 				<div class="page">
 					<div class="error-text">
 						<h1>Error!</h1>
-						<p><?=$errorText?> Redirect to <a href="/?p=membershub">Members Hub</a>.</p>
+						<p><?=$errorText?> Redirect to <a href="/?p=dataentry">Data Entry Panel</a>.</p>
 					</div>
 				</div>
 				<?php PageView::renderFooter(); ?>

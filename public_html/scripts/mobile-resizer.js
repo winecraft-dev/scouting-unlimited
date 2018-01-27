@@ -4,13 +4,13 @@ $(document).ready(function() {
   
   if(isMobile)
   {
-    $('.page').css('padding-left', '2px');
-    $('.page').css('padding-right', '2px');
-    $('.page').css('width', $(window).width() - 4 + 'px');
-    $('.page-content').css('width', $(window).width() - 4 - 30 + 'px');
-    $('.menu-bar-content').css('padding-left', '2px');
-    $('.menu-bar-content').css('padding-right', '2px');
-    $('.menu-bar-content').css('width', $(window).width() - 4 + 'px');
+    $('.page').css('padding-left', '5px');
+    $('.page').css('padding-right', '5px');
+    $('.page').css('width', $(window).width() - 10 + 'px');
+    $('.page-content').css('width', $(window).width() - 10 - 30 + 'px');
+    $('.menu-bar-content').css('padding-left', '5px');
+    $('.menu-bar-content').css('padding-right', '5px');
+    $('.menu-bar-content').css('width', $(window).width() - 10 + 'px');
   }
   else
   {
@@ -22,7 +22,7 @@ $(document).ready(function() {
       $('.page-content').css('width', $(window).width() * .7 - 30 + 'px');
       $('.menu-bar-content').css('padding-left', '15%');
       $('.menu-bar-content').css('padding-right', '15%');
-      $('.menu-bar-content').css('width', '30%');
+      $('.menu-bar-content').css('width', '70%');
     }
     else
     {
@@ -61,7 +61,7 @@ $(window).resize(function() {
       $('.page-content').css('width', $(window).width() * .7 - 30 + 'px');
       $('.menu-bar-content').css('padding-left', '15%');
       $('.menu-bar-content').css('padding-right', '15%');
-      $('.menu-bar-content').css('width', '30%');
+      $('.menu-bar-content').css('width', '70%');
     }
     else
     {
