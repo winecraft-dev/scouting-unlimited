@@ -18,25 +18,37 @@ class AdminPanelController extends Controller
   
   public function loadTeams()
   {
-		if(empty($_POST['eventCode']))
-		{
-			header("Location: /?p=adminpanel");
-		}
-		else
-		{
-		  (new TeamsDatabaseModel())->loadTeamsFromApi($_POST['eventCode']);
+    if(Session::isLoggedIn())
+    {
+      if(Session::getLoggedInUser()->administrator == 1)
+      {
+		    if(empty($_POST['eventCode']))
+		    {
+			    header("Location: /?p=adminpanel");
+		    }
+		    else
+		    {
+		      (new TeamsDatabaseModel())->loadTeamsFromApi($_POST['eventCode']);
+	      }
+	    }
 	  }
   }
   
   public function loadSchedule()
   {
-		if(empty($_POST['eventCode']))
-		{
-			header("Location: /?p=adminpanel");
-		}
-		else
-		{
-		  (new MatchScheduleDatabaseModel())->loadMatchesFromApi($_POST['eventCode']);
+    if(Session::isLoggedIn())
+    {
+      if(Session::getLoggedInUser()->administrator == 1)
+      {
+		    if(empty($_POST['eventCode']))
+		    {
+			    header("Location: /?p=adminpanel");
+		    }
+		    else
+		    {
+		      (new MatchScheduleDatabaseModel())->loadMatchesFromApi($_POST['eventCode']);
+	      }
+	    }
 	  }
   }
 }    
