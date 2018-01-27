@@ -1,30 +1,24 @@
 <?php
-class AdminPanelView implements View {
+class AdminPanelView extends PageView 
+{
+  protected $title = "Admin Panel - CRyptonite Robotics";
 
-    protected $title = "Setup - CRyptonite Robotics";
-
-    public function render(){
-        ?>
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-            <title><?= $this->title ?></title>
-            <link rel="icon" href="/favicon.ico">
-            <meta name="theme-color" content="#222222">
-            <link rel="stylesheet" type="text/css" href="/SuperCSSLoader.php">
-            <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-          </head>
-          <body>
-          <p class="words">Put in event code:</p>
-          <form class="loadData" action="/?controller=admin&action=loadSchedule" method="post">
-                <input type="text" name="eventCode"><br><br>
-                <input type="submit" value="data_load" name="loadData"> 
-          </form>
-          </body>
-        </html>
-        <?php
-    }
+  public function renderBody()
+  { ?>
+    <div class="page">
+      <div class="page-content">
+        <p class="words">Put in event code:</p>
+        <form class="loadData" action="/?p=adminpanel&do=loadTeams" method="post">
+          <input type="text" name="eventCode"><br><br>
+          <input type="submit" value="data_load" name="loadData"> 
+        </form>
+        <form class="loadData" action="/?p=adminpanel&do=loadSchedule" method="post">
+          <input type="text" name="eventCode"><br><br>
+          <input type="submit" value="data_load" name="loadData"> 
+        </form>
+      </div>
+    </div>
+  <?php }
 }
 ?>
 
