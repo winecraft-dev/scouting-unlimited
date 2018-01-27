@@ -18,6 +18,7 @@ abstract class PageView implements View
           <script type="text/javascript" src="/scripts/scouting/objects/matchdata.js"></script>
           <script type="text/javascript" src="/scripts/scouting/objects/team.js"></script>
           <script type="text/javascript" src="/scripts/scouting/objects/match.js"></script>
+		  <script type="text/javascript" src="/scripts/modules/integer.js"></script>
           
           <script type="text/javascript" src="/scripts/mobile-resizer.js"></script>
         <!-- end call all of your js files -->

@@ -17,7 +17,8 @@ $mainFiles = [
   'columns.css',
 	'page.css',
 	'menu.css',
-	'login.css'
+	'login.css',
+	'/modules/integer.css'
 ];
 
 foreach($mainFiles as $file) {

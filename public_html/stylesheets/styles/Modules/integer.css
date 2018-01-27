@@ -1,0 +1,52 @@
+input[type=number1], select, textarea {
+    width: 15%; 
+    padding: 12px; 
+    border: 1px solid #000000; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px;
+    margin-bottom: 16px; 
+    resize: vertical;
+	
+}
+
+input[type=number2], select, textarea {
+    width: 15%; 
+    padding: 12px; 
+    border: 1px solid #000000; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px;
+    margin-bottom: 16px; 
+    resize: vertical;
+}
+
+input[type=submit], select, textarea {
+    width: 15%; 
+    padding: 12px; 
+    border: 1px solid #000000; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px;
+    margin-bottom: 16px; 
+    resize: vertical;
+}
+
+.integer-arrowup{
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+	}
+	
+.integer-arrowdown{
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+	}
+	
+.integer-container{
+	width: 85%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	]
