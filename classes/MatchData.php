@@ -9,16 +9,45 @@ class MatchData
   //the associative array that all of the datasets go into
   public $data;
   
-  public function __construct($data)
+  public function __construct()
   {
-    $this->id = $data['id'];
+    $this->id = -1;
     
-    $this->team_number = $data['team_number'];
-    $this->match_number = $data['match_number'];
+    $this->team_number = -1;
+    $this->match_number = -1;
+    
+    $this->data = array();
+  }
+  
+  public static function jsonDecode($string)
+  {
+    $array = json_decode($string, true);
+    
+    var_dump($array);
+    $matchData = (new MatchData());
+    
+    $matchData->id = $array['id'];
+    
+    $matchData->team_number = $array['team_number'];
+    $matchData->match_number = $array['match_number'];
+    
+    $matchData->data = $array['data'];
+    
+    return $matchData;
+  }
+  
+  public static function databaseDecode($data)
+  {
+    $matchData = (new MatchData());
+    
+    $matchData->id = $data['id'];
+    
+    $matchData->team_number = $data['team_number'];
+    $matchData->match_number = $data['match_number'];
     
     $definitions = (new DataDefinitionsDatabaseModel())->getDataDefinitions();
     
-    $this->data = array();
+    $matchData->data = array();
     
     if($definitions === false)
       return false;
@@ -29,21 +58,12 @@ class MatchData
       $data_type = self::getDataType($definition['data_type']);
       $number = $definition['number'];
       
-      $this->data[] = [$definition['title'] => $data[$section . '_' . $data_type . '_' . $number]];
+      $matchData->data[] = [$definition['title'] => $data[$section . '_' . $data_type . '_' . $number]];
     }
+    return $matchData;
   }
   
-  public function getTeam()
-  {
-    (new TeamsDatabaseModel())->getTeam($this->team_number);
-  }
-  
-  public function getMatch()
-  {
-    (new MatchScheduleDatabaseModel())->getMatch($this->match_number);
-  }
-  
-  public function encode()
+  public function makeArray()
   {
     $matchData = array();
     
@@ -54,7 +74,17 @@ class MatchData
     
     $matchData['data'] = $this->data;
     
-    return json_encode($matchData);
+    return $matchData;
+  }
+  
+  public function getTeam()
+  {
+    (new TeamsDatabaseModel())->getTeam($this->team_number);
+  }
+  
+  public function getMatch()
+  {
+    (new MatchScheduleDatabaseModel())->getMatch($this->match_number);
   }
   
   public function getData($index)

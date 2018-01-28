@@ -65,6 +65,9 @@ switch($controller)
   case 'schedule':
     (new ScheduleController($action))->executeAction();
     break;
+  case 'offline':
+    (new OfflineClientController($action))->executeAction();
+    break;
 	default:
 	  (new ErrorView())->render();
 		break;

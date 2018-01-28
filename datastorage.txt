@@ -19,5 +19,4 @@ Data Types:
 Number:
   (The amount of datasets preceding this dataset) + 1
   
-Average Methods:
-  0: 
+

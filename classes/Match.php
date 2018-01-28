@@ -30,7 +30,7 @@ class Match
   //don't need a decode method because this is static data and
   //only needs to be sent to the client, not back to the server
   
-  public function encode()
+  public function makeArray()
   {
     $match = array();
     
@@ -44,7 +44,7 @@ class Match
     $match['blue_2'] = $this->blue_2;
     $match['blue_3'] = $this->blue_3;
     
-    return json_encode($match);
+    return $match;
   }
   
   public function getRed1Match()
