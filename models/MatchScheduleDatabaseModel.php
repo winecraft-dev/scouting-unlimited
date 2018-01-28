@@ -6,7 +6,7 @@ class MatchScheduleDatabaseModel extends DatabaseModel
   public function getMatch($match_number)
   {
     $query = self::$conn->prepare("SELECT schedule.*
-        FROM teams WHERE match_number=:match_number LIMIT 1");
+        FROM schedule WHERE match_number=:match_number LIMIT 1");
     $query->bindValue(':match_number', $match_number);
     $query->execute();
 
@@ -15,6 +15,52 @@ class MatchScheduleDatabaseModel extends DatabaseModel
       return (new Match($result));
     return false;
   }
+  
+  public function getMatches()
+  {
+    $query = self::$conn->prepare("SELECT schedule.* FROM schedule");
+    $query->execute();
+    
+    $matches = array();
+    
+    $results = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+    if($results === false)
+      return false;
+    
+    foreach($results as $result)
+    {
+      $matches[] = (new Match($result));
+    }
+    return $matches;
+  }
+  
+  public function getMatchesByTeam($team)
+	{
+		$matches = $this->getMatches();
+		$matchesIncluded = array();
+		
+		foreach($matches as $match)
+		{
+			$teams = array();
+			$teams[] = $match->red_1;
+			$teams[] = $match->red_2;
+			$teams[] = $match->red_3;
+			$teams[] = $match->blue_1;
+			$teams[] = $match->blue_2;
+			$teams[] = $match->blue_3;
+			
+			foreach($teams as $t)
+			{
+				if($team == $t)
+				{
+					$matchesIncluded[] = $match;
+					break;
+				}
+			}		
+		}
+		return $matchesIncluded;
+	}
   
   public function loadMatchesFromApi($eventCode)
   {
@@ -42,15 +88,15 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 		);
 		
 		$context = stream_context_create($opts);
-		$url = "https://frc-api.firstinspires.org/v2.0/2018/schedule/" . $eventCode . "?tournamentLevel=qual";
+		$url = "https://frc-api.firstinspires.org/v2.0/2017/schedule/" . $eventCode . "?tournamentLevel=qual";
 		$response = file_get_contents($url, false, $context);
 		$json = json_decode($response, true);
 		
-		foreach ($json as $schedule)
+		foreach($json as $schedule)
 		{
 			foreach($schedule as $match)
 			{
-				$alliances = $match["Teams"];
+				$alliances = $match["teams"];
 				$red1Teams = $alliances[0];
 				$red2Teams = $alliances[1];
 				$red3Teams = $alliances[2];

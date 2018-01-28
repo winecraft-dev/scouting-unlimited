@@ -1,7 +1,7 @@
 <?php
 class TeamsDatabaseModel extends DatabaseModel
 {
-  public function getFromNumber($number)
+  public function getTeam($number)
   {
     $query = self::$conn->prepare("SELECT teams.*
         FROM teams WHERE number=:number LIMIT 1");
@@ -42,7 +42,7 @@ class TeamsDatabaseModel extends DatabaseModel
 			)
 		);
 		$context = stream_context_create($opts);
-		$url = "https://frc-api.firstinspires.org/v2.0/2018/teams?eventCode=". $eventCode . "&state=state";
+		$url = "https://frc-api.firstinspires.org/v2.0/2017/teams?eventCode=". $eventCode . "&state=state";
 		$response = file_get_contents($url,false,$context);
 		$json = json_decode($response, true);
 		

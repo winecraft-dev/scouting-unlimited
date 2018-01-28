@@ -49,67 +49,61 @@ class Match
   
   public function getRed1Match()
   {
-    return (new MatchData((new MatchDataDatabaseModel())->getMatchData($this->match_number, 
-        $this->red_1)));
+    return (new MatchDataDatabaseModel())->getMatchData($this->match_number, $this->red_1);
   }
   
   public function getRed2Match()
   {
-    return (new MatchData((new MatchDataDatabaseModel())->getMatchData($this->match_number, 
-        $this->red_2)));
+    return (new MatchDataDatabaseModel())->getMatchData($this->match_number, $this->red_2);
   }
   
   public function getRed3Match()
   {
-    return (new MatchData((new MatchDataDatabaseModel())->getMatchData($this->match_number, 
-        $this->red_3)));
+    return (new MatchDataDatabaseModel())->getMatchData($this->match_number, $this->red_3);
   }
   
   public function getBlue1Match()
   {
-    return (new MatchData((new MatchDataDatabaseModel())->getMatchData($this->match_number, 
-        $this->blue_1)));
+    return (new MatchDataDatabaseModel())->getMatchData($this->match_number, $this->blue_1);
   }
   
   public function getBlue2Match()
   {
-    return (new MatchData((new MatchDataDatabaseModel())->getMatchData($this->match_number, 
-        $this->blue_2)));
+    return (new MatchDataDatabaseModel())->getMatchData($this->match_number, $this->blue_2);
   }
   
   public function getBlue3Match()
   {
-    return (new MatchData((new MatchDataDatabaseModel())->getMatchData($this->match_number, 
-        $this->blue_3)));
+    return (new MatchDataDatabaseModel())->getMatchData($this->match_number, $this->blue_3);
   }
   
   public function getRed1()
   {
-    return (new Team((new TeamDatabaseModel())->getFromNumber($this->red_1)));
+    return (new TeamDatabaseModel())->getTeam($this->red_1);
   }
   
   public function getRed2()
   {
-    return (new Team((new TeamDatabaseModel())->getFromNumber($this->red_2)));
+    return (new TeamDatabaseModel())->getTeam($this->red_2);
   }
   
   public function getRed3()
   {
-    return (new Team((new TeamDatabaseModel())->getFromNumber($this->red_3)));
+    return (new TeamDatabaseModel())->getTeam($this->red_3);
   }
   
   public function getBlue1()
   {
-    return (new Team((new TeamDatabaseModel())->getFromNumber($this->blue_1)));
+    return (new TeamDatabaseModel())->getTeam($this->blue_1);
   }
   
   public function getBlue2()
   {
-    return (new Team((new TeamDatabaseModel())->getFromNumber($this->blue_2)));
+    return (new TeamDatabaseModel())->getTeam($this->blue_2);
   }
   
   public function getBlue3()
   {
-    return (new Team((new TeamDatabaseModel())->getFromNumber($this->blue_3)));
+    return (new TeamDatabaseModel())->getTeam($this->blue_3);
   }
 }
