@@ -128,7 +128,7 @@ $(document).ready(function() {
       }
     });
     
-    request.fail(function (jqXHR, textStatus, errorThrown){
+    request.fail(function (jqXHR, textStatus, errorThrown) {
       // Log the error to the console
       console.error(
           "The following error occurred: "+

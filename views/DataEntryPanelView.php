@@ -7,6 +7,7 @@ class DataEntryPanelView extends PageView
   { ?>
     <div class="page">
       <div class="page-content">
+        
       </div>
     </div>
   <?php }

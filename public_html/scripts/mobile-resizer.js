@@ -1,6 +1,5 @@
 $(document).ready(function() {
   var isMobile = window.mobilecheck();
-  console.log(isMobile);
   
   if(isMobile)
   {
@@ -39,7 +38,6 @@ $(document).ready(function() {
 
 $(window).resize(function() {
   var isMobile = window.mobilecheck();
-  console.log(isMobile);
   
   if(isMobile)
   {

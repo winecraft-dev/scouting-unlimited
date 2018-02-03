@@ -3,26 +3,41 @@ class OfflineClientController extends Controller
 {
   public function getSchedule()
   {
-    $matches = (new MatchScheduleDatabaseModel())->getMatches();
-    
-    $match_array = array();
-    
-    foreach($matches as $match)
+    if(Session::isLoggedIn())
     {
-      $match_array[] = $match->makeArray();
+      $matches = (new MatchScheduleDatabaseModel())->getMatches();
+      
+      $match_array = array();
+      
+      foreach($matches as $match)
+      {
+        $match_array[] = $match->makeArray();
+      }
+      echo json_encode($match_array);
     }
-    return json_encode($match_array);
+    else
+    {
+      echo "NOT LOGGED IN";
+    }
   }
   
   public function getTeams()
   {
-    $teams = (new TeamsDatabaseModel())->getTeams();
-    
-    $team_array = array();
-    
-    foreach($teams as $team)
+    if(Session::isLoggedIn())
     {
-      $team_array[] = $team->makeArray();
+      $teams = (new TeamsDatabaseModel())->getTeams();
+      
+      $team_array = array();
+      
+      foreach($teams as $team)
+      {
+        $team_array[] = $team->makeArray();
+      }
+      echo json_encode($team_array);
+    }
+    else
+    {
+      echo "NOT LOGGED IN";
     }
   }
   

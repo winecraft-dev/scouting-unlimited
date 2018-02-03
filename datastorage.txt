@@ -19,4 +19,12 @@ Data Types:
 Number:
   (The amount of datasets preceding this dataset) + 1
   
-
+Formula Format
+  Some Constant Variables
+  Matches
+  Matches Dead
+  Matches Played
+  
+  (this.<DATA TITLE>) + (alliance.<DATA TITLE>) + (other.<DATA TITLE>) + (constant.Matches_Played)
+  
+  
