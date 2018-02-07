@@ -8,6 +8,18 @@ class ScheduleView extends PageView
   { ?>
     <div class="page">
       <div class="page-content">
+        <table>
+          <tr>
+            <th>Team</th>
+            <th>Boxes</th>
+            <th>Event</th>
+          </tr>
+          <tr>
+            <td>Team Team</td>
+            <td>5 boxes</td>
+            <td>event2</td>
+          </tr>
+        </table>
       </div>
     </div>
   <?php }
