@@ -27,4 +27,9 @@ class User
   {
     (new UserDatabaseModel())->editUser($this->id, $key, $value);
   }
+  
+  public function administrator()
+  {
+    return $this->administrator == 1;
+  }
 }

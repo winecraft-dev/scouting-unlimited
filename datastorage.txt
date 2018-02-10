@@ -1,0 +1,22 @@
+SECTIONS:
+  0: Auton Data
+  1: Teleop Data
+  2: Endgame Data
+  3: Comments
+  
+Modules:
+  0: Raw Number
+  1: Iterating Number
+  2: Checkbox
+  3: Text
+  4: Dropdown
+  
+Data Types:
+  0: Boolean
+  1: Number
+  2: Text
+  
+Number:
+  (The amount of datasets preceding this dataset) + 1
+  
+

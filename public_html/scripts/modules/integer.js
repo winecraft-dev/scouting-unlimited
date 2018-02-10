@@ -1,17 +1,26 @@
-$(document).ready(function() {
-$(function() {
-	
-$(".numbers-row").append('<div class=".integer-arrowup">+</div>');
 
-$(".integer-arrowup").on("click", function() {
+$(function() {
+
+$(".number-rows").click( function() {
 
   var $button = $(this);
-  var oldValue = $button.parent().find("input[type==number1]").val();
+  var counter=0;
+  if ($button.text() == "+") {
+	  counter = $("#test").val();
+	  counter++;
+	  ($("#test").val(counter));
+	} 
+	else {
 
-	  var newVal = parseint(oldValue) + 1;
+	
+    if (counter > 0){
+      counter = $("#test").val();
+	  counter--;
+	  ($("#test").val(counter));
+	} 
 
-  $button.parent().find("value").val(newVal);
+  }
 
-});
+
 });
 });
