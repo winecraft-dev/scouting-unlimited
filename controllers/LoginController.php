@@ -3,18 +3,6 @@ class LoginController extends Controller
 {
   public function display()
   {
-    $redirectUrl = "/?";
-    
-    foreach($_GET as $key => $value)
-    {
-      if($key != 'p' && $key != 'do')
-      {
-        $redirectUrl .= substr($key, 1) . '=' . $value . '&'; 
-      }
-    }
-     
-    $_SESSION['redirect_url'] = substr($redirectUrl, 0, strlen($redirectUrl) - 1);
-    
     if(!(Session::isLoggedIn()))
     {
       if(isset($_GET['register']))
@@ -56,14 +44,7 @@ class LoginController extends Controller
       }
       Session::logIn($user);
       
-      if($_SESSION['redirect_url'] != null)
-      {
-        echo $_SESSION['redirect_url'];
-      }
-      else
-      {
-        echo "/?p=dataentry";
-      }
+      echo "/?p=dataentrypanel";
       return;
     }
     else
@@ -106,6 +87,6 @@ class LoginController extends Controller
   public function logout()
   {
     Session::logout();
-    header("Location: /?p=login");
+    header("Location: /?c=login");
   }
 }

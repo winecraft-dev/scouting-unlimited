@@ -12,7 +12,7 @@ class AdminPanelController extends Controller
     }
     else
     {
-      header("Location: /?p=login");
+      header("Location: /?c=login");
     }
   }  
   

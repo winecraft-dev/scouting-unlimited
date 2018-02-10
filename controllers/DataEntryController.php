@@ -9,7 +9,7 @@ class DataEntryController extends Controller
     }
     else
     {
-      header("Location: /?p=login");
+      header("Location: /?c=login");
     }
   }
   
@@ -21,7 +21,7 @@ class DataEntryController extends Controller
     }
     else
     {
-      header("Location: /?p=login");
+      header("Location: /?c=login");
     }
   }
   

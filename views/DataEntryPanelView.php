@@ -1,14 +1,10 @@
 <?php
-class DataEntryPanelView extends PageView
+class DataEntryPanelView implements View
 {
-  protected $title = 'Data Entry Panel - CRyptonite Robotics';
-  
-  protected function renderBody()
+  protected function render()
   { ?>
-    <div class="page">
-      <div class="page-content">
-        
-      </div>
+    <div class="dataentrypanel-content">
+    
     </div>
   <?php }
 }

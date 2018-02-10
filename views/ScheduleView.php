@@ -1,14 +1,12 @@
 <?php
 
-class ScheduleView extends PageView
+class ScheduleView implements View
 {
-  protected $title = "Schedule - CRyptonite Robotics";
-
-  public function renderBody()
+  public function render()
   { ?>
-    <div class="page">
-      <div class="page-content">
-      </div>
+    <div class="schedule-content">
+      <a href="/?c=login&do=logout">Logout</a>
+      <a href="/?p=dataentry">Data Entry</a>
     </div>
   <?php }
 }
