@@ -13,14 +13,21 @@ abstract class PageView implements View
         <link rel="icon" href="/favicon.ico">
         <meta name="theme-color" content="#222222">
         <link rel="stylesheet" type="text/css" href="/SuperCSSLoader.php">
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="/scripts/jquery-3.3.1.min.js"></script>
         <!-- call all of your js files here -->
+<<<<<<< HEAD
           <script type="text/javascript" src="/scripts/scouting/objects/matchdata.js"></script>
           <script type="text/javascript" src="/scripts/scouting/objects/team.js"></script>
           <script type="text/javascript" src="/scripts/scouting/objects/match.js"></script>
 		  <script type="text/javascript" src="/scripts/modules/integer.js"></script>
           
+=======
+          <script type="text/javascript" src="/scripts/offline.js"></script>
+>>>>>>> 8c638aeb35eb8a6b63c29e4a8795d4e4367ff529
           <script type="text/javascript" src="/scripts/mobile-resizer.js"></script>
+          
+          <script type="text/javascript" src="/scripts/objects/match.js"></script>
+          <script type="text/javascript" src="/scripts/objects/team.js"></script>
         <!-- end call all of your js files -->
       </head>
     <?php 

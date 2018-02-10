@@ -2,21 +2,20 @@
 $(function() {
 
 $(".number-rows").click( function() {
-
-  var $button = $(this);
-  var counter=0;
-  if ($button.text() == "+") {
-	  counter = $("#test").val();
-	  counter++;
-	  ($("#test").val(counter));
-	} 
-	else {
-
 	
-    if (counter > 0){
-      counter = $("#test").val();
-	  counter--;
-	  ($("#test").val(counter));
+  var value = parseInt(document.getElementById('test').value, 10);
+  var counter=0;
+  if ($(this).text() == "+") {
+	  value++;
+	  document.getElementById('test').value = value;
+	} 
+	
+	
+	else {
+	
+    if (counter >= 0){
+	  value--;
+	  document.getElementById('test').value = value;
 	} 
 
   }

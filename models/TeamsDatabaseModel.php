@@ -14,6 +14,34 @@ class TeamsDatabaseModel extends DatabaseModel
     return false;
   }
   
+  public function getTeams()
+  {
+    $query = self::$conn->prepare("SELECT teams.* FROM teams");
+    $query->execute();
+
+    $teams = array();
+    
+    $results = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+    if($results === false)
+      return false;
+    
+    foreach($results as $result)
+    {
+      $teams[] = (new Team($result));
+    }
+    return $teams;
+  }
+  
+  public function editTeam($team, $key, $value)
+  {
+    $query = self::$conn->prepare('UPDATE teams SET ' . $key . '=:value WHERE number=:number');
+    $query->bindValue(':number', $team);
+    $query->bindValue(':key', $key);
+    $query->bindValue(':value', $value);
+    return ($query->execute());
+  }
+  
   public function loadTeamsFromApi($eventCode)
   {
     $query1 = self::$conn->prepare("DELETE FROM schedule");

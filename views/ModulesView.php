@@ -22,16 +22,16 @@ class ModulesView extends PageView
 		
 		<div class="number-rows">
 		+
-
-		<br>
-
-			INT_Place_Holder: <input id="test" type="number1" name="Int_Value" value="0">	
-
-		<br>
 		
+		<br>
 
+		<div id="test">INT_Place_Holder: <input type="number1" name="Int_Value" value=0>
+			
+		<div class="number-rows">
 		-
 		</div>		
+		</div>
+		</div>
 			<br>
 			INT_Place_Holder: <input type="number2" name="Int_Value" value="0">
 			<img class="integer-arrowup" src="images/add-one.gif">

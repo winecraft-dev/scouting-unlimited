@@ -16,7 +16,7 @@ class Team
     $this->pit_notes = $data['pit_notes'];
     
     //figure out averages when we get the averaging methods
-    $definitions = (new DataDefinitionsDatabaseModel())->getDataDefinitions();
+    $definitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
     
     $this->averages = array();
     
@@ -25,7 +25,11 @@ class Team
       
     foreach($definitions as $definition)
     {
+      $section = self::getSection($definition['section']);
+      $data_type = self::getDataType($definition['data_type']);
+      $number = $definition['number'];
       
+      $this->averages[] = [$definition['title'] => [$data[$section . '_' . $data_type . '_' . $number]]];
     }
   }
   
@@ -58,10 +62,51 @@ class Team
     return $this->averages[$index];
   }
   
-  public function calculateAverages()
+  public function updateAverages()
   {
     $matchData = $this->getMatchData();
     
+    $averageDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
     
+    foreach($averageDefinitions as $definition)
+    {
+      $formula = $definition['formula'];
+      
+      $section = self::getSection($definition['section']);
+      $data_type = self::getDataType($definition['data_type']);
+      $number = $definition['number'];
+      
+      $value;
+      
+      (new TeamsDatabaseModel())->editTeam($this->number, $section . '_' . $data_type . '_' . $number, $value);
+    }
+  }
+  
+  public static function getSection($number)
+  {
+    switch($number)
+    {
+      case 0:
+        return 'auto';
+      case 1:
+        return 'teleop';
+      case 2:
+        return 'end';
+      case 3:
+        return 'comment';
+    }
+  }
+  
+  public static function getDataType($number)
+  {
+    switch($number)
+    {
+      case 0:
+        return 'boolean';
+      case 1:
+        return 'number';
+      case 2:
+        return 'text';
+    }
   }
 }
