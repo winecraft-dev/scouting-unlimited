@@ -1,20 +1,27 @@
-$(document).ready(function() {
-  var schedule = [];
-  var teams = [];
-  var matchData = [];
-  var dataDefinitions = [];
-  
-  console.log("Online: " + navigator.onLine);
-  if(navigator.onLine)
+//database data
+var schedule = [];
+var teams = [];
+var matchData = [];
+var dataDefinitions = [];
+
+//static pages stored for offline use will be in their own js files <name>page.js
+var offline = false;
+
+function loadOffline()
+{
+  offline = navigator.onLine;
+  console.log("Online: " + offline);
+  if(offline)
   {
+    //load database data
     request = $.ajax({
-        url: "/?p=offline&do=getSchedule",
+        url: "/?c=offline&do=getSchedule",
         type: "get"
     });
     request.done(function (response, textStatus, jqXHR) {
       if(response == "NOT LOGGED IN")
       {
-        window.location.replace("/?p=login");
+        window.location.replace("/?c=login");
       }
       else
       {
@@ -28,14 +35,14 @@ $(document).ready(function() {
     });
     
     request = $.ajax({
-        url: "/?p=offline&do=getTeams",
+        url: "/?c=offline&do=getTeams",
         type: "get"
     });
     
     request.done(function (response, textStatus, jqXHR) {
       if(response == "NOT LOGGED IN")
       {
-        window.location.replace("/?p=login");
+        window.location.replace("/?c=login");
       }
       else
       {
@@ -47,6 +54,11 @@ $(document).ready(function() {
         localStorage.setItem("teams", response);
       }
     });
+    
+    //load static pages
+    loadSchedulePage();
+    
+    console.log("Static Pages Updated from Site");
   }
   else
   {
@@ -63,5 +75,7 @@ $(document).ready(function() {
       teams.push(new Team(item['number'], item['name'], item['pit_notes'], item['averages']));
     });
     console.log("Teams Loaded Offline");
+    
+    loadSchedulePageOffline();
   }
-});
+}

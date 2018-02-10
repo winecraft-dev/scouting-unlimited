@@ -5,7 +5,12 @@ class ScheduleController extends Controller
 	{
 		if(Session::isLoggedIn())
 		{
-			(new ScheduleView())->render();
+			print (new ScheduleView())->render();
+		}
+		else
+		{
+		  echo "NOT LOGGED IN";
+		  header("Location: /?c=login");
 		}
 	}
 }

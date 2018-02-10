@@ -42,13 +42,16 @@ $config = new Configuration($fileRoot . 'config.ini');
 Session::setup();
 Sanitizer::sanitize();
 
-$controller = isset($_GET['p']) ? $_GET['p'] : 'login';
+$controller = isset($_GET['c']) ? $_GET['c'] : 'index';
 $action = isset($_GET['do']) ? $_GET['do'] : 'display';
 
 switch($controller)
 {
   case 'login':
     (new LoginController($action))->executeAction();
+    break;
+  case 'index':
+    (new IndexPageController($action))->executeAction();
     break;
   case 'dataentry':
     (new DataEntryController($action))->executeAction();
@@ -69,7 +72,7 @@ switch($controller)
     (new OfflineClientController($action))->executeAction();
     break;
 	default:
-	  (new ErrorView())->render();
+	  (new ErrorView())->render("Your URL is broken.");
 		break;
 }
 
