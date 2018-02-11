@@ -7,8 +7,8 @@ class ScheduleView implements View
     <div class="page-section">
       <a href="/?c=login&do=logout">Logout</a>
       <a href="/?p=dataentry">Data Entry</a>
-      <table class=ScheduleTable>
-        <tr class="top-bar">
+      <table>
+        <tr>
 
 					<th><b>Match</b></th>
 
@@ -27,16 +27,29 @@ class ScheduleView implements View
 					<th><b>Time</b></th>
 
 				</tr>
+
       <?php
       $schedule = (new MatchScheduleDatabaseModel())->getMatches();
       foreach($schedule as $match)
-      {
-        ?><td><?php$match->matchnumber;?></td>
+      { ?>
+        <tr>
 
-      }
+          <td><?= $match->match_number ?></td>
+          <td><?= $match->red_1 ?></td>
+          <td><?= $match->red_2 ?></td>
+          <td><?= $match->red_3 ?></td>
+          <td><?= $match->blue_1 ?></td>
+          <td><?= $match->blue_2 ?></td>
+          <td><?= $match->blue_3 ?></td>
+          <td><?= $match->time ?></td>
+          
+        </tr>
+
+      <?php}
       ?>
     </table>
     </div>
   <?php }
+}
 }
 ?>
