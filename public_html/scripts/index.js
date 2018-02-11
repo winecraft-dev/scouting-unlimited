@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 $(document).ajaxStop(function() {
   setPage(currentPage);
-  setInterval(setPageByUrl, 500);
+  setPageByUrl()
 });
 
 function setPageByUrl() 
@@ -35,8 +35,9 @@ function setPage(name)
   $('.index-content').empty();
   switch(name)
   {
-    case 'login':
-      window.location.href = "/?c=login";
+    case 'adminpanel':
+      document.title = "Admin Panel - CRyptonite Robotics";
+      $('.index-content').append(adminPanelPage);
       break;
     case 'dataentrypanel':
       document.title = "Data Panel - CRyptonite Robotics";

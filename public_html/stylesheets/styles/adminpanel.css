@@ -1,0 +1,25 @@
+.adminpanel-table {
+  margin: 3%;
+  width: 94%;
+  border-collapse: collapse;
+}
+
+.adminpanel-table th {
+  border-bottom: 1px solid #cccccc;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.adminpanel-table td {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 40px;
+  min-width: 40px;
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.adminpanel-table tr:hover {
+  background-color: #c8c8c8;
+}

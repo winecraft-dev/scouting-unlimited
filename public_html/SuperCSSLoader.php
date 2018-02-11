@@ -17,6 +17,7 @@ $mainFiles = [
   'columns.css',
 	'page.css',
 	'menu.css',
+	'adminpanel.css',
 	'login.css'
 ];
 

@@ -10,6 +10,7 @@ $(document).ready(function() {
     $('.menu-bar-content').css('padding-left', '5px');
     $('.menu-bar-content').css('padding-right', '5px');
     $('.menu-bar-content').css('width', $(window).width() - 10 + 'px');
+    $('.menu-dropdown').width('80%');
   }
   else
   {
@@ -22,6 +23,7 @@ $(document).ready(function() {
       $('.menu-bar-content').css('padding-left', '15%');
       $('.menu-bar-content').css('padding-right', '15%');
       $('.menu-bar-content').css('width', '70%');
+      $('.menu-dropdown').width('30%');
     }
     else
     {
@@ -32,6 +34,7 @@ $(document).ready(function() {
       $('.menu-bar-content').css('padding-left', '4%');
       $('.menu-bar-content').css('padding-right', '4%');
       $('.menu-bar-content').css('width', '92%');
+      $('.menu-dropdown').width('40%');
     }
   }
 });
@@ -48,6 +51,7 @@ $(window).resize(function() {
     $('.menu-bar-content').css('padding-left', '2px');
     $('.menu-bar-content').css('padding-right', '2px');
     $('.menu-bar-content').css('width', $(window).width() - 4 + 'px');
+    $('.menu-dropdown').width('80%');
   }
   else
   {
@@ -60,6 +64,7 @@ $(window).resize(function() {
       $('.menu-bar-content').css('padding-left', '15%');
       $('.menu-bar-content').css('padding-right', '15%');
       $('.menu-bar-content').css('width', '70%');
+      $('.menu-dropdown').width('30%');
     }
     else
     {
@@ -70,6 +75,7 @@ $(window).resize(function() {
       $('.menu-bar-content').css('padding-left', '4%');
       $('.menu-bar-content').css('padding-right', '4%');
       $('.menu-bar-content').css('width', '92%');
+      $('.menu-dropdown').width('40%');
     }
   }
 });

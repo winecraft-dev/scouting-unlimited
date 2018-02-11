@@ -21,6 +21,7 @@ abstract class PageView implements View
           <script type="text/javascript" src="/scripts/menu.js"></script>
           
           <script type="text/javascript" src="/scripts/pages/schedulepage.js"></script>
+          <script type="text/javascript" src="/scripts/pages/adminpanelpage.js"></script>
           
           <script type="text/javascript" src="/scripts/objects/match.js"></script>
           <script type="text/javascript" src="/scripts/objects/team.js"></script>
@@ -35,7 +36,7 @@ abstract class PageView implements View
     <?php (new MenuView())->render();
   }
   
-  abstract protected function renderBody();
+  abstract public function renderBody();
   
   static function renderFooter()
   { ?>

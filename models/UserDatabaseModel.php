@@ -1,6 +1,25 @@
 <?php
 class UserDatabaseModel extends DatabaseModel
 {
+  public function getUsers()
+  {
+    $query = self::$conn->prepare("SELECT users.* FROM users");
+    $query->execute();
+    
+    $users = array();
+    
+    $results = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+    if($results === false)
+      return false;
+    
+    foreach($results as $result)
+    {
+      $users[] = (new User($result));
+    }
+    return $users;
+  }
+  
   public function getFromId($id)
   {
     $query = self::$conn->prepare("SELECT users.*

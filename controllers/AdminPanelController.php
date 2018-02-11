@@ -6,12 +6,13 @@ class AdminPanelController extends Controller
     if(Session::isLoggedIn())
     {
       if(Session::getLoggedInUser()->administrator == 1)
-        (new AdminPanelView())->render();
+        print (new AdminPanelView())->render();
       else
-        (new ErrorView())->render("You must be an administrator to view this page.");
+        echo "NOT ENOUGH PERMISSIONS";
     }
     else
     {
+		  echo "NOT LOGGED IN";
       header("Location: /?c=login");
     }
   }  

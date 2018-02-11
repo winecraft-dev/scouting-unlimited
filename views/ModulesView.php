@@ -1,9 +1,9 @@
 <?php
-class ModulesView extends PageView
+class ModulesView implements View
 {
   protected $title = 'Data Entry Panel - CRyptonite Robotics';
   
-  protected function renderBody()
+  protected function render()
   { ?>
     <div class="page">
       <div class="page-content">

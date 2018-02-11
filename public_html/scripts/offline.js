@@ -57,6 +57,7 @@ function loadOffline()
     
     //load static pages
     loadSchedulePage();
+    loadAdminPanelPage();
     
     console.log("Static Pages Updated from Site");
   }
@@ -77,5 +78,6 @@ function loadOffline()
     console.log("Teams Loaded Offline");
     
     loadSchedulePageOffline();
+    loadAdminPanelPageOffline();
   }
 }
