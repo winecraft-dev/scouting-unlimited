@@ -1,10 +1,9 @@
 <?php
 class DataEntryPanelView implements View
 {
-  protected function render()
+  public function render()
   { ?>
     <div class="dataentrypanel-content">
-    
     </div>
   <?php }
 }
