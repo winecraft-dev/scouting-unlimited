@@ -31,7 +31,7 @@ class ScheduleView implements View
       <?php
       $schedule = (new MatchScheduleDatabaseModel())->getMatches();
       foreach($schedule as $match)
-      { ?>
+      {?>
         <tr>
 
           <td><?= $match->match_number ?></td>
@@ -42,7 +42,7 @@ class ScheduleView implements View
           <td><?= $match->blue_2 ?></td>
           <td><?= $match->blue_3 ?></td>
           <td><?= $match->time ?></td>
-          
+
         </tr>
 
       <?php}
