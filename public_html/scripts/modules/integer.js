@@ -1,25 +1,27 @@
 
 $(function() {
 
-$(".number-rows").click( function() {
+$(".integer-numberrows").click( function() {
+  var value = $(this).parent().find("input").val();
 	
-  var value = parseInt(document.getElementById('test').value, 10);
-  var counter=0;
-  if ($(this).text() == "+") {
-	  value++;
-	  document.getElementById('test').value = value;
+  if ($(this).text().includes("+")) {
+	  console.log("a");
+	  value++;	
 	} 
-	
 	
 	else {
-	
-    if (counter >= 0){
-	  value--;
-	  document.getElementById('test').value = value;
+    if (value >0){
+	  console.log('f');
+	  value--; 
 	} 
-
+	else{
+	value=0;
+	console.log("g");
+	}
+	
   }
 
+	$(this).parent().find("input").val(value);
 
 });
 });

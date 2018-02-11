@@ -15,19 +15,9 @@ abstract class PageView implements View
         <link rel="stylesheet" type="text/css" href="/SuperCSSLoader.php">
         <script type="text/javascript" src="/scripts/jquery-3.3.1.min.js"></script>
         <!-- call all of your js files here -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <script type="text/javascript" src="/scripts/scouting/objects/matchdata.js"></script>
-          <script type="text/javascript" src="/scripts/scouting/objects/team.js"></script>
-          <script type="text/javascript" src="/scripts/scouting/objects/match.js"></script>
 		  <script type="text/javascript" src="/scripts/modules/integer.js"></script>
-          
-=======
-=======
           <script type="text/javascript" src="/scripts/index.js"></script>
->>>>>>> 402f66cbd962db6c2301da552cb2fc7343bfe490
           <script type="text/javascript" src="/scripts/offline.js"></script>
->>>>>>> 8c638aeb35eb8a6b63c29e4a8795d4e4367ff529
           <script type="text/javascript" src="/scripts/mobile-resizer.js"></script>
           
           <script type="text/javascript" src="/scripts/pages/schedulepage.js"></script>

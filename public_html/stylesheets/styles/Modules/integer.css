@@ -34,14 +34,14 @@ input[type=submit], select, textarea {
 
 .integer-arrowup{
 	vertical-align: middle;
-	width: 20px;
-	height: 20px;
+	width: 35px;
+	height: 35px;
 	}
 	
 .integer-arrowdown{
 	vertical-align: middle;
-	width: 20px;
-	height: 20px;
+	width: 35px;
+	height: 35px;
 	}
 	
 .integer-container{
@@ -68,3 +68,11 @@ margin: 0 0 0 5px;
   background-image: url("minus-one.gif") no-repeat;
 }
 
+.integer-numberrows{
+	opacity: 1;
+	color: white;
+}
+
+#integer-notshown{
+	opacity: 0;	
+}

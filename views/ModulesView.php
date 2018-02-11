@@ -7,7 +7,6 @@ class ModulesView extends PageView
   { ?>
     <div class="page">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/styles/Modules/integer.css"/>
-	<script type="text/javascript" src="/scripts/modules/integer.js"></script>
       <div class="page-content">
         <? /* 
           Daniel, put all of your test modules here. Make a CSS and JS file in the folder
@@ -19,26 +18,33 @@ class ModulesView extends PageView
         */ ?>
 		<div class="integer-container">
 		<form action="/">
+
+		<div id="test">
 		
-		<div class="number-rows">
+		<div class="integer-numberrows">
 		+
-		
+		<br>
+		<img class="integer-arrowup" src="images/add-one.gif">
+		</div>		
+
 		<br>
 
-		<div id="test">INT_Place_Holder: <input type="number1" name="Int_Value" value=0>
+		INT_Place_Holder: <input type="number1" name="Int_Value" value=0>
 			
-		<div class="number-rows">
-		-
-		</div>		
+		<br>
+		
+		<div class="integer-numberrows">
+		
+		<img class="integer-arrowdown" src="images/minus-one.gif" >
+		
 		</div>
+		
 		</div>
-			<br>
-			INT_Place_Holder: <input type="number2" name="Int_Value" value="0">
-			<img class="integer-arrowup" src="images/add-one.gif">
-			<img class="integer-arrowdown" src="images/minus-one.gif" >
-			<br>
+		
 		<input type="submit" value="Submit">
+		
 		</form>
+		
 		</div>
 
 
