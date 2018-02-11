@@ -19,6 +19,7 @@ abstract class PageView implements View
           <script type="text/javascript" src="/scripts/index.js"></script>
           <script type="text/javascript" src="/scripts/offline.js"></script>
           <script type="text/javascript" src="/scripts/mobile-resizer.js"></script>
+          <script type="text/javascript" src="/scripts/menu.js"></script>
           
           <script type="text/javascript" src="/scripts/pages/schedulepage.js"></script>
           
