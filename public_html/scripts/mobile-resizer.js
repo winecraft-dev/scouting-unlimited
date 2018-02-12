@@ -6,7 +6,7 @@ $(document).ready(function() {
     $('.page').css('padding-left', '5px');
     $('.page').css('padding-right', '5px');
     $('.page').css('width', $(window).width() - 10 + 'px');
-    $('.page-content').css('width', $(window).width() - 10 - 30 + 'px');
+    $('.page-section').css('width', $(window).width() - 10 - 30 + 'px');
     $('.menu-bar-content').css('padding-left', '5px');
     $('.menu-bar-content').css('padding-right', '5px');
     $('.menu-bar-content').css('width', $(window).width() - 10 + 'px');
@@ -19,7 +19,7 @@ $(document).ready(function() {
       $('.page').css('padding-left', '15%');
       $('.page').css('padding-right', '15%');
       $('.page').css('width', '30%');
-      $('.page-content').css('width', $(window).width() * .7 - 30 + 'px');
+      $('.page-section').css('width', $(window).width() * .7 - 30 + 'px');
       $('.menu-bar-content').css('padding-left', '15%');
       $('.menu-bar-content').css('padding-right', '15%');
       $('.menu-bar-content').css('width', '70%');
@@ -30,7 +30,7 @@ $(document).ready(function() {
       $('.page').css('padding-left', '4%');
       $('.page').css('padding-right', '4%');
       $('.page').css('width', '92%');
-      $('.page-content').css('width', $(window).width() * .92 - 30 + 'px');
+      $('.page-section').css('width', $(window).width() * .92 - 30 + 'px');
       $('.menu-bar-content').css('padding-left', '4%');
       $('.menu-bar-content').css('padding-right', '4%');
       $('.menu-bar-content').css('width', '92%');
@@ -47,7 +47,7 @@ $(window).resize(function() {
     $('.page').css('padding-left', '2px');
     $('.page').css('padding-right', '2px');
     $('.page').css('width', $(window).width() - 4 + 'px');
-    $('.page-content').css('width', $(window).width() - 4 - 30 + 'px');
+    $('.page-section').css('width', $(window).width() - 4 - 30 + 'px');
     $('.menu-bar-content').css('padding-left', '2px');
     $('.menu-bar-content').css('padding-right', '2px');
     $('.menu-bar-content').css('width', $(window).width() - 4 + 'px');
@@ -60,7 +60,7 @@ $(window).resize(function() {
       $('.page').css('padding-left', '15%');
       $('.page').css('padding-right', '15%');
       $('.page').css('width', '30%');
-      $('.page-content').css('width', $(window).width() * .7 - 30 + 'px');
+      $('.page-section').css('width', $(window).width() * .7 - 30 + 'px');
       $('.menu-bar-content').css('padding-left', '15%');
       $('.menu-bar-content').css('padding-right', '15%');
       $('.menu-bar-content').css('width', '70%');
@@ -71,7 +71,7 @@ $(window).resize(function() {
       $('.page').css('padding-left', '4%');
       $('.page').css('padding-right', '4%');
       $('.page').css('width', '92%');
-      $('.page-content').css('width', $(window).width() * .92 - 30 + 'px');
+      $('.page-section').css('width', $(window).width() * .92 - 30 + 'px');
       $('.menu-bar-content').css('padding-left', '4%');
       $('.menu-bar-content').css('padding-right', '4%');
       $('.menu-bar-content').css('width', '92%');
