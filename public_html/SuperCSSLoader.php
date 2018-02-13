@@ -18,6 +18,7 @@ $mainFiles = [
 	'page.css',
 	'menu.css',
 	'adminpanel.css',
+	'schedule.css',
 	'login.css',
 	'/modules/integer.css'
 ];

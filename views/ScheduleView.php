@@ -3,53 +3,70 @@
 class ScheduleView implements View
 {
   public function render()
-  { ?>
+  { 
+    $schedule = (new MatchScheduleDatabaseModel())->getMatches(); ?>
     <div class="page-section">
-      <a href="/?c=login&do=logout">Logout</a>
-      <a href="/?p=dataentry">Data Entry</a>
-      <table>
+      <div class="page-section-head">Schedule</div>
+      <table class="schedule">
+        <colgroup>
+          <col span="1" style="width: 5%;">
+          <col span="1" style="width: 15.833333333%;">
+          <col span="1" style="width: 15.833333333%;">
+          <col span="1" style="width: 15.833333333%;">
+          <col span="1" style="width: 15.833333333%;">
+          <col span="1" style="width: 15.833333333%;">
+          <col span="1" style="width: 15.833333333%;">
+        </colgroup>
         <tr>
-
-					<th><b>Match</b></th>
-
-					<th><b>Red 1</b></th>
-
-					<th><b>Red 2</b></th>
-
-					<th><b>Red 3</b></th>
-
-					<th><b>Blue 1</b></th>
-
-					<th><b>Blue 2</b></th>
-
-					<th><b>Blue 3</b></th>
-
-					<th><b>Time</b></th>
-
+					<th class="schedule-head schedule-mid">Match</th>
+					<th class="schedule-red">Red 1</th>
+					<th class="schedule-red">Red 2</th>
+					<th class="schedule-red schedule-mid">Red 3</th>
+					<th class="schedule-blue">Blue 1</th>
+					<th class="schedule-blue">Blue 2</th>
+					<th class="schedule-blue">Blue 3</th>
 				</tr>
-
-      <?php
-      $schedule = (new MatchScheduleDatabaseModel())->getMatches();
-      foreach($schedule as $match)
-      {?>
-        <tr>
-
-          <td><?= $match->match_number ?></td>
-          <td><?= $match->red_1 ?></td>
-          <td><?= $match->red_2 ?></td>
-          <td><?= $match->red_3 ?></td>
-          <td><?= $match->blue_1 ?></td>
-          <td><?= $match->blue_2 ?></td>
-          <td><?= $match->blue_3 ?></td>
-          <td><?= $match->time ?></td>
-
-        </tr>
-
-      <?php}
-      ?>
-    </table>
+        <?php 
+        $i = 0; 
+        foreach($schedule as $match) { 
+          if($i % 2 == 0) { ?>
+            <tr class="schedule-zebra-light">
+          <?php } else { ?>
+            <tr class="schedule-zebra-dark">
+          <?php } ?>
+            <td class="schedule-mid schedule-match-number"><?= $match->match_number ?></td>
+            <td class="schedule-red">
+              <?php $this->checkMatchScouted($match->match_number, $match->red_1); ?>
+            </td>
+            <td class="schedule-red">
+              <?php $this->checkMatchScouted($match->match_number, $match->red_2); ?>
+            </td>
+            <td class="schedule-red schedule-mid">
+              <?php $this->checkMatchScouted($match->match_number, $match->red_3); ?>
+            </td>
+            <td class="schedule-blue">
+              <?php $this->checkMatchScouted($match->match_number, $match->blue_1); ?>
+            </td>
+            <td class="schedule-blue">
+              <?php $this->checkMatchScouted($match->match_number, $match->blue_2); ?>
+            </td>
+            <td class="schedule-blue">
+              <?php $this->checkMatchScouted($match->match_number, $match->blue_3); ?>
+            </td>
+          </tr>
+        <?php $i ++; } ?>
+      </table>
     </div>
   <?php }
-}
+  
+  private function checkMatchScouted($match_number, $team_number)
+  {
+    if((new MatchDataDatabaseModel())->getMatchData($match_number, $team_number) != false)
+    { ?>
+      <mark class="schedule-done"><?= $team_number ?></mark>
+    <?php } else { ?>
+      <mark class="schedule-undone"><?= $team_number ?></mark>
+    <?php }
+  }
 }
 ?>

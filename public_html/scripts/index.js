@@ -1,20 +1,11 @@
-var oldPage = 0;
-var currentPage = 1;
-
 $(document).ready(function() {
   loadOffline();
+  storeSession();
 });
 
 $(document).ajaxStop(function() {
-  setPage(currentPage);
-  setPageByUrl()
+  setPage(localStorage.getItem("url"));
 });
-
-function setPageByUrl() 
-{
-  var url = new URL(window.location.href);
-  setPage(url.searchParams.get("p"));
-}
 
 $(document).on('click', 'a', function(e) {
   e.preventDefault();
@@ -25,15 +16,16 @@ $(document).on('click', 'a', function(e) {
     window.location.href = $(this).attr("href");
     return;
   }
-  setPage(url.searchParams.get("p"));
-  
+  localStorage.setItem("url", $(this).attr('href'));
+  setPage(localStorage.getItem("url"));
 });
 
 //0 = data entry panel, 1 = schedule, 2 = teams list, 3 = rankings
-function setPage(name)
+function setPage(link)
 {
+  var url = new URL("http://localhost" + link);
   $('.index-content').empty();
-  switch(name)
+  switch(url.searchParams.get("p"))
   {
     case 'adminpanel':
       document.title = "Admin Panel - CRyptonite Robotics";

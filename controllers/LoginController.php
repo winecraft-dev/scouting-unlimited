@@ -16,7 +16,7 @@ class LoginController extends Controller
     }
     else
     {
-      header("Location: /?p=dataentry");
+      header("Location: /");
     }  
   }
   
@@ -44,7 +44,7 @@ class LoginController extends Controller
       }
       Session::logIn($user);
       
-      echo "/?p=dataentrypanel";
+      echo "/";
       return;
     }
     else

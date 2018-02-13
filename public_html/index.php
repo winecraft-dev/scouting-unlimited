@@ -3,6 +3,7 @@
 All web page requests pass through this file. It sets up some environment things that all pages need, and then chooses the 
 proper controller object to route the request through by the 'controller' query string element.
 */
+ini_set('session.gc_maxlifetime', 60*60*48);
 $startTime = microtime(true);
 
 //tell PHP to use UFT-8 character encoding

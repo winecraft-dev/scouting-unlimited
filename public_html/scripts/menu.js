@@ -13,4 +13,11 @@ $(document).ready(function() {
 			$('.menu-dropdown').show();
 		}
 	});
+	$('.page').click(function() {
+	  if(open)
+		{
+			open = false;
+			$('.menu-dropdown').hide();
+		}
+	});
 });
