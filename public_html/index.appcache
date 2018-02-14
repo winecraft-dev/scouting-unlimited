@@ -1,0 +1,27 @@
+CACHE MANIFEST
+index.php
+SuperCSSLoader.php
+
+CACHE:
+images/add-one.gif
+images/minus-one.gif
+images/dropdown.png
+images/loading.gif
+images/login.jpg
+images/login-logo.png
+images/trash.png
+
+scripts/jquery-3.3.1.min.js
+scripts/menu.js
+scripts/mobile-resizer.js
+
+scripts/index.js
+scripts/offline.js
+scripts/session.js
+
+scripts/pages/adminpanelpage.js
+scripts/pages/schedulepage.js
+scripts/pages/errorpage.js
+
+NETWORK:
+*
