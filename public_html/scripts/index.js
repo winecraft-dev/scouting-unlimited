@@ -16,14 +16,14 @@ $(document).on('click', 'a', function(e) {
     window.location.href = $(this).attr("href");
     return;
   }
-  localStorage.setItem("url", $(this).attr('href'));
-  setPage(localStorage.getItem("url"));
+  localStorage.setItem("url", "http://localhost" + $(this).attr('href'));
+  setPage(url);
 });
 
 //0 = data entry panel, 1 = schedule, 2 = teams list, 3 = rankings
 function setPage(link)
 {
-  var url = new URL("http://localhost" + link);
+  var url = new URL(link);
   $('.index-content').empty();
   switch(url.searchParams.get("p"))
   {

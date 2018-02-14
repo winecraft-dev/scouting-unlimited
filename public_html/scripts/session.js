@@ -14,3 +14,9 @@ function storeSession()
     console.log("test");
   }, 10000);
 }
+
+function reinstateSession() 
+{
+  cookie.set("PHPSESSID", localStorage.getItem("PHPSESSID"));
+  window.location.href = "/";
+}
