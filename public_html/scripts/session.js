@@ -11,7 +11,6 @@ function storeSession()
   
   setInterval(function() {
     cookie.set("PHPSESSID", localStorage.getItem("PHPSESSID"));
-    console.log("test");
   }, 10000);
 }
 

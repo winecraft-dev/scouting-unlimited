@@ -9,9 +9,11 @@ var offline = false;
 
 function loadOffline()
 {
-  offline = navigator.onLine;
-  console.log("Online: " + offline);
-  if(offline)
+  offline = !navigator.onLine;
+  setInterval(function() {
+    offline = !navigator.onLine;
+  }, 500);
+  if(!offline)
   {
     //load database data
     request = $.ajax({
@@ -58,6 +60,7 @@ function loadOffline()
     //load static pages
     loadSchedulePage();
     loadAdminPanelPage();
+    loadErrorPage();
     
     console.log("Static Pages Updated from Site");
   }
@@ -79,5 +82,8 @@ function loadOffline()
     
     loadSchedulePageOffline();
     loadAdminPanelPageOffline();
+    loadErrorPageOffline();
+    
+    completeAjax();
   }
 }

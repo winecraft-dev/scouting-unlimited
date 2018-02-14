@@ -8,6 +8,8 @@ class User
 	
 	public $administrator; //permissions_level: -1=not approved, 0=scout, 1=admin
 	
+	public $scouting_position;
+	
 	public function __construct($data)
 	{
 	  $this->id = $data['id'];
@@ -16,6 +18,8 @@ class User
 		$this->password = $data['password'];
 		
 		$this->administrator = $data['administrator'];
+		
+		$this->scouting_position = $data['scouting_position'];
 	}
 	
 	public function checkPassword($checkPass) 

@@ -23,3 +23,31 @@
 .adminpanel-table tr:hover {
   background-color: #c8c8c8;
 }
+
+.adminpanel-select {
+  width: auto;
+  border: 0px;
+  border-radius: 2px;
+  padding: 8px;
+  background-color: #555555;
+}
+
+.adminpanel-scouting-position {
+  width: auto;
+  border: 0px;
+  border-radius: 2px;
+  padding: 8px;
+  background-color: #555555;
+}
+
+.adminpanel-load-container {
+  
+}
+
+.adminpanel-trash {
+  background-image: url(/images/trash.png);
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  z-index: 10;
+  width: 40px;
+}

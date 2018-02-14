@@ -1,11 +1,11 @@
+var initialAjaxCompleted = false;
+
 $(document).ready(function() {
   loadOffline();
   storeSession();
 });
 
-$(document).ajaxStop(function() {
-  setPage(localStorage.getItem("url"));
-});
+$(document).ajaxStop(completeAjax);
 
 $(document).on('click', 'a', function(e) {
   e.preventDefault();
@@ -29,7 +29,7 @@ function setPage(link)
   {
     case 'adminpanel':
       document.title = "Admin Panel - CRyptonite Robotics";
-      $('.index-content').append(adminPanelPage);
+      pasteAdminPanelPage();
       break;
     case 'dataentrypanel':
       document.title = "Data Panel - CRyptonite Robotics";
@@ -58,5 +58,14 @@ function setPage(link)
     case 'match':
       //
       break;
+  }
+}
+
+function completeAjax()
+{
+  if(!initialAjaxCompleted) 
+  {
+    initialAjaxCompleted = true;
+    setPage(localStorage.getItem("url"));
   }
 }

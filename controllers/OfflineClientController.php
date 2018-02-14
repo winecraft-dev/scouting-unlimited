@@ -50,5 +50,10 @@ class OfflineClientController extends Controller
   {
     
   }
+  
+  public function getErrorPage()
+  {
+    print (new ErrorView())->render("Error Text Here");
+  }
 }
 ?>
