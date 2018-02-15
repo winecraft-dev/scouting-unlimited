@@ -88,5 +88,6 @@ class TeamsDatabaseModel extends DatabaseModel
 			$query7->bindValue(':name', $teamName, PDO::PARAM_INT);
 			if(!$query7->execute()) return false;
 		}
+    return true;
   }
 }

@@ -34,6 +34,11 @@ p.page-footer-copyright {
   z-index: 1;
 }
 
+.page-section-content {
+  min-width: 300px;
+  overflow-x: auto;
+}
+
 .page-section-head {
   font-size: 36px;
   border-bottom: 1px solid #777777;

@@ -23,16 +23,32 @@ class AdminPanelController extends Controller
     {
       if(Session::getLoggedInUser()->administrator == 1)
       {
-		    if(empty($_POST['eventCode']))
-		    {
-			    header("Location: /?p=adminpanel");
-		    }
-		    else
-		    {
-		      (new TeamsDatabaseModel())->loadTeamsFromApi($_POST['eventCode']);
-	      }
+		    $eventcode = isset($_POST['eventcode']) ? $_POST['eventcode'] : null;
+        $password = isset($_POST['password']) ? $_POST['password'] : null;
+        
+        if(Session::getLoggedInUser()->checkPassword($password))
+        {
+          if($eventcode != null)
+          {
+            if((new TeamsDatabaseModel())->loadTeamsFromApi($eventcode))
+            {
+              echo "SUCCESS";
+              return;
+            }
+            echo "ERROR";
+            return;
+          }
+          echo "NO ID";
+          return;
+        }
+        echo "INCORRECT PASSWORD";
+        return;
 	    }
+	    echo "NOT ENOUGH PERMISSIONS";
+	    return;
 	  }
+	  echo "NOT LOGGED IN";
+	  return;
   }
   
   public function loadSchedule()
@@ -41,16 +57,32 @@ class AdminPanelController extends Controller
     {
       if(Session::getLoggedInUser()->administrator == 1)
       {
-		    if(empty($_POST['eventCode']))
-		    {
-			    header("Location: /?p=adminpanel");
-		    }
-		    else
-		    {
-		      (new MatchScheduleDatabaseModel())->loadMatchesFromApi($_POST['eventCode']);
-	      }
+		    $eventcode = isset($_POST['eventcode']) ? $_POST['eventcode'] : null;
+        $password = isset($_POST['password']) ? $_POST['password'] : null;
+        
+        if(Session::getLoggedInUser()->checkPassword($password))
+        {
+          if($eventcode != null)
+          {
+            if((new MatchScheduleDatabaseModel())->loadMatchesFromApi($eventcode))
+            {
+              echo "SUCCESS";
+              return;
+            }
+            echo "ERROR";
+            return;
+          }
+          echo "NO ID";
+          return;
+        }
+        echo "INCORRECT PASSWORD";
+        return;
 	    }
+	    echo "NOT ENOUGH PERMISSIONS";
+	    return;
 	  }
+	  echo "NOT LOGGED IN";
+	  return;
   }
   
   public function editScoutingPosition()

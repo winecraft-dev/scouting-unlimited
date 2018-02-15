@@ -118,6 +118,7 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 				$query2->execute();
 			}
 		}
+		return true;
   }
 }
 ?>

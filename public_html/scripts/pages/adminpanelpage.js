@@ -1,7 +1,10 @@
 var adminPanelPage = "";
 
+var pageLoading = false;
+
 function loadAdminPanelPage() 
 {
+  pageLoading = true;
   request = $.ajax({
       url: "/?c=adminpanel&do=display",
       type: "get"
@@ -9,7 +12,7 @@ function loadAdminPanelPage()
   request.done(function (response, textStatus, jqXHR) {
     if(response == "NOT LOGGED IN")
     {
-      window.location.replace("/?p=login");
+      window.location.replace("/?c=login");
     }
     else
     {
@@ -28,8 +31,17 @@ function pasteAdminPanelPage()
 {
   if(!offline)
   {
-    $('.index-content').append(adminPanelPage);
-    selectScoutColor();
+    loadAdminPanelPage();
+    $(document).ajaxComplete(function() {
+      if(pageLoading)
+      {
+        pageLoading = false;
+        $('.index-content').empty();
+        $('.index-content').append(adminPanelPage);
+        $('.adminpanel-load-message').fadeOut();
+        selectScoutColor();
+      }
+    });
   }
   else
   {
@@ -148,3 +160,47 @@ function selectScoutColor()
     }
   });
 }
+
+$(document).on('click', '.adminpanel-button', function() {
+  var id = $(this).attr('id');
+  
+  var values = {
+	  'eventcode': $('#eventcode-' + id).val(),
+	  'password': $('#password-' + id).val()
+	};
+	var url = "/?c=adminpanel&do=" + (id == 1 ? "loadTeams" : "loadSchedule");
+	
+  request = $.ajax({
+      url: url,
+      type: "post",
+      data: values
+  });
+  request.done(function(response, textStatus, jqXHR) {
+    if(response == "SUCCESS")
+    {
+      $('.adminpanel-load-message').fadeIn();
+      $('.adminpanel-load-message').css('color', 'green');
+      $('.adminpanel-load-message').text("Successfully Loaded");
+    }
+    else if(response == "INCORRECT PASSWORD")
+    {
+      $('.adminpanel-load-message').fadeIn();
+      $('.adminpanel-load-message').css('color', 'red');
+      $('.adminpanel-load-message').text("Incorrect Password");
+    }
+    else if(response == "NO ID")
+    {
+      $('.adminpanel-load-message').fadeIn();
+      $('.adminpanel-load-message').css('color', 'red');
+      $('.adminpanel-load-message').text("You must fill out all fields");
+    }
+    else if(response == "NOT ENOUGH PERMISSIONS")
+    {
+      window.location.href = "/";
+    }
+    else if(response == "NOT LOGGED IN")
+    {
+      window.location.href = "/?c=login";
+    }
+  });
+});
