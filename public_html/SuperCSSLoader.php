@@ -20,6 +20,7 @@ $mainFiles = [
 	'adminpanel.css',
 	'schedule.css',
 	'login.css',
+	'dataentry.css',
 	'/modules/integer.css'
 ];
 

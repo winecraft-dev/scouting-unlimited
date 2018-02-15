@@ -13,7 +13,6 @@ class ScheduleController extends Controller
 		else
 		{
 		  echo "NOT LOGGED IN";
-		  header("Location: /?c=login");
 		}
 	}
 }

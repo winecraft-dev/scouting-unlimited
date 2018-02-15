@@ -5,23 +5,23 @@ class DataEntryController extends Controller
   {
     if(Session::isLoggedIn())
     {
+      (new DataEntryFormView())->render();
+    }
+    else
+    {
+      echo "NOT LOGGED IN";
+    }
+  }
+  
+  public function panel()
+  {
+    if(Session::isLoggedIn())
+    {
       (new DataEntryPanelView())->render();
     }
     else
     {
-      header("Location: /?c=login");
-    }
-  }
-  
-  public function form()
-  {
-    if(Session::isLoggedIn())
-    {
-      (new ModulesView())->render();
-    }
-    else
-    {
-      header("Location: /?c=login");
+      echo "NOT LOGGED IN";
     }
   }
   

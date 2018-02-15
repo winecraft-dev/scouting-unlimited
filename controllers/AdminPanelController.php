@@ -13,9 +13,20 @@ class AdminPanelController extends Controller
     else
     {
 		  echo "NOT LOGGED IN";
-      header("Location: /?c=login");
     }
   }  
+  
+  public function getScoutingPosition()
+  {
+    if(Session::isLoggedIn())
+    {
+      echo Session::getLoggedInUser()->scouting_position;
+    }
+    else
+    {
+		  echo "NOT LOGGED IN";
+    }
+  }
   
   public function loadTeams()
   {

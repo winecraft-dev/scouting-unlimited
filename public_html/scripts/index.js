@@ -31,7 +31,7 @@ function setPage(link)
       document.title = "Admin Panel - CRyptonite Robotics";
       pasteAdminPanelPage();
       break;
-    case 'dataentrypanel':
+    case 'datapanel':
       document.title = "Data Panel - CRyptonite Robotics";
       //data entry panel
       break;
@@ -41,7 +41,7 @@ function setPage(link)
       break;
     case 'dataentry':
       document.title = "Data Form - CRyptonite Robotics";
-      //data entry
+      pasteDataFormPage();
       break;
     case 'teams':
       document.title = "Teams - CRyptonite Robotics";
@@ -65,6 +65,14 @@ function completeAjax()
 {
   if(!initialAjaxCompleted) 
   {
+    if(offline)
+    {
+      console.log("Data & Pages loaded locally.");
+    }
+    else
+    {
+      console.log("Data & Pages updated from Database.");
+    }
     initialAjaxCompleted = true;
     setPage(localStorage.getItem("url"));
   }

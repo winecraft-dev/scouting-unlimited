@@ -4,6 +4,8 @@ var teams = [];
 var matchData = [];
 var dataDefinitions = [];
 
+var scoutingPosition = 0;
+
 //static pages stored for offline use will be in their own js files <name>page.js
 var offline = false;
 
@@ -13,9 +15,14 @@ function loadOffline()
   setInterval(function() {
     offline = !navigator.onLine;
   }, 500);
+  
+  setInterval(function() {
+    console.log("Offline: " + offline);
+  }, 5000);
+  
   if(!offline)
   {
-    //load database data
+    //load schedule
     request = $.ajax({
         url: "/?c=offline&do=getSchedule",
         type: "get"
@@ -31,16 +38,15 @@ function loadOffline()
         list.forEach(function(item, index) {
           schedule.push(new Match(item['match_number'], item['time'], item['red_1'], item['red_2'], item['red_3'], item['blue_1'], item['blue_2'], item['blue_3']));
         });
-        console.log("Schedule Updated from Database");
         localStorage.setItem("schedule", response);
       }
     });
     
+    //load teams
     request = $.ajax({
         url: "/?c=offline&do=getTeams",
         type: "get"
     });
-    
     request.done(function (response, textStatus, jqXHR) {
       if(response == "NOT LOGGED IN")
       {
@@ -52,8 +58,24 @@ function loadOffline()
         list.forEach(function(item, index) {
           teams.push(new Team(item['number'], item['name'], item['pit_notes'], item['averages']));
         });
-        console.log("Teams Updated from Database");
         localStorage.setItem("teams", response);
+      }
+    });
+    
+    //get scouting position
+    request = $.ajax({
+        url: "/?c=adminpanel&do=getScoutingPosition",
+        type: "get"
+    });
+    request.done(function (response, textStatus, jqXHR) {
+      if(response == "NOT LOGGED IN")
+      {
+        window.location.replace("/?c=login");
+      }
+      else
+      {
+        scoutingPosition = response;
+        localStorage.setItem("scoutingPosition", response);
       }
     });
     
@@ -61,8 +83,7 @@ function loadOffline()
     loadSchedulePage();
     loadAdminPanelPage();
     loadErrorPage();
-    
-    console.log("Static Pages Updated from Site");
+    loadDataFormPage();
   }
   else
   {
@@ -71,18 +92,19 @@ function loadOffline()
     list.forEach(function(item, index) {
       schedule.push(new Match(item['match_number'], item['time'], item['red_1'], item['red_2'], item['red_3'], item['blue_1'], item['blue_2'], item['blue_3']));
     });
-    console.log("Schedule Loaded Offline");
     
     response = localStorage.getItem("teams");
     var list = JSON.parse(response);
     list.forEach(function(item, index) {
       teams.push(new Team(item['number'], item['name'], item['pit_notes'], item['averages']));
     });
-    console.log("Teams Loaded Offline");
     
+    scoutingPosition = localStorage.getItem("scoutingPosition");
+        
     loadSchedulePageOffline();
     loadAdminPanelPageOffline();
     loadErrorPageOffline();
+    loadDataFormPageOffline();
     
     completeAjax();
   }

@@ -1,0 +1,32 @@
+.dataentry-module {
+  float: left;
+  clear: right;
+  margin: 10px 0px;
+  height: auto;
+  text-align: center;
+}
+
+@media only screen and (max-width : 739px) {
+   /* Smartphone view: 1 tile */
+   .dataentry-module {
+      width: 49%;
+   }
+}
+
+@media only screen and (max-width : 1920px) and (min-width : 740px) {
+   /* Tablet view: 2 tiles */
+   .dataentry-module {
+      width: 24%;
+   }
+}
+
+.dataentry-module-number {
+  width: 130px;
+  padding: 5px;
+  margin: auto;
+  vertical-align: center;
+}
+
+.dataentry-module-boolean {
+  margin: auto;
+}
