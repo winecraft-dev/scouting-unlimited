@@ -26,6 +26,7 @@ function loadErrorPageOffline()
 
 function pasteErrorPage(errorText)
 {
+  $('.index-content').empty();
   $('.index-content').append(errorPage);
   $('.error-message').replaceWith("<div class='error-message'>" + errorText + "</div>");
 }

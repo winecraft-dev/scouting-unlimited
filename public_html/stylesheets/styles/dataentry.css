@@ -2,16 +2,18 @@
   margin-top: 10px;
   width: 99%;
   height: 100%;
-  border: 1px solid gray;
+  border: 1px solid black;
 }
 
 .dataentry-sections {
+  font-size: 0;
   width: 100%;
   padding: 0px;
-  background-color: rgba(180, 180, 180, .7);
+  background-color: #777;
 }
 
 .dataentry-tab {
+  font-size: 16px;
   display: inline-block;
   vertical-align: top;
   width: auto;
@@ -23,13 +25,14 @@
 
 .dataentry-subform {
   padding: 5px;
+  display: none;
 }
 .dataentry-module {
   display: inline-block;
   vertical-align: top;
   margin: 5px 5px;
   padding: 15px 5px;
-  height: 55px;
+  height: auto;
   background-color: rgba(100, 100, 100, .15);
   text-align: center;
   border: 1px solid blue;
