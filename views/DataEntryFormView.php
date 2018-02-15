@@ -5,85 +5,35 @@ class DataEntryFormView implements View
   { $data_definitions = (new DataDefinitionsDatabaseModel())->getDataDefinitions(); ?>
     <div class="page-section">
       <div class="page-section-head">
-        Pre-Match Information
+        Data Entry
       </div>
       <div class="page-section-content">
-        <div class="dataentry-module">
-          Match Number<br>
-          <input id="match_number" type="num" class="dataentry-module-number"></input>
-        </div>
-        <div class="dataentry-module">
-          Team Number<br>
-          <input id="team_number" type="num" class="dataentry-module-number"></input>
-        </div>
-        <div class="dataentry-module">
-          Dead?<br>
-          <input id="dead" type="checkbox" class="dataentry-module-boolean"></input>
-        </div>
-        <div class="dataentry-module">
-          Dead for part of match?<br>
-          <input id="dead_shortly" type="checkbox" class="dataentry-module-boolean"></input>
-        </div>
-      </div>
-    </div>
-    <div class="page-section">
-      <div class="page-section-head">
-        Autonomous
-      </div>
-      <div class="page-section-content">
-        <?php foreach($data_definitions as $definition) { 
-          if($definition['section'] == 0) { ?>
+        <div class="dataentry-form">
+          <div class="dataentry-sections">
+            <div id="prematch" class="dataentry-tab">Prematch</div>
+            <div id="auton" class="dataentry-tab">Auton</div>
+            <div id="teleop" class="dataentry-tab">Teleop</div>
+            <div id="endgame" class="dataentry-tab">End Game</div>
+          </div>
+          <div id="prematch" class="dataentry-subform">
             <div class="dataentry-module">
-              <?= $definition['title'] ?><br>
-              <?= $this->getInputByDefinition($definition) ?>
+              Match Number<br>
+              <input id="match_number" type="number" class="dataentry-module-number"></input>
             </div>
-          <?php } ?>
-        <?php } ?>
-      </div>
-    </div>
-    <div class="page-section">
-      <div class="page-section-head">
-        Teleop
-      </div>
-      <div class="page-section-content">
-        <?php foreach($data_definitions as $definition) { 
-          if($definition['section'] == 1) { ?>
             <div class="dataentry-module">
-              <?= $definition['title'] ?><br>
-              <?= $this->getInputByDefinition($definition) ?>
+              Team Number<br>
+              <input id="team_number" type="number" class="dataentry-module-number"></input>
             </div>
-          <?php } ?>
-        <?php } ?>
-      </div>
-    </div>
-    <div class="page-section">
-      <div class="page-section-head">
-        End Game
-      </div>
-      <div class="page-section-content">
-        <?php foreach($data_definitions as $definition) { 
-          if($definition['section'] == 2) { ?>
             <div class="dataentry-module">
-              <?= $definition['title'] ?><br>
-              <?= $this->getInputByDefinition($definition) ?>
+              No Show<br>
+              <input id="dead" type="checkbox" class="dataentry-module-boolean"></input>
             </div>
-          <?php } ?>
-        <?php } ?>
-      </div>
-    </div>
-    <div class="page-section">
-      <div class="page-section-head">
-        Comments
-      </div>
-      <div class="page-section-content">
-        <?php foreach($data_definitions as $definition) { 
-          if($definition['section'] == 3) { ?>
             <div class="dataentry-module">
-              <?= $definition['title'] ?><br>
-              <?= $this->getInputByDefinition($definition) ?>
+              Lost Comms<br>
+              <input id="dead_shortly" type="checkbox" class="dataentry-module-boolean"></input>
             </div>
-          <?php } ?>
-        <?php } ?>
+          </div>
+        </div>
       </div>
     </div>
   <?php }
