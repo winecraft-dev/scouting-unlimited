@@ -45,7 +45,7 @@ function setPage(link)
       break;
     case 'teams':
       document.title = "Teams - CRyptonite Robotics";
-      //
+      $('.index-content').append(teamsListPage);
       break;
     case 'rankings':
       document.title = "Rankings - CRyptonite Robotics";

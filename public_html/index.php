@@ -58,7 +58,7 @@ switch($controller)
     (new DataEntryController($action))->executeAction();
     break;
   case 'teams':
-    (new TeamsController($action))->executeAction();
+    (new TeamsListController($action))->executeAction();
     break;
   case 'rankings':
     (new TeamsController('rankings'))->executeAction();

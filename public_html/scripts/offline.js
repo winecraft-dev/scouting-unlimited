@@ -115,6 +115,7 @@ function loadOffline()
     loadAdminPanelPage();
     loadErrorPage();
     loadDataFormPage();
+    loadTeamsListPage();
   }
   else
   {
@@ -142,6 +143,7 @@ function loadOffline()
     loadAdminPanelPageOffline();
     loadErrorPageOffline();
     loadDataFormPageOffline();
+    loadTeamsListPageOffline();
     
     completeAjax();
   }
