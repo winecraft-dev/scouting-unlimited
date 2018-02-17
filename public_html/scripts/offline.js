@@ -4,6 +4,8 @@ var teams = [];
 var matchData = [];
 var dataDefinitions = [];
 
+var offlineData = [];
+
 var scoutingPosition = 0;
 
 //static pages stored for offline use will be in their own js files <name>page.js
@@ -28,6 +30,10 @@ function loadOffline()
       {
         window.location.replace("/?c=login");
       }
+      else if(response == "NOT ENOUGH PERMISSIONS")
+      {
+        location.reload();
+      }
       else
       {
         var list = JSON.parse(response);
@@ -48,6 +54,10 @@ function loadOffline()
       {
         window.location.replace("/?c=login");
       }
+      else if(response == "NOT ENOUGH PERMISSIONS")
+      {
+        location.reload();
+      }
       else
       {
         var list = JSON.parse(response);
@@ -55,6 +65,31 @@ function loadOffline()
           teams.push(new Team(item['number'], item['name'], item['pit_notes'], item['averages']));
         });
         localStorage.setItem("teams", response);
+      }
+    });
+    
+    //load match data
+    request = $.ajax({
+        url: "/?c=offline&do=getMatchData",
+        type: "get"
+    });
+    request.done(function (response, textStatus, jqXHR) {
+      console.log(response);
+      if(response == "NOT LOGGED IN")
+      {
+        window.location.replace("/?c=login");
+      }
+      else if(response == "NOT ENOUGH PERMISSIONS")
+      {
+        location.reload();
+      }
+      else
+      {
+        var list = JSON.parse(response);
+        list.forEach(function(item, index) {
+          matchData.push(new MatchData(item['match_number'], item['team_number'], item['scout'], item['dead'], item['dead_shortly'], item['data']));
+        });
+        localStorage.setItem("matchData", response);
       }
     });
     
@@ -93,6 +128,12 @@ function loadOffline()
     var list = JSON.parse(response);
     list.forEach(function(item, index) {
       teams.push(new Team(item['number'], item['name'], item['pit_notes'], item['averages']));
+    });
+    
+    response = localStorage.getItem("matchData");
+    var list = JSON.parse(response);
+    list.forEach(function(item, index) {
+      matchData.push(new MatchData(item['match_number'], item['team_number'], item['scout'], item['dead'], item['dead_shortly'], item['data']));
     });
     
     scoutingPosition = localStorage.getItem("scoutingPosition");

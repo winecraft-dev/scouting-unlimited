@@ -5,15 +5,22 @@ class OfflineClientController extends Controller
   {
     if(Session::isLoggedIn())
     {
-      $matches = (new MatchScheduleDatabaseModel())->getMatches();
-      
-      $match_array = array();
-      
-      foreach($matches as $match)
+      if(Session::getLoggedInUser()->administrator >= 0)
       {
-        $match_array[] = $match->makeArray();
+        $matches = (new MatchScheduleDatabaseModel())->getMatches();
+        
+        $match_array = array();
+        
+        foreach($matches as $match)
+        {
+          $match_array[] = $match->makeArray();
+        }
+        echo json_encode($match_array);
       }
-      echo json_encode($match_array);
+      else
+      { 
+        echo "NOT ENOUGH PERMISSIONS";
+      }
     }
     else
     {
@@ -25,15 +32,22 @@ class OfflineClientController extends Controller
   {
     if(Session::isLoggedIn())
     {
-      $teams = (new TeamsDatabaseModel())->getTeams();
-      
-      $team_array = array();
-      
-      foreach($teams as $team)
+      if(Session::getLoggedInUser()->administrator >= 0)
       {
-        $team_array[] = $team->makeArray();
+        $teams = (new TeamsDatabaseModel())->getTeams();
+        
+        $team_array = array();
+        
+        foreach($teams as $team)
+        {
+          $team_array[] = $team->makeArray();
+        }
+        echo json_encode($team_array);
       }
-      echo json_encode($team_array);
+      else
+      {
+        echo "NOT ENOUGH PERMISSIONS";
+      }
     }
     else
     {
@@ -43,12 +57,40 @@ class OfflineClientController extends Controller
   
   public function getMatchData()
   {
-  
-  }
-  
-  public function getDataDefinitions()
-  {
-    
+    if(Session::isLoggedIn())
+    {
+      $user = Session::getLoggedInUser();
+      if($user->administrator == 1)
+      {
+        $matchData = (new MatchDataDatabaseModel())->getAllMatchData($user->id);
+        
+        $array = array();
+        foreach($matchData as $data)
+        {
+          $array[] = $data->makeArray();
+        }
+        echo json_encode($array);
+      }
+      else if($user->administrator == 0)
+      {
+        $matchData = (new MatchDataDatabaseModel())->getScoutMatchData($user->id);
+        
+        $array = array();
+        foreach($matchData as $data)
+        {
+          $array[] = $data->makeArray();
+        }
+        echo json_encode($array);
+      }
+      else
+      {
+        echo "NOT ENOUGH PERMISSIONS";
+      }
+    }
+    else
+    {
+      echo "NOT LOGGED IN";
+    }
   }
   
   public function getErrorPage()

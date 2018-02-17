@@ -5,7 +5,10 @@ class DataEntryController extends Controller
   {
     if(Session::isLoggedIn())
     {
-      (new DataEntryFormView())->render();
+      if(Session::getLoggedInUser()->administrator >= 0)
+        print (new DataEntryFormView())->render();
+      else
+        print (new ErrorView())->render("Not Enough Permissions!");
     }
     else
     {
@@ -17,7 +20,10 @@ class DataEntryController extends Controller
   {
     if(Session::isLoggedIn())
     {
-      (new ModulesView())->render();
+      if(Session::getLoggedInUser()->administrator >= 0)
+        print (new ModulesView())->render();
+      else
+        print (new ErrorView())->render("Not Enough Permissions!");
     }
     else
     {
@@ -29,7 +35,10 @@ class DataEntryController extends Controller
   {
     if(Session::isLoggedIn())
     {
-      (new DataEntryPanelView())->render();
+      if(Session::getLoggedInUser()->administrator >= 0)
+        print (new DataEntryPanelView())->render();
+      else
+        print (new ErrorView())->render("Not Enough Permissions!");
     }
     else
     {
@@ -39,14 +48,78 @@ class DataEntryController extends Controller
   
   public function enterData()
   {
-    $rawData = isset($_POST['data']) ? $_POST['data'] : null;
-    if($rawData == null)
+    if(Session::isLoggedIn())
     {
-      echo "NO DATA";
+      if(Session::getLoggedInUser()->administrator >= 0)
+      {
+        $rawData = isset($_POST['data']) ? $_POST['data'] : null;
+        if($rawData == null)
+        {
+          echo "NO DATA";
+          return;
+        }
+        $matchData = MatchData::jsonDecode($rawData);
+        
+        if((new MatchDataDatabaseModel())->getMatchData($matchData->match_number, $matchData->team_number) !== false)
+        {
+          echo "MATCH HAS ALREADY BEEN SCOUTED";
+          return;
+        }
+        if((new MatchDataDatabaseModel())->enterData($matchData) !== false)
+        {
+          echo "SUCCESS";
+          return;
+        }
+        echo "ERROR";
+        return;
+      }
+      else
+      {
+        echo "NOT ENOUGH PERMISSIONS";
+        return;
+      }
+    }
+    else
+    {
+      echo "NOT LOGGED IN";
       return;
     }
-    $matchData = MatchData::jsonDecode($rawData);
-    (new MatchDataDatabaseModel())->enterData($matchData);
+  }
+  
+  public function updateData()
+  {
+    if(Session::isLoggedIn())
+    {
+      if(Session::getLoggedInUser()->administrator >= 0)
+      {
+        $rawData = isset($_POST['data']) ? $_POST['data'] : null;
+        if($rawData == null)
+        {
+          echo "NO DATA";
+          return;
+        }
+        $matchData = MatchData::jsonDecode($rawData);
+        
+        (new MatchDataDatabaseModel())->deleteData($matchData->match_number, $matchData->team_number);
+        if((new MatchDataDatabaseModel())->enterData($matchData) !== false)
+        {
+          echo "SUCCESS";
+          return;
+        }
+        echo "ERROR";
+        return;
+      }
+      else
+      {
+        echo "NOT ENOUGH PERMISSIONS";
+        return;
+      }
+    }
+    else
+    {
+      echo "NOT LOGGED IN";
+      return;
+    }
   }
 }
 

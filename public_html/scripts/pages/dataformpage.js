@@ -139,14 +139,53 @@ $(document).on('click', '.dataentry-submit', function() {
 	  })
 	};
 	
-  	
-	request = $.ajax({
-      url: "/?c=dataentry&do=enterData",
-      type: "post",
-      data: values
-  });
-  
-  request.done(function(response, textStatus, jqXHR) {
-    console.log(response);
-  });
+  if(!offline)
+  {
+	  request = $.ajax({
+        url: "/?c=dataentry&do=enterData",
+        type: "post",
+        data: values
+    });
+    
+    request.done(function(response, textStatus, jqXHR) {
+      if(response == "NOT LOGGED IN")
+      {
+        window.location.href = "/?c=login";
+      }
+      else if(response == "NOT ENOUGH PERMISSIONS")
+      {
+        location.reload();
+      }
+      else if(response == "NO DATA")
+      {
+        
+      }
+      else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
+      {
+        if(confirm("This match has already been scouted. Would you like to override it?"))
+        {
+          request = $.ajax({
+              url: "/?c=dataentry&do=updateData",
+              type: "post",
+              data: values
+          });
+          
+          request.done(function(response, textStatus, jqXHR) {
+            if(response == "SUCCESS")
+            {
+              setPage("http://localhost/?p=datapanel");
+            }
+          });
+        }
+      }
+      else if(response == "SUCCESS")
+      {
+        setPage("http://localhost/?p=datapanel");
+      }
+    });
+  }
+  else
+  {
+    
+  }
 });

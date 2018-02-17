@@ -41,7 +41,6 @@ class MatchData
     
     $matchData->data = $array['data'];
     
-    var_dump($matchData);
     return $matchData;
   }
   
@@ -78,8 +77,6 @@ class MatchData
   public function makeArray()
   {
     $matchData = array();
-    
-    $matchData['id'] = $this->id;
     
     $matchData['team_number'] = $this->team_number;
     $matchData['match_number'] = $this->match_number;
@@ -136,7 +133,7 @@ class MatchData
       case 1:
         return 'number';
       case 2:
-        return 'text';
+        return 'comment';
     }
   }
 }

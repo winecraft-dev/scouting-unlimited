@@ -12,9 +12,4 @@ class Match
     this.blue_2 = blue_2;
     this.blue_3 = blue_3;
   }
-  
-  print()
-  {
-    return "Red 1: " + this.red_1;
-  }
 }
