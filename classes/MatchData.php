@@ -1,20 +1,26 @@
 <?php
 class MatchData
-{
-  public $id;
-  
+{  
   public $team_number;
   public $match_number;
+  
+  public $scout;
+  
+  public $dead;
+  public $dead_shortly;
   
   //the associative array that all of the datasets go into
   public $data;
   
   public function __construct()
-  {
-    $this->id = -1;
-    
+  {   
     $this->team_number = -1;
     $this->match_number = -1;
+    
+    $this->scout = -1;
+    
+    $this->dead = -1;
+    $this->dead_shortly = -1;
     
     $this->data = array();
   }
@@ -23,16 +29,19 @@ class MatchData
   {
     $array = json_decode($string, true);
     
-    var_dump($array);
     $matchData = (new MatchData());
-    
-    $matchData->id = $array['id'];
     
     $matchData->team_number = $array['team_number'];
     $matchData->match_number = $array['match_number'];
     
+    $matchData->scout = Session::getLoggedInUser()->id;
+    
+    $matchData->dead = $array['dead'];
+    $matchData->dead_shortly = $array['dead_shortly'];
+    
     $matchData->data = $array['data'];
     
+    var_dump($matchData);
     return $matchData;
   }
   
@@ -40,10 +49,13 @@ class MatchData
   {
     $matchData = (new MatchData());
     
-    $matchData->id = $data['id'];
-    
     $matchData->team_number = $data['team_number'];
     $matchData->match_number = $data['match_number'];
+    
+    $matchData->scout = $data['scout'];
+    
+    $matchData->dead = $data['dead'];
+    $matchData->dead_shortly = $data['dead_shortly'];
     
     $definitions = (new DataDefinitionsDatabaseModel())->getDataDefinitions();
     
@@ -72,9 +84,19 @@ class MatchData
     $matchData['team_number'] = $this->team_number;
     $matchData['match_number'] = $this->match_number;
     
+    $matchData['scout'] = $this->scout;
+    
+    $matchData['dead'] = $this->dead;
+    $matchData['dead_shortly'] = $this->dead_shortly;
+    
     $matchData['data'] = $this->data;
     
     return $matchData;
+  }
+  
+  public function getScout()
+  {
+    (new UserDatabaseModel())->getFromId($this->scout);
   }
   
   public function getTeam()
@@ -102,8 +124,6 @@ class MatchData
         return 'teleop';
       case 2:
         return 'end';
-      case 3:
-        return 'comment';
     }
   }
   

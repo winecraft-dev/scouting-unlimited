@@ -13,6 +13,18 @@ class DataEntryController extends Controller
     }
   }
   
+  public function modules()
+  {
+    if(Session::isLoggedIn())
+    {
+      (new ModulesView())->render();
+    }
+    else
+    {
+      echo "NOT LOGGED IN";
+    }
+  }
+  
   public function panel()
   {
     if(Session::isLoggedIn())
@@ -27,7 +39,14 @@ class DataEntryController extends Controller
   
   public function enterData()
   {
-    
+    $rawData = isset($_POST['data']) ? $_POST['data'] : null;
+    if($rawData == null)
+    {
+      echo "NO DATA";
+      return;
+    }
+    $matchData = MatchData::jsonDecode($rawData);
+    (new MatchDataDatabaseModel())->enterData($matchData);
   }
 }
 

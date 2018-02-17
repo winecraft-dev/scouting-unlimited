@@ -1,12 +1,11 @@
 <?php
-class ModulesView implements View
+class ModulesView extends PageView
 {
   protected $title = 'Data Entry Panel - CRyptonite Robotics';
   
-  protected function render()
+  public function renderBody()
   { ?>
     <div class="page">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/styles/Modules/integer.css"/>
       <div class="page-content">
         <? /* 
           Daniel, put all of your test modules here. Make a CSS and JS file in the folder
@@ -16,40 +15,12 @@ class ModulesView implements View
           In order to call all of the CSS, open public_html/SuperCSSLoader.php and add the
           filepaths to the list. With JS, open views/PageView.php and call them like I have.
         */ ?>
-		<div class="integer-container">
-		<form action="/">
-
-		<div id="test">
-		
-		<div class="integer-numberrows">
-		+
-		<br>
-		<img class="integer-arrowup" src="images/add-one.gif">
-		</div>		
-
-		<br>
-
-		INT_Place_Holder: <input type="number1" name="Int_Value" value=0>
+    <div class="dataentry-module-number-arrowup"></div>
+	  <input id="test" class="dataentry-module-number" type="number" value=0>
+    <div class="dataentry-module-number-arrowdown"></div>
 			
 		<br>
-		
-		<div class="integer-numberrows">
-		
-		<img class="integer-arrowdown" src="images/minus-one.gif" >
-		
-		</div>
-		
-		</div>
-		
-		<input type="submit" value="Submit">
-		
-		</form>
-		
-		</div>
-
-
-      </div>
-    </div>
+		</div></div>
   <?php }
 }
 ?>

@@ -52,12 +52,11 @@ $(document).on('click', '.dataentry-tab', function() {
 });
 
 $(document).on('change', '#match_number.dataentry-module-number', function(e) {
-  if($(this).val() >= schedule.length || $(this).val() < 1)
+  if($(this).val() > schedule.length || $(this).val() < 1)
   {
     alert("Match does not exist");
     $(this).val("1");
   }
-  console.log(schedule[$(this).val() - 1]);
   var team = "";
   var matchI = schedule[$(this).val() - 1];
   
@@ -85,6 +84,69 @@ $(document).on('change', '#match_number.dataentry-module-number', function(e) {
       pasteErrorPage("You have not been assigned a team by the Head Scout. When (s)he gives you a position, refresh the page.");
       return;
   }
-  console.log(matchI.red_1 + ' ' + scoutingPosition + ' ' + team);
   $('#team_number.dataentry-module-number').val(team);
+});
+
+$(document).on('click', '.dataentry-module-number-arrowup',function() {
+  var id = $(this).attr('id');
+  var value = parseInt($('#' + id + '.dataentry-module-number').val()) + 1;
+  $('#' + id + '.dataentry-module-number').val(value);
+});
+
+$(document).on('click', '.dataentry-module-number-arrowdown', function() {
+  var id = $(this).attr('id');
+  var value = parseInt($('#' + id + '.dataentry-module-number').val()) - 1;
+  $('#' + id + '.dataentry-module-number').val(value);
+});
+
+$(document).on('click', '.dataentry-submit', function() {
+  var data = new Object();
+  $('.dataentry-module-number').each(function() {
+    data[$(this).attr('id').replace(/-/gi, " ")] = ($(this).val() === "" ? 0 : parseInt($(this).val()));
+  });
+  $('.dataentry-module-boolean').each(function() {
+    data[$(this).attr('id').replace(/-/gi, " ")] = ($(this).is(':checked') ? 1 : 0);
+  });
+  $('.dataentry-module-text').each(function() {
+    data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val();
+  });
+  $('.dataentry-module-text').each(function() {
+    data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val();
+  });
+  
+  var team_number = data['team_number'];
+  delete data['team_number'];
+  var match_number = data['match_number'];
+  delete data['match_number'];
+  
+  if(team_number == 0 || match_number == 0)
+  {
+    alert("You must provide Match and Team numbers");
+    return;
+  }
+  var dead = data['dead'];
+  delete data['dead'];
+  var dead_shortly = data['dead_shortly'];
+  delete data['dead_shortly'];
+  
+  var values = {
+    'data': JSON.stringify({
+	    'team_number': team_number,
+	    'match_number': match_number,
+	    'dead': dead,
+	    'dead_shortly': dead_shortly,
+	    'data': data
+	  })
+	};
+	
+  	
+	request = $.ajax({
+      url: "/?c=dataentry&do=enterData",
+      type: "post",
+      data: values
+  });
+  
+  request.done(function(response, textStatus, jqXHR) {
+    console.log(response);
+  });
 });

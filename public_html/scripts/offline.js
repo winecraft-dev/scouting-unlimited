@@ -16,10 +16,6 @@ function loadOffline()
     offline = !navigator.onLine;
   }, 500);
   
-  setInterval(function() {
-    console.log("Offline: " + offline);
-  }, 5000);
-  
   if(!offline)
   {
     //load schedule

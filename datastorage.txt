@@ -2,19 +2,24 @@ SECTIONS:
   0: Auton Data
   1: Teleop Data
   2: Endgame Data
-  3: Comments
   
 Modules:
   0: Raw Number
+  <input id="title" type="number" class="dataentry-module-number"></input>
+  
   1: Iterating Number
+  
   2: Checkbox
+  <input id="title" type="checkbox" class="dataentry-module-boolean"></input>
+  
   3: Text
+  <textarea rows="4" cols="50" id="title" class="dataentry-module-text"></textarea>
   4: Dropdown
   
 Data Types:
   0: Boolean
   1: Number
-  2: Text
+  2: comment
   
 Number:
   (The amount of datasets preceding this dataset) + 1
