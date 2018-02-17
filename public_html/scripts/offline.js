@@ -74,7 +74,6 @@ function loadOffline()
         type: "get"
     });
     request.done(function (response, textStatus, jqXHR) {
-      console.log(response);
       if(response == "NOT LOGGED IN")
       {
         window.location.replace("/?c=login");

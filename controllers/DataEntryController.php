@@ -93,11 +93,6 @@ class DataEntryController extends Controller
       if(Session::getLoggedInUser()->administrator >= 0)
       {
         $rawData = isset($_POST['data']) ? $_POST['data'] : null;
-        if($rawData == null)
-        {
-          echo "NO DATA";
-          return;
-        }
         $matchData = MatchData::jsonDecode($rawData);
         
         (new MatchDataDatabaseModel())->deleteData($matchData->match_number, $matchData->team_number);

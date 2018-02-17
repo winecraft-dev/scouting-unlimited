@@ -100,6 +100,7 @@ $(document).on('click', '.dataentry-module-number-arrowdown', function() {
 });
 
 $(document).on('click', '.dataentry-submit', function() {
+  var pass = true;
   var data = new Object();
   $('.dataentry-module-number').each(function() {
     data[$(this).attr('id').replace(/-/gi, " ")] = ($(this).val() === "" ? 0 : parseInt($(this).val()));
@@ -110,9 +111,20 @@ $(document).on('click', '.dataentry-submit', function() {
   $('.dataentry-module-text').each(function() {
     data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val();
   });
-  $('.dataentry-module-text').each(function() {
+  $('.dataentry-module-dropdown').each(function() {
+    console.log($(this).val());
+    if($(this).val() == "0")
+    {
+      alert("You must fill out the dropdown: " + $(this).attr('id').replace(/-/gi, " "));
+      pass = false;
+    }
     data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val();
   });
+  
+  if(!pass)
+  {
+    return;
+  }
   
   var team_number = data['team_number'];
   delete data['team_number'];

@@ -160,6 +160,14 @@ input {
   transition: .2s;
 }
 
+.dataentry-module-dropdown {
+  width: auto;
+  border: 0px;
+  border-radius: 2px;
+  padding: 8px;
+  background-color: #555555;
+}
+
 .dataentry-submit {
   display: block;
   width: 120px;
