@@ -26,10 +26,10 @@
 	border-collapse: collapse;
 }
 
-.teamlist-colorlight {
-	background: rgba(150, 245, 75, .6);
+.teamlist-color1 {
+	background: rgba(15, 215, 10, 1);
 }
 
-.teamlist-colordark {
-	background: rgba(06, 240, 00, .6);
+.teamlist-color2 {
+	background: rgba(125, 255, 60, 1);
 }

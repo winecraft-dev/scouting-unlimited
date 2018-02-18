@@ -19,9 +19,9 @@ class TeamsListView implements View
           </colgroup>
 		<tr class="teamlist">
 			<th onclick="sortTable(0)">Team Number</th>
-			<th onclick="sortTable(1)">Something</th>
-			<th onclick="sortTable(2)">Something</th>
-			<th onclick="sortTable(3)">Something</th>
+			<th onclick="sortTable(1)">Place Holder</th>
+			<th onclick="sortTable(2)">Place Holder</th>
+			<th onclick="sortTable(3)">Place Holder</th>
 		</tr>
 		
 		<?php 
@@ -29,16 +29,16 @@ class TeamsListView implements View
 		foreach($teams as $team) {
 		if($i % 2 == 0) { ?>
 		
-			<tr class="teamlist-colorlight">
+			<tr class="teamlist-color1">
 				<td class="teamlist"><?= $team->number ?></td>
-				<td class="teamlist"></td>
+				<td class="teamlist">10</td>
 				<td class="teamlist"></td>
 				<td class="teamlist"></td>
             
 			<?php } else { ?>
-			<tr class="teamlist-colordark">
+			<tr class="teamlist-color2">
 				<td class="teamlist"><?= $team->number ?></td>
-				<td class="teamlist"></td>
+				<td class="teamlist">15</td>
 				<td class="teamlist"></td>
 				<td class="teamlist"></td>
             <?php } ?>
