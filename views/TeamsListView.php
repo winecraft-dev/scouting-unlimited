@@ -18,10 +18,10 @@ class TeamsListView implements View
             <col span="1" style="width: 25%; height: 35px;">
           </colgroup>
 		<tr class="teamlist">
-			<th onclick="sortTable(0)">Team Number</th>
-			<th onclick="sortTable(1)">Place Holder</th>
-			<th onclick="sortTable(2)">Place Holder</th>
-			<th onclick="sortTable(3)">Place Holder</th>
+			<th onclick="sortTableInt(0)">Team Number</th>
+			<th onclick="sortTableString(1)">Team Name</th>
+			<th onclick="sortTableInt(2)">Place Holder</th>
+			<th onclick="sortTableInt(3)">Place Holder</th>
 		</tr>
 		
 		<?php 
@@ -31,14 +31,14 @@ class TeamsListView implements View
 		
 			<tr class="teamlist-color1">
 				<td class="teamlist"><?= $team->number ?></td>
-				<td class="teamlist"></td>
+				<td class="teamlist"><?= $team->name ?></td>
 				<td class="teamlist"></td>
 				<td class="teamlist"></td>
             
 			<?php } else { ?>
 			<tr class="teamlist-color2">
 				<td class="teamlist"><?= $team->number ?></td>
-				<td class="teamlist"></td>
+				<td class="teamlist"><?= $team->name ?></td>
 				<td class="teamlist"></td>
 				<td class="teamlist"></td>
             <?php } ?>
