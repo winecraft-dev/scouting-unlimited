@@ -1,0 +1,35 @@
+.teamlist {
+	text-align: left;
+	width: 100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+	height: 35px;
+}
+
+.teamlist col {
+	border-collapse: collapse;
+}
+
+.teamlist td{
+	text-align: center;
+	border-collapse: collapse;
+	width:0%;
+}
+
+.teamlist th{
+	text-align: center;
+	border-collapse: collapse;
+	
+}
+
+.teamlist tr{
+	border-collapse: collapse;
+}
+
+.teamlist-colorlight {
+	background: rgba(150, 245, 75, .6);
+}
+
+.teamlist-colordark {
+	background: rgba(06, 240, 00, .6);
+}
