@@ -74,6 +74,7 @@ class DataEntryFormView implements View
   {
     $id = str_replace(" ", "-", $definition['title']);
     
+    
     switch($definition['module'])
     {
       case 0: ?>
@@ -90,9 +91,16 @@ class DataEntryFormView implements View
       case 3: ?>
         <textarea rows="6" cols="100" id=<?= $id ?> class="dataentry-module-text"></textarea>
         <?php break;
-      case 4:
-        //dropdown
-        break;
+      case 4: 
+        $options = explode(",", $definition['dropdown_values']); ?>
+        
+        <select id=<?= $id ?> class="dataentry-module-dropdown">
+          <option value="0" selected>Not Selected</option>
+          <?php $i = 1; foreach($options as $option) { ?>
+            <option value=<?= $i ?>><?= $option ?></option> 
+          <?php $i ++; } ?>
+        </select>
+        <?php break;
     }
   }
 }
