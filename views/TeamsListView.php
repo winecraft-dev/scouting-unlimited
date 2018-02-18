@@ -31,14 +31,14 @@ class TeamsListView implements View
 		
 			<tr class="teamlist-color1">
 				<td class="teamlist"><?= $team->number ?></td>
-				<td class="teamlist">10</td>
+				<td class="teamlist"></td>
 				<td class="teamlist"></td>
 				<td class="teamlist"></td>
             
 			<?php } else { ?>
 			<tr class="teamlist-color2">
 				<td class="teamlist"><?= $team->number ?></td>
-				<td class="teamlist">15</td>
+				<td class="teamlist"></td>
 				<td class="teamlist"></td>
 				<td class="teamlist"></td>
             <?php } ?>
