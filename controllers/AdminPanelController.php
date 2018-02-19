@@ -96,6 +96,50 @@ class AdminPanelController extends Controller
 	  return;
   }
   
+  public function getCSV()
+  {
+    header('Content-Disposition: attachment; filename=data.csv');
+		$output = fopen('php://output', 'w');
+		$csv = [];
+		
+		$teams = (new TeamsDatabaseModel())->getTeams();
+		
+		foreach($teams as $team)
+		{
+		  $team->updateAverages();
+		}
+		
+		$averageDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
+		
+		$csv[0][] = "Number";
+		$csv[0][] = "Name";
+		$csv[0][] = "Pit Notes";
+		
+		foreach($averageDefinitions as $definition)
+		{
+		  $csv[0][] = $definition['title'];
+		}
+		
+		$i = 1;
+		foreach($teams as $team)
+		{
+		  $csv[$i][] = $team->number;
+		  $csv[$i][] = $team->name;
+		  $csv[$i][] = $team->pit_notes;
+		  
+		  foreach($team->averages as $average)
+		  {
+		    $csv[$i][] = $average;
+		  }
+		  $i ++;
+		}
+		
+		foreach($csv as $row)
+		{
+			fputcsv($output, $row);
+		}
+  }
+  
   public function editScoutingPosition()
   {
     $id = isset($_POST['id']) ? $_POST['id'] : null;

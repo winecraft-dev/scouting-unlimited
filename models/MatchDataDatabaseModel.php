@@ -50,7 +50,7 @@ class MatchDataDatabaseModel extends DatabaseModel
     $query->execute();
 
     $results = $query->fetchAll(PDO::FETCH_ASSOC);
-    if($result === false)
+    if($results === false)
       return false;
       
     $matchData = array();

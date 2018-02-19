@@ -69,7 +69,7 @@ class MatchData
       $data_type = self::getDataType($definition['data_type']);
       $number = $definition['number'];
       
-      $matchData->data[] = [$definition['title'] => $data[$section . '_' . $data_type . '_' . $number]];
+      $matchData->data += [$definition['title'] => $data[$section . '_' . $data_type . '_' . $number]];
     }
     return $matchData;
   }

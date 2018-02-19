@@ -37,7 +37,6 @@ class TeamsDatabaseModel extends DatabaseModel
   {
     $query = self::$conn->prepare('UPDATE teams SET ' . $key . '=:value WHERE number=:number');
     $query->bindValue(':number', $team);
-    $query->bindValue(':key', $key);
     $query->bindValue(':value', $value);
     return ($query->execute());
   }

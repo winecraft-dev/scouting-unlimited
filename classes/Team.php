@@ -15,7 +15,6 @@ class Team
     
     $this->pit_notes = $data['pit_notes'];
     
-    //figure out averages when we get the averaging methods
     $definitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
     
     $this->averages = array();
@@ -29,7 +28,7 @@ class Team
       $data_type = self::getDataType($definition['data_type']);
       $number = $definition['number'];
       
-      $this->averages[] = [$definition['title'] => [$data[$section . '_' . $data_type . '_' . $number]]];
+      $this->averages += [$definition['title'] => $data[$section . '_' . $data_type . '_' . $number]];
     }
   }
   
@@ -64,20 +63,40 @@ class Team
   
   public function updateAverages()
   {
+    $averages = array();
+    
     $matchData = $this->getMatchData();
+    $averager = (new Averager($this));
     
     $averageDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
     
     foreach($averageDefinitions as $definition)
     {
-      $formula = $definition['formula'];
-      
       $section = self::getSection($definition['section']);
       $data_type = self::getDataType($definition['data_type']);
       $number = $definition['number'];
       
       $value;
       
+      switch($definition['method'])
+      {
+        case 'average':
+          $value = $averager->average($definition['column_1']);
+          break;
+        case 'matches':
+          $value = $averager->matches();
+          break;
+        case 'matchesdead':
+          $value = $averager->matchesDead();
+          break;
+        case 'matchesplayed':
+          $value = $averager->matchesPlayed();
+          break;
+        case 'concatstring':
+          $value = $averager->concatString($definition['column_1']);
+          break;
+      }
+      $averages += [$definition['title'] => $value];
       (new TeamsDatabaseModel())->editTeam($this->number, $section . '_' . $data_type . '_' . $number, $value);
     }
   }
@@ -91,9 +110,7 @@ class Team
       case 1:
         return 'teleop';
       case 2:
-        return 'end';
-      case 3:
-        return 'comment';
+        return 'endgame';
     }
   }
   
@@ -106,7 +123,7 @@ class Team
       case 1:
         return 'number';
       case 2:
-        return 'text';
+        return 'comment';
     }
   }
 }

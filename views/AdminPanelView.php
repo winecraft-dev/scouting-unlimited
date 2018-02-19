@@ -70,6 +70,12 @@ class AdminPanelView implements View
         </div>
       </div>
     </div>
+    <div class="page-section">
+      <div class="page-section-head">Download CSV</div>
+      <div class="page-section-content">
+        <a href="/?c=adminpanel&do=getCSV">Get CSV</a>
+      </div>
+    </div> 
   <?php }
 }
 ?>
