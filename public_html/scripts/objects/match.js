@@ -12,4 +12,17 @@ class Match
     this.blue_2 = blue_2;
     this.blue_3 = blue_3;
   }
+  
+  getMatchData()
+  {
+    var matchdata = {
+      red1: getMatchData(this.match_number, this.red_1),
+      red2: getMatchData(this.match_number, this.red_2),
+      red3: getMatchData(this.match_number, this.red_3),
+      blue1: getMatchData(this.match_number, this.blue_1),
+      blue2: getMatchData(this.match_number, this.blue_2),
+      blue3: getMatchData(this.match_number, this.blue_3),
+    }
+    return matchdata;
+  }
 }

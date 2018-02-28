@@ -13,7 +13,7 @@ class LoginView implements View
         <link rel="icon" href="/favicon.ico">
         <meta name="theme-color" content="#222222">
         <link rel="stylesheet" type="text/css" href="/SuperCSSLoader.php">
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="/scripts/jquery-3.3.1.min.js"></script>
         <script src="/scripts/login.js"></script>
       </head>
       <body>

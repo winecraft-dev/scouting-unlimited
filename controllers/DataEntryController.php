@@ -16,12 +16,12 @@ class DataEntryController extends Controller
     }
   }
   
-  public function modules()
+  public function displayMatchData()
   {
     if(Session::isLoggedIn())
     {
       if(Session::getLoggedInUser()->administrator >= 0)
-        print (new ModulesView())->render();
+        print (new MatchDataView())->render();
       else
         print (new ErrorView())->render("Not Enough Permissions!");
     }
@@ -67,6 +67,7 @@ class DataEntryController extends Controller
         }
         if((new MatchDataDatabaseModel())->enterData($matchData) !== false)
         {
+          $matchData->getTeam()->updateAverages();
           echo "SUCCESS";
           return;
         }
@@ -98,6 +99,7 @@ class DataEntryController extends Controller
         (new MatchDataDatabaseModel())->deleteData($matchData->match_number, $matchData->team_number);
         if((new MatchDataDatabaseModel())->enterData($matchData) !== false)
         {
+          $matchData->getTeam()->updateAverages();
           echo "SUCCESS";
           return;
         }

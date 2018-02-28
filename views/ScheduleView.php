@@ -35,7 +35,7 @@ class ScheduleView implements View
             <?php } else { ?>
               <tr class="schedule-zebra-dark">
             <?php } ?>
-              <td class="schedule-mid schedule-match-number"><?= $match->match_number ?></td>
+              <td class="schedule-mid schedule-match-number"><a href=<?= "/?p=matchdata&match=" . $match->match_number ?>><?= $match->match_number ?></a></td>
               <td class="schedule-red">
                 <?php $this->checkMatchScouted($match->match_number, $match->red_1); ?>
               </td>
@@ -63,11 +63,12 @@ class ScheduleView implements View
   
   private function checkMatchScouted($match_number, $team_number)
   {
+    $url = "/?p=teamdata&team=" . $team_number;
     if((new MatchDataDatabaseModel())->getMatchData($match_number, $team_number) != false)
     { ?>
-      <mark class="schedule-done"><?= $team_number ?></mark>
+      <a href=<?= $url ?>><mark class="schedule-done"><?= $team_number ?></mark></a>
     <?php } else { ?>
-      <mark class="schedule-undone"><?= $team_number ?></mark>
+      <a href=<?= $url ?>><mark class="schedule-undone"><?= $team_number ?></mark></a>
     <?php }
   }
 }

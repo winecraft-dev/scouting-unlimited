@@ -9,7 +9,7 @@ function loadSchedulePage()
   request.done(function (response, textStatus, jqXHR) {
     if(response == "NOT LOGGED IN")
     {
-      window.location.replace("/?p=login");
+      window.location.replace("/?c=login");
     }
     else
     {

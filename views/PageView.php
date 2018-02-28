@@ -26,6 +26,7 @@ abstract class PageView implements View
           <script type="text/javascript" src="/scripts/pages/errorpage.js"></script>
           <script type="text/javascript" src="/scripts/pages/dataformpage.js"></script>
           <script type="text/javascript" src="/scripts/pages/teamslistpage.js"></script>
+          <script type="text/javascript" src="/scripts/pages/matchdatapage.js"></script>
           
           <script type="text/javascript" src="/scripts/objects/match.js"></script>
           <script type="text/javascript" src="/scripts/objects/team.js"></script>

@@ -1,0 +1,19 @@
+CACHE MANIFEST
+index.php/?c=login
+SuperCSSLoader.php
+
+CACHE:
+index.php/?c=login
+images/add-one.gif
+images/minus-one.gif
+images/dropdown.png
+images/loading.gif
+images/login.jpg
+images/login-logo.png
+images/trash.png
+
+scripts/jquery-3.3.1.min.js
+scripts/login.js
+
+NETWORK:
+*

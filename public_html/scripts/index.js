@@ -20,7 +20,6 @@ $(document).on('click', 'a', function(e) {
   setPage(url);
 });
 
-//0 = data entry panel, 1 = schedule, 2 = teams list, 3 = rankings
 function setPage(link)
 {
   var url = new URL(link);
@@ -53,10 +52,9 @@ function setPage(link)
       break;
     case 'team':
       document.title = " - CRyptonite Robotics";
-      //
       break;
-    case 'match':
-      //
+    case 'matchdata':
+      pasteMatchDataPage(url.searchParams.get("match"));
       break;
   }
 }

@@ -109,14 +109,16 @@ $(document).on('click', '.dataentry-submit', function() {
     data[$(this).attr('id').replace(/-/gi, " ")] = ($(this).is(':checked') ? 1 : 0);
   });
   $('.dataentry-module-text').each(function() {
-    data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val();
+    data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val().replace(/'/gi, "").replace(/"/gi, "");
   });
   $('.dataentry-module-dropdown').each(function() {
-    console.log($(this).val());
     if($(this).val() == "0")
     {
-      alert("You must fill out the dropdown: " + $(this).attr('id').replace(/-/gi, " "));
-      pass = false;
+      if(!$('#dead').is(':checked'))
+      {
+        alert("You must fill out the dropdown: " + $(this).attr('id').replace(/-/gi, " "));
+        pass = false;
+      }
     }
     data[$(this).attr('id').replace(/-/gi, " ")] = $(this).val();
   });
@@ -160,6 +162,7 @@ $(document).on('click', '.dataentry-submit', function() {
     });
     
     request.done(function(response, textStatus, jqXHR) {
+      console.log(response);
       if(response == "NOT LOGGED IN")
       {
         window.location.href = "/?c=login";
@@ -186,6 +189,7 @@ $(document).on('click', '.dataentry-submit', function() {
             if(response == "SUCCESS")
             {
               setPage("http://localhost/?p=datapanel");
+              alert("Match Successfully Overridden");
             }
           });
         }
@@ -193,6 +197,7 @@ $(document).on('click', '.dataentry-submit', function() {
       else if(response == "SUCCESS")
       {
         setPage("http://localhost/?p=datapanel");
+        alert("Match Successfully Scouted");
       }
     });
   }

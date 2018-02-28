@@ -93,17 +93,17 @@ class MatchData
   
   public function getScout()
   {
-    (new UserDatabaseModel())->getFromId($this->scout);
+    return (new UserDatabaseModel())->getFromId($this->scout);
   }
   
   public function getTeam()
   {
-    (new TeamsDatabaseModel())->getTeam($this->team_number);
+    return (new TeamsDatabaseModel())->getTeam($this->team_number);
   }
   
   public function getMatch()
   {
-    (new MatchScheduleDatabaseModel())->getMatch($this->match_number);
+    return (new MatchScheduleDatabaseModel())->getMatch($this->match_number);
   }
   
   public function getData($index)
