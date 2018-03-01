@@ -372,7 +372,7 @@ function loadScoutingPositionOffline()
 function loadOfflineMatchData()
 {
 	response = localStorage.getItem("offlineData");
-	if(response == "null")
+	if(response == "null" || response == null)
 		return;
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
