@@ -6,7 +6,7 @@ class LoginView implements View
   public function render()
   { ?>
     <!DOCTYPE html>
-    <html>
+    <html manifest="login.appcache">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">  
         <title><?= $this->title ?></title>

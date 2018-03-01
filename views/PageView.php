@@ -6,7 +6,7 @@ abstract class PageView implements View
   function renderHead()
   { ?>
     <!DOCTYPE html>
-    <html>
+    <html manifest="index.appcache">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= $this->title ?></title>

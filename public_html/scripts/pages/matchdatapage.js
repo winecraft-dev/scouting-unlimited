@@ -26,6 +26,7 @@ function loadMatchDataPageOffline()
 
 function pasteMatchDataPage(matchnumber)
 {
+  document.title = "Match " + matchnumber + " - CRyptonite Robotics";
   $('.index-content').empty();
   $('.index-content').append(matchDataPage);
   
