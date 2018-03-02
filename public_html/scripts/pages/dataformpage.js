@@ -155,46 +155,7 @@ $(document).on('click', '#data-entry.dataentry-submit', function() {
 	
 	if(!offline)
 	{
-		request = $.ajax({
-				url: "/?c=dataentry&do=enterData",
-				type: "post",
-				data: values
-		}).done(function(response, textStatus, jqXHR) {
-			if(response == "NOT LOGGED IN")
-			{
-				window.location.href = "/?c=login";
-			}
-			else if(response == "NOT ENOUGH PERMISSIONS")
-			{
-				location.reload();
-			}
-			else if(response == "NO DATA")
-			{
-				
-			}
-			else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
-			{
-				if(confirm("This match has already been scouted. Would you like to override it?"))
-				{
-					request = $.ajax({
-							url: "/?c=dataentry&do=updateData",
-							type: "post",
-							data: values
-					}).done(function(response, textStatus, jqXHR) {
-						if(response == "SUCCESS")
-						{
-							setPage("http://localhost/?p=datapanel");
-							alert("Match " + match_number + ", Team " + team_number + " successfully overridden");
-						}
-					});
-				}
-			}
-			else if(response == "SUCCESS")
-			{
-				setPage("http://localhost/?p=datapanel");
-				alert("Match " + match_number + ", Team " + team_number + " successfully scouted");
-			}
-		});
+		submitMatchData(values);
 	}
 	else
 	{
@@ -219,3 +180,52 @@ $(document).on('click', '#data-entry.dataentry-submit', function() {
 		}
 	}
 });
+
+function submitMatchData(values)
+{
+	var team_number = JSON.parse(values['data'])['team_number'];
+	var match_number = JSON.parse(values['data'])['match_number'];
+
+	request = $.ajax({
+			url: "/?c=dataentry&do=enterData",
+			type: "post",
+			data: values
+	}).done(function(response, textStatus, jqXHR) {
+		if(response == "NOT LOGGED IN")
+		{
+			window.location.href = "/?c=login";
+		}
+		else if(response == "NOT ENOUGH PERMISSIONS")
+		{
+			location.reload();
+		}
+		else if(response == "NO DATA")
+		{
+			
+		}
+		else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
+		{
+			if(confirm("Match " + match_number + ", Team " + team_number + " has already been scouted. Would you like to override it?"))
+			{
+				request = $.ajax({
+						url: "/?c=dataentry&do=updateData",
+						type: "post",
+						data: values
+				}).done(function(response, textStatus, jqXHR) {
+					if(response == "SUCCESS")
+					{
+						deleteOfflineMatchData(team_number, match_number);
+						setPage("http://localhost/?p=datapanel");
+						alert("Match " + match_number + ", Team " + team_number + " successfully overridden");
+					}
+				});
+			}
+		}
+		else if(response == "SUCCESS")
+		{
+			deleteOfflineMatchData(team_number, match_number);
+			setPage("http://localhost/?p=datapanel");
+			alert("Match " + match_number + ", Team " + team_number + " successfully scouted");
+		}
+	});
+}

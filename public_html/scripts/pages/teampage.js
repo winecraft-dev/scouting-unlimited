@@ -125,27 +125,36 @@ $(document).on('click', '#pit_notes.dataentry-submit', function() {
 	
 	if(!offline)
 	{
-		request = $.ajax({
-				url: "/?c=teams&do=enterPitNotes",
-				type: "post",
-				data: values
-		}).done(function(response, textStatus, jqXHR) {
-			if(response == "NOT LOGGED IN")
-			{
-				window.location.href = "/?c=login";
-			}
-			else if(response == "NOT ENOUGH PERMISSIONS")
-			{
-				window.location.href = "/?c=login&do=logout";
-			}
-			else if(response == "NO DATA")
-			{
-				
-			}
-			else if(response == "SUCCESS")
-			{
-				alert("Pit notes for team " + team + " have been successfully uploaded.");
-			}
-		});
+		submitPitNotes(values);
+	}
+	else
+	{
+
 	}
 });
+
+function submitPitNotes(values)
+{
+	request = $.ajax({
+		url: "/?c=teams&do=enterPitNotes",
+		type: "post",
+		data: values
+	}).done(function(response, textStatus, jqXHR) {
+		if(response == "NOT LOGGED IN")
+		{
+			window.location.href = "/?c=login";
+		}
+		else if(response == "NOT ENOUGH PERMISSIONS")
+		{
+			window.location.href = "/?c=login&do=logout";
+		}
+		else if(response == "NO DATA")
+		{
+			
+		}
+		else if(response == "SUCCESS")
+		{
+			alert("Pit notes for team " + values['team_number'] + " have been successfully uploaded.");
+		}
+	});
+}

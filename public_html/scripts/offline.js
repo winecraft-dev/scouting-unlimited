@@ -22,7 +22,9 @@ var offlinePitNotesLoading = false;
 function loadOffline()
 {
 	offline = !navigator.onLine;
-	setInterval(checkOffline(), 500);
+	setInterval(function() {
+		checkOffline();
+	}, 500);
 	
 	loadOfflineMatchData();
 
@@ -426,19 +428,34 @@ function overrideOfflineMatchData(data)
 	return "SUCCESS";
 }
 
+function deleteOfflineMatchData(teamnumber, matchnumber)
+{
+	for(index in offlineData)
+	{
+		var md = offlineData[index];
+
+		if(md.team_number == teamnumber && md.match_number == matchnumber)
+		{
+			offlineData.splice(index, 1);
+		}
+	}
+	localStorage.setItem("offlineData", JSON.stringify(offlineData));
+}
+
 function checkOffline()
 {
 	offline = !navigator.onLine;
+	console.log("test");
 	if(!offline)
 	{
 		if(offlineData.length > 0)
 		{
 			alert("You are now online. Your match data will be uploaded now.");
-				var allgood = true;
+			var allgood = true;
 
 			for(index in offlineData)
 			{
-						var d = offlineData[index];
+				var d = offlineData[index];
 
 				var values = {
 					'data': JSON.stringify({
@@ -450,55 +467,8 @@ function checkOffline()
 					})
 				};
 
-				request = $.ajax({
-					url: "/?c=dataentry&do=enterData",
-					type: "post",
-					data: values
-				});
-				
-				request.done(function(response, textStatus, jqXHR) {
-					if(response == "NOT LOGGED IN")
-					{
-						window.location.href = "/?c=login";
-									allgood = false;
-					}
-					else if(response == "NOT ENOUGH PERMISSIONS")
-					{
-						location.reload();
-									allgood = false;
-					}
-					else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
-					{
-						if(confirm("This match has already been scouted. Would you like to override it?"))
-						{
-							request = $.ajax({
-									url: "/?c=dataentry&do=updateData",
-									type: "post",
-									data: values
-							});
-							
-							request.done(function(response, textStatus, jqXHR) {
-								if(response == "SUCCESS")
-								{
-									setPage("http://localhost/?p=datapanel");
-									alert("Match " + d.match_number + ", Team " + d.team_number + " successfully overridden");
-													offlineData.splice(index, 1);
-								}
-							});
-						}
-					}
-					else if(response == "SUCCESS")
-					{
-						setPage("http://localhost/?p=datapanel");
-						alert("Match " + d.match_number + ", Team " + d.team_number + " successfully scouted");
-									offlineData.splice(index, 1);
-					}
-				});
+				submitMatchData(values);
 			}
-				if(allgood)
-				{
-					localStorage.setItem("offlineData", null);
-				}
 		}
 	}
 }
