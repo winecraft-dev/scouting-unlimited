@@ -74,6 +74,26 @@ class OfflineClientController extends Controller
 			echo "NOT LOGGED IN";
 		}
 	}
+
+	public function getPitNotesDefinitions()
+	{
+		if(Session::isLoggedIn())
+		{
+			$user = Session::getLoggedInUser();
+			if($user->administrator >= 0)
+			{
+				echo json_encode((new DataDefinitionsDatabaseModel())->getPitNotesDefinitions());
+			}
+			else
+			{
+				echo "NOT ENOUGH PERMISSIONS";
+			}
+		}
+		else
+		{
+			echo "NOT LOGGED IN";
+		}
+	}
 	
 	public function getMatchData()
 	{

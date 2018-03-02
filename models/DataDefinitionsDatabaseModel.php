@@ -24,5 +24,17 @@ class DataDefinitionsDatabaseModel extends DatabaseModel
       return $result;
     return false;
   }
+
+  public function getPitNotesDefinitions()
+  {
+    $query = self::$conn->prepare("SELECT pit_notes_definitions.*
+        FROM pit_notes_definitions");
+    $query->execute();
+
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    if($result !== false)
+      return $result;
+    return false;
+  }
 }
 ?>

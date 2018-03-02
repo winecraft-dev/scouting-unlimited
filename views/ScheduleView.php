@@ -36,22 +36,52 @@ class ScheduleView implements View
 						<?php } ?>
 							<td class="schedule-mid schedule-match-number"><a href=<?= "/?p=matchdata&match=" . $match->match_number ?>><?= $match->match_number ?></a></td>
 							<td class="schedule-red">
-								<?php $this->checkMatchScouted($match->match_number, $match->red_1); ?>
+								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->red_1 ?>>
+									<mark class="schedule-undone" 
+											id=<?= $match->match_number . '-' . $match->red_1 ?>>
+										<?= $match->red_1 ?>
+									</mark>
+								</a>
 							</td>
 							<td class="schedule-red">
-								<?php $this->checkMatchScouted($match->match_number, $match->red_2); ?>
+								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->red_2 ?>>
+									<mark class="schedule-undone" 
+											id=<?= $match->match_number . '-' . $match->red_2 ?>>
+										<?= $match->red_2 ?>
+									</mark>
+								</a>
 							</td>
 							<td class="schedule-red schedule-mid">
-								<?php $this->checkMatchScouted($match->match_number, $match->red_3); ?>
+								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->red_3 ?>>
+									<mark class="schedule-undone" 
+											id=<?= $match->match_number . '-' . $match->red_3 ?>>
+										<?= $match->red_3 ?>
+									</mark>
+								</a>
 							</td>
 							<td class="schedule-blue">
-								<?php $this->checkMatchScouted($match->match_number, $match->blue_1); ?>
+								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->blue_1 ?>>
+									<mark class="schedule-undone" 
+											id=<?= $match->match_number . '-' . $match->blue_1 ?>>
+										<?= $match->blue_1 ?>
+									</mark>
+								</a>
 							</td>
 							<td class="schedule-blue">
-								<?php $this->checkMatchScouted($match->match_number, $match->blue_2); ?>
+								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->blue_2 ?>>
+									<mark class="schedule-undone" 
+											id=<?= $match->match_number . '-' . $match->blue_2 ?>>
+										<?= $match->blue_2 ?>
+									</mark>
+								</a>
 							</td>
 							<td class="schedule-blue">
-								<?php $this->checkMatchScouted($match->match_number, $match->blue_3); ?>
+								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->blue_3 ?>>
+									<mark class="schedule-undone" 
+											id=<?= $match->match_number . '-' . $match->blue_3 ?>>
+										<?= $match->blue_3 ?>
+									</mark>
+								</a>
 							</td>
 						</tr>
 					<?php $i ++; } ?>
@@ -59,16 +89,5 @@ class ScheduleView implements View
 			</div>
 		</div>
 	<?php }
-	
-	private function checkMatchScouted($match_number, $team_number)
-	{
-		$url = "/?p=teamdata&team=" . $team_number;
-		if((new MatchDataDatabaseModel())->getMatchData($match_number, $team_number) != false)
-		{ ?>
-			<a style="color: black;" href=<?= $url ?>><mark class="schedule-done"><?= $team_number ?></mark></a>
-		<?php } else { ?>
-			<a style="color: black;" href=<?= $url ?>><mark class="schedule-undone"><?= $team_number ?></mark></a>
-		<?php }
-	}
 }
 ?>

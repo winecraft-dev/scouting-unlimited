@@ -127,9 +127,9 @@ class AdminPanelController extends Controller
 		  $csv[$i][] = $team->name;
 		  $csv[$i][] = $team->pit_notes;
 		  
-		  foreach($team->averages as $average)
+		  foreach($team->averages as $key => $average)
 		  {
-		    $csv[$i][] = $average;
+		    $csv[$i][] = Team::display($key, $average);
 		  }
 		  $i ++;
 		}

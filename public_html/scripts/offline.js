@@ -3,91 +3,26 @@ var schedule = [];
 var teams = [];
 var matchData = [];
 var dataDefinitions = [];
+var pitNotesDefinitions = [];
 var scoutingPosition = 0;
-
 var offlineData = [];
+var offlinePitNotes = [];
 
 var offline = false;
+
+var scheduleLoading = false;
+var teamsLoading = false;
+var matchDataLoading = false;
+var dataDefinitionsLoading = false;
+var pitNotesDefinitionsLoading = false;
+var scoutingPositionLoading = false;
+var offlineDataLoading = false;
+var offlinePitNotesLoading = false;
 
 function loadOffline()
 {
 	offline = !navigator.onLine;
-	setInterval(function() {
-		offline = !navigator.onLine;
-		if(!offline)
-		{
-			if(offlineData.length > 0)
-			{
-				alert("You are now online. Your match data will be uploaded now.");
-        var allgood = true;
-
-				for(index in offlineData)
-				{
-          var d = offlineData[index];
-
-					var values = {
-						'data': JSON.stringify({
-							'team_number': d.team_number,
-							'match_number': d.match_number,
-							'dead': d.dead,
-							'dead_shortly': d.dead_shortly,
-							'data': d.data
-						})
-					};
-
-					request = $.ajax({
-						url: "/?c=dataentry&do=enterData",
-						type: "post",
-						data: values
-					});
-					
-					request.done(function(response, textStatus, jqXHR) {
-						console.log(response);
-						if(response == "NOT LOGGED IN")
-						{
-							window.location.href = "/?c=login";
-              allgood = false;
-						}
-						else if(response == "NOT ENOUGH PERMISSIONS")
-						{
-							location.reload();
-              allgood = false;
-						}
-						else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
-						{
-							if(confirm("This match has already been scouted. Would you like to override it?"))
-							{
-								request = $.ajax({
-										url: "/?c=dataentry&do=updateData",
-										type: "post",
-										data: values
-								});
-								
-								request.done(function(response, textStatus, jqXHR) {
-									if(response == "SUCCESS")
-									{
-										setPage("http://localhost/?p=datapanel");
-										alert("Match " + d.match_number + ", Team " + d.team_number + " successfully overridden");
-                    offlineData.splice(index, 1);
-									}
-								});
-							}
-						}
-						else if(response == "SUCCESS")
-						{
-							setPage("http://localhost/?p=datapanel");
-							alert("Match " + d.match_number + ", Team " + d.team_number + " successfully scouted");
-              offlineData.splice(index, 1);
-						}
-					});
-				}
-        if(allgood)
-        {
-          localStorage.setItem("offlineData", null);
-        }
-			}
-		}
-	}, 500);
+	setInterval(checkOffline(), 500);
 	
 	loadOfflineMatchData();
 
@@ -97,6 +32,7 @@ function loadOffline()
 		loadTeams();
 		loadMatchData();
 		loadDataDefinitions();
+		loadPitNotesDefinitions();
 		loadScoutingPosition();
 
 		loadSchedulePage();
@@ -105,6 +41,7 @@ function loadOffline()
 		loadDataFormPage();
 		loadTeamsListPage();
 		loadMatchDataPage();
+		loadTeamPage();
 	}
 	else
 	{
@@ -112,6 +49,7 @@ function loadOffline()
 		loadTeamsOffline();
 		loadMatchDataOffline();
 		loadDataDefinitionsOffline();
+		loadPitNotesDefinitionsOffline();
 		loadScoutingPositionOffline();
 
 		loadSchedulePageOffline();
@@ -120,6 +58,7 @@ function loadOffline()
 		loadDataFormPageOffline();
 		loadTeamsListPageOffline();
 		loadMatchDataPageOffline();
+		loadTeamPageOffline();
 		
 		completeAjax();
 	}
@@ -159,8 +98,10 @@ function getTeam(teamnumber)
 {
 	for(team of teams)
 	{
-		
+		if(team.number == teamnumber)
+			return team;
 	}
+	return null;
 }
 
 function definitionDisplay(index, value)
@@ -207,6 +148,8 @@ Basic Functions to call data from the database and store it in localStorage
 
 function loadSchedule()
 {
+	schedule = [];
+	scheduleLoading = true;
 	request = $.ajax({
 		url: "/?c=offline&do=getSchedule",
 		type: "get"
@@ -217,7 +160,7 @@ function loadSchedule()
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			location.reload();
+			window.location.replace("/?c=login&do=logout");
 		}
 		else
 		{
@@ -232,6 +175,8 @@ function loadSchedule()
 
 function loadScheduleOffline()
 {
+	schedule = [];
+	scheduleLoading = true;
 	response = localStorage.getItem("schedule");
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
@@ -241,6 +186,8 @@ function loadScheduleOffline()
 
 function loadTeams()
 {
+	teams = [];
+	teamsLoading = true;
 	request = $.ajax({
 		url: "/?c=offline&do=getTeams",
 		type: "get"
@@ -251,7 +198,7 @@ function loadTeams()
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			location.reload();
+			window.location.replace("/?c=login&do=logout");
 		}
 		else
 		{
@@ -266,6 +213,8 @@ function loadTeams()
 
 function loadTeamsOffline()
 {
+	teams = [];
+	teamsLoading = true;
 	response = localStorage.getItem("teams");
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
@@ -275,6 +224,8 @@ function loadTeamsOffline()
 
 function loadMatchData()
 {
+	matchData = [];
+	matchDataLoading = true;
 	request = $.ajax({
 		url: "/?c=offline&do=getMatchData",
 	type: "get"
@@ -286,7 +237,7 @@ function loadMatchData()
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			location.reload();
+			window.location.replace("/?c=login&do=logout");
 		}
 		else
 		{
@@ -301,6 +252,8 @@ function loadMatchData()
 
 function loadMatchDataOffline()
 {
+	matchData = [];
+	matchDataLoading = true;
 	response = localStorage.getItem("matchData");
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
@@ -310,6 +263,8 @@ function loadMatchDataOffline()
 
 function loadDataDefinitions()
 {
+	dataDefinitions = [];
+	dataDefinitionsLoading = true;
 	request = $.ajax({
 		url: "/?c=offline&do=getDataDefinitions",
 		type: "get"
@@ -321,7 +276,7 @@ function loadDataDefinitions()
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			location.reload();
+			window.location.replace("/?c=login&do=logout");
 		}
 		else
 		{
@@ -336,6 +291,8 @@ function loadDataDefinitions()
 
 function loadDataDefinitionsOffline()
 {
+	dataDefinitions = [];
+	dataDefinitionsLoading = true;
 	response = localStorage.getItem("dataDefinitions");
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
@@ -343,8 +300,49 @@ function loadDataDefinitionsOffline()
 	});
 }
 
+function loadPitNotesDefinitions()
+{
+	pitNotesDefinitions = [];
+	pitNotesDefinitionsLoading = true;
+	request = $.ajax({
+		url: "/?c=offline&do=getPitNotesDefinitions",
+		type: "get"
+	}).done(function (response, textStatus, jqXHR) 
+	{
+		if(response == "NOT LOGGED IN")
+		{
+			window.location.replace("/?c=login");
+		}
+		else if(response == "NOT ENOUGH PERMISSIONS")
+		{
+			window.location.replace("/?c=login&do=logout");
+		}
+		else
+		{
+			var list = JSON.parse(response);
+			list.forEach(function(item, index) {
+				pitNotesDefinitions.push(item);
+			});
+			localStorage.setItem("pitNotesDefinitions", response);
+		}
+	});
+}
+
+function loadPitNotesDefinitionsOffline()
+{
+	pitNotesDefinitions = [];
+	pitNotesDefinitionsLoading = true;
+	response = localStorage.getItem("pitNotesDefinitions");
+	var list = JSON.parse(response);
+	list.forEach(function(item, index) {
+		pitNotesDefinitions.push(item);
+	});
+}
+
 function loadScoutingPosition()
 {
+	scoutingPosition = 0;
+	scoutingPositionLoading = true;
 	request = $.ajax({
 		url: "/?c=adminpanel&do=getScoutingPosition",
 		type: "get"
@@ -364,6 +362,8 @@ function loadScoutingPosition()
 
 function loadScoutingPositionOffline()
 {	
+	scoutingPosition = 0;
+	scoutingPositionLoading = true;
 	scoutingPosition = localStorage.getItem("scoutingPosition");
 }
 
@@ -371,12 +371,27 @@ function loadScoutingPositionOffline()
 
 function loadOfflineMatchData()
 {
+	offlineData = [];
+	offlineDataLoading = true;
 	response = localStorage.getItem("offlineData");
 	if(response == "null" || response == null)
 		return;
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
 		offlineData.push(new MatchData(item['match_number'], item['team_number'], item['scout'], item['dead'], item['dead_shortly'], item['data']));
+	});
+}
+
+function loadOfflinePitNotes()
+{
+	offlinePitNotes = [];
+	offlinePitNotesLoading = true;
+	response = localStorage.getItem("offlinePitNotes");
+	if(response == "null" || response == null)
+		return;
+	var list = JSON.parse(response);
+	list.forEach(function(item, index) {
+		offlinePitNotes.push(item);
 	});
 }
 
@@ -409,4 +424,81 @@ function overrideOfflineMatchData(data)
 	offlineData.push(new MatchData(data['match_number'], data['team_number'], -1, data['dead'], data['dead_shortly'], data['data']));
 	localStorage.setItem("offlineData", JSON.stringify(offlineData));
 	return "SUCCESS";
+}
+
+function checkOffline()
+{
+	offline = !navigator.onLine;
+	if(!offline)
+	{
+		if(offlineData.length > 0)
+		{
+			alert("You are now online. Your match data will be uploaded now.");
+				var allgood = true;
+
+			for(index in offlineData)
+			{
+						var d = offlineData[index];
+
+				var values = {
+					'data': JSON.stringify({
+						'team_number': d.team_number,
+						'match_number': d.match_number,
+						'dead': d.dead,
+						'dead_shortly': d.dead_shortly,
+						'data': d.data
+					})
+				};
+
+				request = $.ajax({
+					url: "/?c=dataentry&do=enterData",
+					type: "post",
+					data: values
+				});
+				
+				request.done(function(response, textStatus, jqXHR) {
+					if(response == "NOT LOGGED IN")
+					{
+						window.location.href = "/?c=login";
+									allgood = false;
+					}
+					else if(response == "NOT ENOUGH PERMISSIONS")
+					{
+						location.reload();
+									allgood = false;
+					}
+					else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
+					{
+						if(confirm("This match has already been scouted. Would you like to override it?"))
+						{
+							request = $.ajax({
+									url: "/?c=dataentry&do=updateData",
+									type: "post",
+									data: values
+							});
+							
+							request.done(function(response, textStatus, jqXHR) {
+								if(response == "SUCCESS")
+								{
+									setPage("http://localhost/?p=datapanel");
+									alert("Match " + d.match_number + ", Team " + d.team_number + " successfully overridden");
+													offlineData.splice(index, 1);
+								}
+							});
+						}
+					}
+					else if(response == "SUCCESS")
+					{
+						setPage("http://localhost/?p=datapanel");
+						alert("Match " + d.match_number + ", Team " + d.team_number + " successfully scouted");
+									offlineData.splice(index, 1);
+					}
+				});
+			}
+				if(allgood)
+				{
+					localStorage.setItem("offlineData", null);
+				}
+		}
+	}
 }

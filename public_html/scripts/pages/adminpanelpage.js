@@ -8,8 +8,7 @@ function loadAdminPanelPage()
   request = $.ajax({
       url: "/?c=adminpanel&do=display",
       type: "get"
-  });
-  request.done(function (response, textStatus, jqXHR) {
+  }).done(function (response, textStatus, jqXHR) {
     if(response == "NOT LOGGED IN")
     {
       window.location.replace("/?c=login");
@@ -29,6 +28,7 @@ function loadAdminPanelPageOffline()
 
 function pasteAdminPanelPage()
 {
+  console.log(adminPanelPage);
   if(!offline)
   {
     loadAdminPanelPage();

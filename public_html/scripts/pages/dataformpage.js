@@ -99,7 +99,7 @@ $(document).on('click', '.dataentry-module-number-arrowdown', function() {
 	$('#' + id + '.dataentry-module-number').val(value);
 });
 
-$(document).on('click', '.dataentry-submit', function() {
+$(document).on('click', '#data-entry.dataentry-submit', function() {
 	var pass = true;
 	var data = new Object();
 	$('.dataentry-module-number').each(function() {
@@ -159,10 +159,7 @@ $(document).on('click', '.dataentry-submit', function() {
 				url: "/?c=dataentry&do=enterData",
 				type: "post",
 				data: values
-		});
-		
-		request.done(function(response, textStatus, jqXHR) {
-			console.log(response);
+		}).done(function(response, textStatus, jqXHR) {
 			if(response == "NOT LOGGED IN")
 			{
 				window.location.href = "/?c=login";
@@ -183,9 +180,7 @@ $(document).on('click', '.dataentry-submit', function() {
 							url: "/?c=dataentry&do=updateData",
 							type: "post",
 							data: values
-					});
-					
-					request.done(function(response, textStatus, jqXHR) {
+					}).done(function(response, textStatus, jqXHR) {
 						if(response == "SUCCESS")
 						{
 							setPage("http://localhost/?p=datapanel");
