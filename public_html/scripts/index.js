@@ -100,6 +100,7 @@ function completeAjax()
 		pitNotesDefinitionsLoading = false;
 		scoutingPositionLoading = false;
 		offlineDataLoading = false;
+		offlinePitNotesLoading = false;
 		
 		if(offline)
 		{

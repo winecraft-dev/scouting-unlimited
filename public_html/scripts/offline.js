@@ -27,6 +27,7 @@ function loadOffline()
 	}, 500);
 	
 	loadOfflineMatchData();
+	loadOfflinePitNotes();
 
 	if(!offline)
 	{
@@ -96,12 +97,14 @@ function getMatch(matchnumber)
 	}
 }
 
-function getTeam(teamnumber)
+function getTeam(t)
 {
-	for(team of teams)
+	for(te of teams)
 	{
-		if(team.number == teamnumber)
-			return team;
+		if(te.number == t)
+		{
+			return te;
+		}
 	}
 	return null;
 }
@@ -138,6 +141,18 @@ function getDefinition(name)
 	{
 		if(definition['title'] == name)
 			return definition;
+	}
+	return null;
+}
+
+function getOfflinePitNotes(teamnumber)
+{
+	for(p of offlinePitNotes)
+	{
+		if(p['team_number'] == teamnumber)
+		{
+			return p;
+		}
 	}
 	return null;
 }
@@ -384,19 +399,6 @@ function loadOfflineMatchData()
 	});
 }
 
-function loadOfflinePitNotes()
-{
-	offlinePitNotes = [];
-	offlinePitNotesLoading = true;
-	response = localStorage.getItem("offlinePitNotes");
-	if(response == "null" || response == null)
-		return;
-	var list = JSON.parse(response);
-	list.forEach(function(item, index) {
-		offlinePitNotes.push(item);
-	});
-}
-
 function storeOfflineMatchData(data)
 {
 	data = JSON.parse(data);
@@ -442,16 +444,52 @@ function deleteOfflineMatchData(teamnumber, matchnumber)
 	localStorage.setItem("offlineData", JSON.stringify(offlineData));
 }
 
+function loadOfflinePitNotes()
+{
+	offlinePitNotes = [];
+	offlinePitNotesLoading = true;
+	response = localStorage.getItem("offlinePitNotes");
+	if(response == "null" || response == null)
+		return;
+	var list = JSON.parse(response);
+	list.forEach(function(item, index) {
+		offlinePitNotes.push(item);
+	});
+}
+
+function storeOfflinePitNotes(values)
+{
+	team_number = values['team_number'];
+	data = JSON.parse(values['data']);
+
+	offlinePitNotes.push(values);
+
+	localStorage.setItem("offlinePitNotes", JSON.stringify(offlinePitNotes));
+	return "SUCCESS";
+}
+
+function deleteOfflinePitNotes(teamnumber)
+{
+	for(index in offlinePitNotes)
+	{
+		var pn = offlinePitNotes[index];
+
+		if(pn['team_number'] == teamnumber)
+		{
+			offlinePitNotes.splice(index, 1);
+		}
+	}
+	localStorage.setItem("offlinePitNotes", JSON.stringify(offlinePitNotes));
+}
+
 function checkOffline()
 {
 	offline = !navigator.onLine;
-	console.log("test");
 	if(!offline)
 	{
 		if(offlineData.length > 0)
 		{
 			alert("You are now online. Your match data will be uploaded now.");
-			var allgood = true;
 
 			for(index in offlineData)
 			{
@@ -468,6 +506,16 @@ function checkOffline()
 				};
 
 				submitMatchData(values);
+			}
+		}
+		if(offlinePitNotes.length > 0)
+		{
+			alert("You are now online. Your pit notes will be uploaded now.");
+
+			for(index in offlinePitNotes)
+			{
+				var p = offlinePitNotes[index];
+				submitPitNotes(p);
 			}
 		}
 	}

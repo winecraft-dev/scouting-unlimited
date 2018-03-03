@@ -1,5 +1,7 @@
 var teamPage = "";
 
+var teamPageTeam = -1;
+
 function loadTeamPage() 
 {
 	request = $.ajax({
@@ -24,42 +26,47 @@ function loadTeamPageOffline()
 	teamPage = localStorage.getItem("teamPage");
 }
 
-function pasteTeamPage(teamnumber)
+function pasteTeamPage(t)
 {
 	if(!offline)
 	{
-		loadTeams();
-
-		$(document).ajaxStop(function() {
-			if(teamsLoading)
-			{
-				teamsLoading = false;
-				pasteTeamPageContent(teamnumber);
-			}
-		});
+		teamPageTeam = t;
+		pasteTeamPageContent(teamPageTeam);
 	}
 	else
 	{
-		pasteTeamPageContent(teamnumber);
+		teamPageTeam = t;
+		pasteTeamPageContent(teamPageTeam);
 	}
 }
 
-function pasteTeamPageContent(teamnumber)
+function pasteTeamPageContent()
 {
-	document.title = "Team " + teamnumber + " - CRyptonite Robotics";
+	pastingTeamPage = false;
+	document.title = "Team " + teamPageTeam + " - CRyptonite Robotics";
 
-	var team = getTeam(teamnumber);
+	var team = getTeam(teamPageTeam);
 
 	$('.index-content').empty().append(teamPage);
-	$('#pit-notes').text("Pit Notes - " + teamnumber);
-	$('#team-number').text(teamnumber).hide();
+	$('#pit-notes').text("Pit Notes - " + teamPageTeam);
+	$('#team-number').text(teamPageTeam).hide();
 
 	if(!offline)
-		$('#image-iframe').attr('src', '/?c=teams&do=teamImage&team=' + teamnumber);
+		$('#image-iframe').attr('src', '/?c=teams&do=teamImage&team=' + teamPageTeam);
 	else
 		$('#image-iframe').replaceWith("You cannot view the image offline");
 
-	for(index in team.pit_notes)
+	var pit_notes;
+	if(getOfflinePitNotes(teamPageTeam) == null)
+		pit_notes = team.pit_notes;
+	else
+	{
+		$('#pit-notes').text("Pit Notes - " + teamPageTeam + " - Scouted Offline");
+		var op = getOfflinePitNotes(teamPageTeam);
+		pit_notes = JSON.parse(op['data']);
+	}
+
+	for(index in pit_notes)
 	{
 		var id = index.replace(/ /g, "-");
 
@@ -76,19 +83,20 @@ function pasteTeamPageContent(teamnumber)
 		switch(definition['module'])
 		{
 			case '0':
-				$('#' + id).val(team.pit_notes[index]);
+				$('#' + id).val(pit_notes[index]);
 				break;
 			case '1':
-				$('#' + id).val(team.pit_notes[index]);
+				$('#' + id).val(pit_notes[index]);
 				break;
 			case '2':
-				$('#' + id).prop('checked', team.pit_notes[index] == 1);
+				$('#' + id).prop('checked', pit_notes[index] == 1);
 				break;
 			case '3':
-				$('#' + id).val(team.pit_notes[index]);
+				var val = pit_notes[index] == null ? 0 : pit_notes[index];
+				$('#' + id).val(val);
 				break;
 			case '4':
-				$('#' + id).val(team.pit_notes[index]);
+				$('#' + id).val(pit_notes[index]);
 				break;
 		}
 	}
@@ -129,7 +137,13 @@ $(document).on('click', '#pit_notes.dataentry-submit', function() {
 	}
 	else
 	{
-
+		switch(storeOfflinePitNotes(values))
+		{
+			case "SUCCESS":
+				window.location.reload();
+				alert("Team " + team_number + " pit notes successfully scouted offline");
+				break;
+		}
 	}
 });
 
@@ -154,6 +168,8 @@ function submitPitNotes(values)
 		}
 		else if(response == "SUCCESS")
 		{
+			window.location.reload();
+			deleteOfflinePitNotes(values['team_number']);
 			alert("Pit notes for team " + values['team_number'] + " have been successfully uploaded.");
 		}
 	});
