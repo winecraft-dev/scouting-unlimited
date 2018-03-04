@@ -54,6 +54,9 @@ class TeamsDatabaseModel extends DatabaseModel
 
 		$query4 = self::$conn->prepare("DELETE FROM regional");
 		$query4->execute();
+
+		$query5 = self::$conn->prepare("DELETE FROM pit_notes");
+		$query5->execute();
 		
 		$query6 = self::$conn->prepare("INSERT INTO regional (eventCode) VALUES ('$eventCode')");
 		$query6->bindValue(':code', $eventCode, PDO::PARAM_STR);
@@ -69,7 +72,7 @@ class TeamsDatabaseModel extends DatabaseModel
 			)
 		);
 		$context = stream_context_create($opts);
-		$url = "https://frc-api.firstinspires.org/v2.0/2017/teams?eventCode=". $eventCode . "&state=state";
+		$url = "https://frc-api.firstinspires.org/v2.0/2018/teams?eventCode=". $eventCode . "&state=state";
 		$response = file_get_contents($url,false,$context);
 		$json = json_decode($response, true);
 		

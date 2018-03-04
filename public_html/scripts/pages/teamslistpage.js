@@ -24,6 +24,47 @@ function loadTeamsListPageOffline()
 	teamsListPage = localStorage.getItem("teamsListPage");
 }
 
+function pasteTeamsListPage()
+{
+	$('.index-content').empty().append(teamsListPage);
+
+	for(team of teams)
+	{
+		var allnull = true;
+		for(index in team.pit_notes)
+		{
+			if(team.pit_notes[index] != null)
+			{
+				allnull = false;
+			}
+		}
+		if(!allnull)
+		{
+			$('#' + team.number).removeClass('schedule-undone').addClass('schedule-done');
+		}
+	}
+
+	for(pitNote of offlinePitNotes)
+	{
+		console.log(pitNote);
+		teamnumber = pitNote['team_number'];
+		data = JSON.parse(pitNote['data']);
+
+		var allnull = true;
+		for(index in data)
+		{
+			if(data[index] != null)
+			{
+				allnull = false;
+			}
+		}
+		if(!allnull)
+		{
+			$('#' + teamnumber).removeClass('schedule-undone').addClass('schedule-done-offline');
+		}
+	}
+}
+
 
 //Sorting variation for Integers
 function sortTableInt(n) {

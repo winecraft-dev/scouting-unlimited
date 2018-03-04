@@ -8,7 +8,6 @@ class DataEntryFormView implements View
 			<div class="page-section-head">
 				Data Form
 			</div>
-			<a href="/?p=teamdata&team=216">link</a>
 			<div class="page-section-content" style="overflow-x: hide;">
 				<div class="dataentry-form">
 					<div class="dataentry-sections">

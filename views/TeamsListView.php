@@ -22,14 +22,20 @@ class TeamsListView implements View
 						<?php $i = 2; foreach($definitions as $definition) { 
 							if($definition['data_type'] == 1) {?>
 								<th class="schedule-head" onclick=<?= 'sortTableInt(' . $i. ')' ?>><?= $definition['title'] ?></th>
-							<?php } ?>
-						<?php $i ++; } ?>
+							<?php $i ++; } ?>
+						<?php } ?>
 					</tr>
 					<?php $i = 0; 
 						foreach($teams as $team) {
 							if($i % 2 == 0) { ?>
 								<tr class="schedule-zebra-dark">
-									<td class="schedule-match-number schedule-mid"><?= $team->number ?></td>
+									<td class="schedule-match-number schedule-mid">
+										<mark class="schedule-undone" id=<?= $team->number ?>>
+											<a href=<?= '/?p=teamdata&team=' . $team->number ?> style="color:black;">
+												<?= $team->number ?>
+											</a>
+										</mark>
+									</td>
 									<td class="schedule-mid"><?= $team->name ?></td>
 									<?php foreach($definitions as $definition) { 
 										if($definition['data_type'] == 1) { ?>
@@ -39,7 +45,13 @@ class TeamsListView implements View
 								</tr>
 							<?php } else { ?>
 								<tr class="schedule-zebra-light">
-									<td class="schedule-match-number schedule-mid"><?= $team->number ?></td>
+									<td class="schedule-match-number schedule-mid">
+										<mark class="schedule-undone" id=<?= $team->number ?>>
+											<a href=<?= '/?p=teamdata&team=' . $team->number ?> style="color:black;">
+												<?= $team->number ?>
+											</a>
+										</mark>
+									</td>
 									<td class="schedule-mid"><?= $team->name ?></td>
 									<?php foreach($definitions as $definition) { 
 										if($definition['data_type'] == 1) { ?>

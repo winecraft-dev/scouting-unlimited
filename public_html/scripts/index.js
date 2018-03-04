@@ -4,9 +4,21 @@ $(document).ready(function() {
 	localStorage.setItem("oldURLs", "");
 	loadOffline();
 	storeSession();
-	window.onbeforeunload = function(event) {
-	  alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
-	};
+	history.pushState(null, document.title, location.href);
+	window.addEventListener('popstate', function (event)
+	{
+		if(localStorage.getItem("oldURLs") != null 
+			&& localStorage.getItem("oldURLs") != "" 
+			&& localStorage.getItem("oldURLs") != "null")
+		{	
+			goBack();
+		}
+		else
+		{
+
+			window.history.back();
+		}
+	});
 });
 
 $(document).ajaxStop(completeAjax);
@@ -38,7 +50,8 @@ function setPage(link)
 			pasteAdminPanelPage();
 			break;
 		case 'datapanel':
-			document.title = "Data Panel - CRyptonite Robotics";
+			document.title = "Data Entry - CRyptonite Robotics";
+			pasteDataFormPage();
 			//data entry panel
 			break;
 		case 'schedule':
@@ -51,7 +64,7 @@ function setPage(link)
 			break;
 		case 'teams':
 			document.title = "Teams - CRyptonite Robotics";
-			$('.index-content').append(teamsListPage);
+			pasteTeamsListPage();
 			break;
 		case 'rankings':
 			document.title = "Rankings - CRyptonite Robotics";
@@ -83,10 +96,21 @@ function storeURLs(link)
 	localStorage.setItem("url", link);
 }
 
-function goBack(e)
+function goBack()
 {
-	e.preventDefault();
-	alert("test");
+	oldURLs = localStorage.getItem("oldURLs").split(",");
+	console.log(oldURLs);
+
+	setPage(oldURLs[oldURLs.length - 1]);
+	oldURLs.splice(oldURLs.length - 1, 1);
+	console.log(oldURLs);
+	var newString = ""
+	for(url of oldURLs)
+	{
+		newString += url + ",";
+	}
+	newString = newString.substr(0, newString.length - 1);
+	localStorage.setItem("oldURLs", newString);
 }
 
 function completeAjax()

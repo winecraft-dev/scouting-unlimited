@@ -38,7 +38,7 @@ class PitNotesDatabaseModel extends DatabaseModel
 					break;
 				}
 			}
-			$index = (Team::getDataType($definition["data_type"])) . "_" . $definition["number"];
+			$index = (MatchData::getDataType($definition["data_type"])) . "_" . $definition["number"];
 			$data += array($index => $val);
 		}
 		

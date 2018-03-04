@@ -154,6 +154,7 @@ function submitPitNotes(values)
 		type: "post",
 		data: values
 	}).done(function(response, textStatus, jqXHR) {
+		console.log(response);
 		if(response == "NOT LOGGED IN")
 		{
 			window.location.href = "/?c=login";

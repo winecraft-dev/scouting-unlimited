@@ -1,6 +1,34 @@
 <?php
 class MatchDataDatabaseModel extends DatabaseModel
 {
+	public function getScores($match)
+	{
+		$query = self::$conn->prepare('SELECT regional.eventcode FROM regional');
+		if(!$query->execute()) return false;
+		$eventCode = $query->fetch(PDO::FETCH_ASSOC);
+		$config = $GLOBALS['config'];
+		$auth = "Authorization: Basic " . base64_encode($config->get('api_key') . ':' . $config->get('api_password')); 
+		$opts = array(
+			'http'=>array(
+			'method'=>"GET",
+			'header'=> $auth . "\r\n" . "Accept: application/json"
+			)
+		);
+		$context = stream_context_create($opts);
+		$url = "https://frc-api.firstinspires.org/v2.0/2018/matches/" . $eventCode['eventcode'] . "?tournamentLevel=qual&matchNumber=" . $match;
+		$response = file_get_contents($url, false, $context);
+		$json = json_decode($response, true);
+
+		foreach($json as $schedule)
+		{
+			foreach($schedule as $m)
+			{
+				$scores = array("red" => $m['scoreRedFinal'], "redAuto" => $m['scoreRedAuto'], "blue" => $m['scoreBlueFinal'], "blueAuto" => $m['scoreBlueAuto']);
+				return $scores;
+			}
+		}
+	}
+
 	public function getAllMatchData()
 	{
 		$query = self::$conn->prepare("SELECT * FROM match_data");
