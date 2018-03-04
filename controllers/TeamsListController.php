@@ -9,7 +9,6 @@ class TeamsListController extends Controller
 				print (new TeamsListView())->render();
 			else
 				print (new ErrorView())->render("Not Enough Permissions!");
-			var_dump((new TeamsDatabaseModel())->getTeam(216));
 		}
 		else
 		{

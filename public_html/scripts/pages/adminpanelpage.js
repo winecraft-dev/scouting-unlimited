@@ -28,7 +28,6 @@ function loadAdminPanelPageOffline()
 
 function pasteAdminPanelPage()
 {
-  console.log(adminPanelPage);
   if(!offline)
   {
     loadAdminPanelPage();
