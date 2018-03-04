@@ -99,7 +99,9 @@ class Averager
 			}
 		}
 
-		return $values[$k] / $this->matchesPlayed();
+		if($this->matchesPlayed() != 0)
+			return $values[$k] / $this->matchesPlayed();
+		return 0;
 	}
 
 	public function average($index)

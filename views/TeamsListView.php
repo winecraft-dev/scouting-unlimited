@@ -4,43 +4,53 @@ class TeamsListView implements View
 {
 	public function render()
 	{ 
-	$teams = (new TeamsDatabaseModel())->getTeams(); ?>
+	$teams = (new TeamsDatabaseModel())->getTeams(); 
+	$definitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions(); ?>
 		<div class="page-section">
 			<div class="page-section-head"> Rankings </div>
-			<div class="page-section-content">
+			<div class="page-section-content" style="overflow-x: scroll;">
 				<table class="schedule" id="teamtable">
-				<colgroup>
-					<col span="1" style="width: 8%;">
-					<col span="1" style="width: 8%;">
-					<col span="1" style="width: 8%;">
-					<col span="1" style="width: 8%;">
-				</colgroup>
-				<tr>
-					<th class="schedule-corner schedule-mid" onclick="sortTableInt(0)">Team Number</th>
-					<th class="schedule-head schedule-mid" onclick="sortTableString(1)">Team Name</th>
-					<th class="schedule-head" onclick="sortTableInt(2)">Place Holder</th>
-					<th class="schedule-head" onclick="sortTableInt(3)">Place Holder</th>
-				</tr>
-				<?php $i = 0; 
-					foreach($teams as $team) {
-						if($i % 2 == 0) { ?>
-							<tr class="schedule-zebra-dark">
-								<td class="schedule-match-number schedule-mid"><?= $team->number ?></td>
-								<td class="schedule-mid"><?= $team->name ?></td>
-								<td class=""></td>
-								<td class=""></td>
-							</tr>
-						<?php } else { ?>
-							<tr class="schedule-zebra-light">
-								<td class="schedule-match-number schedule-mid"><?= $team->number ?></td>
-								<td class="schedule-mid"><?= $team->name ?></td>
-								<td class=""></td>
-								<td class=""></td>
-							</tr>
-						<?php } ?>
-					<?php $i++; 
-				} ?>
-		</table>
+					<colgroup>
+						<col span="1" style="width: 8%;">
+						<col span="1" style="width: 8%;">
+						<col span="1" style="width: 8%;">
+						<col span="1" style="width: 8%;">
+					</colgroup>
+					<tr>
+						<th class="schedule-corner schedule-mid" onclick="sortTableInt(0)">Team Number</th>
+						<th class="schedule-head schedule-mid" onclick="sortTableString(1)">Team Name</th>
+						<?php $i = 2; foreach($definitions as $definition) { 
+							if($definition['data_type'] == 1) {?>
+								<th class="schedule-head" onclick=<?= 'sortTableInt(' . $i. ')' ?>><?= $definition['title'] ?></th>
+							<?php } ?>
+						<?php $i ++; } ?>
+					</tr>
+					<?php $i = 0; 
+						foreach($teams as $team) {
+							if($i % 2 == 0) { ?>
+								<tr class="schedule-zebra-dark">
+									<td class="schedule-match-number schedule-mid"><?= $team->number ?></td>
+									<td class="schedule-mid"><?= $team->name ?></td>
+									<?php foreach($definitions as $definition) { 
+										if($definition['data_type'] == 1) { ?>
+											<td><?= $team->getAverage($definition['title']) == null ? 0 : $team->getAverage($definition['title']) ?></td>
+										<?php } ?>
+									<?php } ?>
+								</tr>
+							<?php } else { ?>
+								<tr class="schedule-zebra-light">
+									<td class="schedule-match-number schedule-mid"><?= $team->number ?></td>
+									<td class="schedule-mid"><?= $team->name ?></td>
+									<?php foreach($definitions as $definition) { 
+										if($definition['data_type'] == 1) { ?>
+											<td><?= $team->getAverage($definition['title']) == null ? 0 : $team->getAverage($definition['title']) ?></td>
+										<?php } ?>
+									<?php } ?>
+								</tr>
+							<?php } ?>
+						<?php $i++; 
+					} ?>
+				</table>
 			</div>
 		</div>
 	<?php }
