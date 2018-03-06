@@ -81,4 +81,3 @@ switch($controller)
 }
 
 $length = microtime(true) - $startTime;
-
