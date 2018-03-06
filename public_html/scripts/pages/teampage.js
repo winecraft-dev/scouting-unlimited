@@ -1,17 +1,45 @@
 var teamPage = "";
 
-var teamPageTeam = -1;
+function loadOffline()
+{
+	offline = !navigator.onLine;
+	setInterval(function() {
+		checkOffline();
+	}, 500);
 
-function loadTeamPage() 
+	loadOfflineMatchData();
+	loadOfflinePitNotes();
+
+	if(!offline)
+	{
+		loadTeams();
+		loadPitNotesDefinitions();
+
+		loadPage();
+		loadErrorPage();
+	}
+	else
+	{
+		loadTeamsOffline();
+		loadPitNotesDefinitionsOffline();
+
+		loadPageOffline();
+		loadErrorPageOffline();
+		
+		completeAjax();
+	}
+}
+
+function loadPage() 
 {
 	request = $.ajax({
-			url: "/?c=teams&do=displayTeam",
+			url: "/?p=teams&do=displayTeam",
 			type: "get"
 	});
 	request.done(function(response, textStatus, jqXHR) {
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else
 		{
@@ -21,28 +49,16 @@ function loadTeamPage()
 	});
 }
 
-function loadTeamPageOffline()
+function loadPageOffline()
 {
 	teamPage = localStorage.getItem("teamPage");
 }
 
-function pasteTeamPage(t)
+function pastePage()
 {
-	if(!offline)
-	{
-		teamPageTeam = t;
-		pasteTeamPageContent(teamPageTeam);
-	}
-	else
-	{
-		teamPageTeam = t;
-		pasteTeamPageContent(teamPageTeam);
-	}
-}
+	var url = new URL("http://localhost" + window.location.href);
+	var teamPageTeam = url.searchParams.get("team");
 
-function pasteTeamPageContent()
-{
-	pastingTeamPage = false;
 	document.title = "Team " + teamPageTeam + " - CRyptonite Robotics";
 
 	var team = getTeam(teamPageTeam);
@@ -52,7 +68,7 @@ function pasteTeamPageContent()
 	$('#team-number').text(teamPageTeam).hide();
 
 	if(!offline)
-		$('#image-iframe').attr('src', '/?c=teams&do=teamImage&team=' + teamPageTeam);
+		$('#image-iframe').attr('src', '/?p=teams&do=teamImage&team=' + teamPageTeam);
 	else
 		$('#image-iframe').replaceWith("You cannot view the image offline");
 
@@ -146,32 +162,3 @@ $(document).on('click', '#pit_notes.dataentry-submit', function() {
 		}
 	}
 });
-
-function submitPitNotes(values)
-{
-	request = $.ajax({
-		url: "/?c=teams&do=enterPitNotes",
-		type: "post",
-		data: values
-	}).done(function(response, textStatus, jqXHR) {
-		console.log(response);
-		if(response == "NOT LOGGED IN")
-		{
-			window.location.href = "/?c=login";
-		}
-		else if(response == "NOT ENOUGH PERMISSIONS")
-		{
-			window.location.href = "/?c=login&do=logout";
-		}
-		else if(response == "NO DATA")
-		{
-			
-		}
-		else if(response == "SUCCESS")
-		{
-			window.location.reload();
-			deleteOfflinePitNotes(values['team_number']);
-			alert("Pit notes for team " + values['team_number'] + " have been successfully uploaded.");
-		}
-	});
-}

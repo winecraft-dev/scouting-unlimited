@@ -19,54 +19,6 @@ var scoutingPositionLoading = false;
 var offlineDataLoading = false;
 var offlinePitNotesLoading = false;
 
-function loadOffline()
-{
-	offline = !navigator.onLine;
-	setInterval(function() {
-		checkOffline();
-	}, 500);
-	
-	loadOfflineMatchData();
-	loadOfflinePitNotes();
-
-	if(!offline)
-	{
-		loadSchedule();
-		loadTeams();
-		loadMatchData();
-		loadDataDefinitions();
-		loadPitNotesDefinitions();
-		loadScoutingPosition();
-
-		loadSchedulePage();
-		loadAdminPanelPage();
-		loadErrorPage();
-		loadDataFormPage();
-		loadTeamsListPage();
-		loadMatchDataPage();
-		loadTeamPage();
-	}
-	else
-	{
-		loadScheduleOffline();
-		loadTeamsOffline();
-		loadMatchDataOffline();
-		loadDataDefinitionsOffline();
-		loadPitNotesDefinitionsOffline();
-		loadScoutingPositionOffline();
-
-		loadSchedulePageOffline();
-		loadAdminPanelPageOffline();
-		loadErrorPageOffline();
-		loadDataFormPageOffline();
-		loadTeamsListPageOffline();
-		loadMatchDataPageOffline();
-		loadTeamPageOffline();
-		
-		completeAjax();
-	}
-}
-
 /*
 
 Functions that get data, kinda like databasemodels, but only pulling from localStorage
@@ -168,16 +120,16 @@ function loadSchedule()
 	schedule = [];
 	scheduleLoading = true;
 	request = $.ajax({
-		url: "/?c=offline&do=getSchedule",
+		url: "/?p=offline&do=getSchedule",
 		type: "get"
 	}).done(function (response, textStatus, jqXHR) {
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			window.location.replace("/?c=login&do=logout");
+			window.location.replace("/?p=login&do=logout");
 		}
 		else
 		{
@@ -206,16 +158,16 @@ function loadTeams()
 	teams = [];
 	teamsLoading = true;
 	request = $.ajax({
-		url: "/?c=offline&do=getTeams",
+		url: "/?p=offline&do=getTeams",
 		type: "get"
 	}).done(function (response, textStatus, jqXHR) {
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			window.location.replace("/?c=login&do=logout");
+			window.location.replace("/?p=login&do=logout");
 		}
 		else
 		{
@@ -244,17 +196,17 @@ function loadMatchData()
 	matchData = [];
 	matchDataLoading = true;
 	request = $.ajax({
-		url: "/?c=offline&do=getMatchData",
+		url: "/?p=offline&do=getMatchData",
 	type: "get"
 	}).done(function (response, textStatus, jqXHR) 
 	{
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			window.location.replace("/?c=login&do=logout");
+			window.location.replace("/?p=login&do=logout");
 		}
 		else
 		{
@@ -283,17 +235,17 @@ function loadDataDefinitions()
 	dataDefinitions = [];
 	dataDefinitionsLoading = true;
 	request = $.ajax({
-		url: "/?c=offline&do=getDataDefinitions",
+		url: "/?p=offline&do=getDataDefinitions",
 		type: "get"
 	}).done(function (response, textStatus, jqXHR) 
 	{
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			window.location.replace("/?c=login&do=logout");
+			window.location.replace("/?p=login&do=logout");
 		}
 		else
 		{
@@ -322,17 +274,17 @@ function loadPitNotesDefinitions()
 	pitNotesDefinitions = [];
 	pitNotesDefinitionsLoading = true;
 	request = $.ajax({
-		url: "/?c=offline&do=getPitNotesDefinitions",
+		url: "/?p=offline&do=getPitNotesDefinitions",
 		type: "get"
 	}).done(function (response, textStatus, jqXHR) 
 	{
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else if(response == "NOT ENOUGH PERMISSIONS")
 		{
-			window.location.replace("/?c=login&do=logout");
+			window.location.replace("/?p=login&do=logout");
 		}
 		else
 		{
@@ -361,13 +313,13 @@ function loadScoutingPosition()
 	scoutingPosition = 0;
 	scoutingPositionLoading = true;
 	request = $.ajax({
-		url: "/?c=adminpanel&do=getScoutingPosition",
+		url: "/?p=adminpanel&do=getScoutingPosition",
 		type: "get"
 	}).done(function (response, textStatus, jqXHR) 
 	{
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else
 		{
@@ -403,6 +355,11 @@ function storeOfflineMatchData(data)
 {
 	data = JSON.parse(data);
 
+	for(d of matchData)
+	{
+		if(d.match_number == data['match_number'] && d.team_number == data['team_number'])
+			return "OVERRIDE?";		
+	}
 	for(d of offlineData)
 	{
 		if(d.match_number == data['match_number'] && d.team_number == data['team_number'])
@@ -421,6 +378,7 @@ function overrideOfflineMatchData(data)
 
 	for(index in offlineData)
 	{
+		d = offlineData[index];
 		if(d.match_number == data['match_number'] && d.team_number == data['team_number'])
 			offlineData.splice(index, 1);
 	}
@@ -460,6 +418,7 @@ function loadOfflinePitNotes()
 function storeOfflinePitNotes(values)
 {
 	team_number = values['team_number'];
+	deleteOfflinePitNotes(team_number);
 	data = JSON.parse(values['data']);
 
 	offlinePitNotes.push(values);
@@ -519,4 +478,84 @@ function checkOffline()
 			}
 		}
 	}
+}
+
+
+function submitMatchData(values)
+{
+	var team_number = JSON.parse(values['data'])['team_number'];
+	var match_number = JSON.parse(values['data'])['match_number'];
+
+	request = $.ajax({
+			url: "/?p=dataentry&do=enterData",
+			type: "post",
+			data: values
+	}).done(function(response, textStatus, jqXHR) {
+		console.log(response);
+		if(response == "NOT LOGGED IN")
+		{
+			window.location.href = "/?p=login";
+		}
+		else if(response == "NOT ENOUGH PERMISSIONS")
+		{
+			location.reload();
+		}
+		else if(response == "NO DATA")
+		{
+			
+		}
+		else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
+		{
+			if(confirm("Match " + match_number + ", Team " + team_number + " has already been scouted. Would you like to override it?"))
+			{
+				request = $.ajax({
+						url: "/?p=dataentry&do=updateData",
+						type: "post",
+						data: values
+				}).done(function(response, textStatus, jqXHR) {
+					if(response == "SUCCESS")
+					{
+						deleteOfflineMatchData(team_number, match_number);
+						alert("Match " + match_number + ", Team " + team_number + " successfully overridden");
+						window.location.reload();
+					}
+				});
+			}
+		}
+		else if(response == "SUCCESS")
+		{
+			deleteOfflineMatchData(team_number, match_number);
+			alert("Match " + match_number + ", Team " + team_number + " successfully scouted");
+			window.location.reload();
+		}
+	});
+}
+
+function submitPitNotes(values)
+{
+	request = $.ajax({
+		url: "/?p=teams&do=enterPitNotes",
+		type: "post",
+		data: values
+	}).done(function(response, textStatus, jqXHR) {
+		console.log(response);
+		if(response == "NOT LOGGED IN")
+		{
+			window.location.href = "/?p=login";
+		}
+		else if(response == "NOT ENOUGH PERMISSIONS")
+		{
+			window.location.href = "/?p=login&do=logout";
+		}
+		else if(response == "NO DATA")
+		{
+			
+		}
+		else if(response == "SUCCESS")
+		{
+			window.location.reload();
+			deleteOfflinePitNotes(values['team_number']);
+			alert("Pit notes for team " + values['team_number'] + " have been successfully uploaded.");
+		}
+	});
 }

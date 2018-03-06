@@ -1,9 +1,43 @@
 var dataFormPage = "";
 
-function loadDataFormPage() 
+function loadOffline()
+{
+	offline = !navigator.onLine;
+	setInterval(function() {
+		checkOffline();
+	}, 500);
+
+	loadOfflineMatchData();
+	loadOfflinePitNotes();
+
+	if(!offline)
+	{
+		loadSchedule();
+		loadTeams();
+		loadMatchData();
+		loadScoutingPosition();
+
+		loadPage();
+		loadErrorPage();
+	}
+	else
+	{
+		loadScheduleOffline();
+		loadTeamsOffline();
+		loadMatchDataOffline();
+		loadScoutingPositionOffline();
+		
+		loadPageOffline();
+		loadErrorPageOffline();
+		
+		completeAjax();
+	}
+}
+
+function loadPage() 
 {
 	request = $.ajax({
-			url: "/?c=dataentry&do=display",
+			url: "/?p=dataentry&do=display",
 			type: "get"
 	});
 	request.done(function (response, textStatus, jqXHR) {
@@ -19,12 +53,12 @@ function loadDataFormPage()
 	});
 }
 
-function loadDataFormPageOffline()
+function loadPageOffline()
 {
 	dataFormPage = localStorage.getItem("dataFormPage");
 }
 
-function pasteDataFormPage()
+function pastePage()
 {
 	if(scoutingPosition > 6 || scoutingPosition < 1)
 	{
@@ -60,6 +94,7 @@ $(document).on('change', '#match_number.dataentry-module-number', function(e) {
 	var team = "";
 	var matchI = schedule[$(this).val() - 1];
 	
+	console.log(matchI);
 	switch(scoutingPosition)
 	{
 		case '1':
@@ -69,7 +104,7 @@ $(document).on('change', '#match_number.dataentry-module-number', function(e) {
 			team = matchI.red_2;
 			break;
 		case '3':
-			team = matchI.blue_3;
+			team = matchI.red_3;
 			break;
 		case '4':
 			team = matchI.blue_1;
@@ -167,66 +202,16 @@ $(document).on('click', '#data-entry.dataentry-submit', function() {
 					switch(overrideOfflineMatchData(values['data']))
 					{
 						case "SUCCESS":
-							setPage("http://localhost/?p=datapanel");
 							alert("Match " + match_number + ", Team " + team_number + " successfully overriden offline");
+							window.location.reload();
 							break;
 					}
 				}
 				break;
 			case "SUCCESS":
-				setPage("http://localhost/?p=datapanel");
 				alert("Match " + match_number + ", Team " + team_number + " successfully scouted offline");
+				window.location.reload();
 				break;
 		}
 	}
 });
-
-function submitMatchData(values)
-{
-	var team_number = JSON.parse(values['data'])['team_number'];
-	var match_number = JSON.parse(values['data'])['match_number'];
-
-	request = $.ajax({
-			url: "/?c=dataentry&do=enterData",
-			type: "post",
-			data: values
-	}).done(function(response, textStatus, jqXHR) {
-		console.log(response);
-		if(response == "NOT LOGGED IN")
-		{
-			window.location.href = "/?c=login";
-		}
-		else if(response == "NOT ENOUGH PERMISSIONS")
-		{
-			location.reload();
-		}
-		else if(response == "NO DATA")
-		{
-			
-		}
-		else if(response == "MATCH HAS ALREADY BEEN SCOUTED")
-		{
-			if(confirm("Match " + match_number + ", Team " + team_number + " has already been scouted. Would you like to override it?"))
-			{
-				request = $.ajax({
-						url: "/?c=dataentry&do=updateData",
-						type: "post",
-						data: values
-				}).done(function(response, textStatus, jqXHR) {
-					if(response == "SUCCESS")
-					{
-						deleteOfflineMatchData(team_number, match_number);
-						setPage("http://localhost/?p=datapanel");
-						alert("Match " + match_number + ", Team " + team_number + " successfully overridden");
-					}
-				});
-			}
-		}
-		else if(response == "SUCCESS")
-		{
-			deleteOfflineMatchData(team_number, match_number);
-			setPage("http://localhost/?p=datapanel");
-			alert("Match " + match_number + ", Team " + team_number + " successfully scouted");
-		}
-	});
-}

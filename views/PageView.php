@@ -2,11 +2,18 @@
 abstract class PageView implements View
 {
 	protected $title = 'CRyptonite Robotics - CRyptonite Robotics';
+	protected $scripts = array();
+
+	public function __construct($title, $scripts)
+	{
+		$this->title = $title;
+		$this->scripts = $scripts;
+	}
 
 	function renderHead()
 	{ ?>
 		<!DOCTYPE html>
-		<html manifest="index.appcache">
+		<html>
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<title><?= $this->title ?></title>
@@ -20,15 +27,12 @@ abstract class PageView implements View
 					<script type="text/javascript" src="/scripts/session.js"></script>
 					<script type="text/javascript" src="/scripts/mobile-resizer.js"></script>
 					<script type="text/javascript" src="/scripts/menu.js"></script>
-					
-					<script type="text/javascript" src="/scripts/pages/schedulepage.js"></script>
-					<script type="text/javascript" src="/scripts/pages/adminpanelpage.js"></script>
-					<script type="text/javascript" src="/scripts/pages/errorpage.js"></script>
-					<script type="text/javascript" src="/scripts/pages/dataformpage.js"></script>
-					<script type="text/javascript" src="/scripts/pages/teamslistpage.js"></script>
-					<script type="text/javascript" src="/scripts/pages/matchdatapage.js"></script>
-					<script type="text/javascript" src="/scripts/pages/teampage.js"></script>
-					
+					<script type="text/javascript" src="/scripts/error.js"></script>
+
+					<?php foreach($this->scripts as $script) { ?>
+						<script type="text/javascript" src=<?= $script ?>></script>
+					<?php } ?>
+
 					<script type="text/javascript" src="/scripts/objects/match.js"></script>
 					<script type="text/javascript" src="/scripts/objects/team.js"></script>
 					<script type="text/javascript" src="/scripts/objects/matchdata.js"></script>

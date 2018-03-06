@@ -1,15 +1,43 @@
 var schedulePage = "";
 
-function loadSchedulePage() 
+function loadOffline()
+{
+	offline = !navigator.onLine;
+	setInterval(function() {
+		checkOffline();
+	}, 500);
+
+	loadOfflineMatchData();
+	loadOfflinePitNotes();
+
+	if(!offline)
+	{
+		loadMatchData();
+
+		loadPage();
+		loadErrorPage();
+	}
+	else
+	{
+		loadMatchDataOffline();
+		
+		loadPageOffline();
+		loadErrorPageOffline();
+		
+		completeAjax();
+	}
+}
+
+function loadPage() 
 {
 	request = $.ajax({
-			url: "/?c=schedule&do=display",
+			url: "/?p=schedule&do=display",
 			type: "get"
 	});
 	request.done(function (response, textStatus, jqXHR) {
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else
 		{
@@ -19,43 +47,20 @@ function loadSchedulePage()
 	});
 }
 
-function loadSchedulePageOffline()
+function loadPageOffline()
 {
 	schedulePage = localStorage.getItem("schedulePage");
 }
 
-function pasteSchedulePage()
+function pastePage()
 {
-	if(!offline)
+	$('.index-content').empty().append(schedulePage);
+	for(d of matchData)
 	{
-		loadMatchData();
-		
-		$(document).ajaxStop(function() {
-			if(matchDataLoading)
-			{
-				matchDataLoading = false;
-				$('.index-content').empty().append(schedulePage);
-				for(d of matchData)
-				{
-					$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done');
-				}
-				for(d of offlineData)
-				{
-					$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done-offline');
-				}
-			}
-		});
+		$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done');
 	}
-	else
+	for(d of offlineData)
 	{
-		$('.index-content').empty().append(schedulePage);
-		for(d of matchData)
-		{
-			$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done');
-		}
-		for(d of offlineData)
-		{
-			$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done-offline');
-		}
+		$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done-offline');
 	}
 }

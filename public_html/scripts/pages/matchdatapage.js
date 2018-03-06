@@ -1,15 +1,45 @@
 var matchDataPage = "";
 
-function loadMatchDataPage() 
+function loadOffline()
+{
+	offline = !navigator.onLine;
+	setInterval(function() {
+		checkOffline();
+	}, 500);
+
+	loadOfflineMatchData();
+	loadOfflinePitNotes();
+
+	if(!offline)
+	{
+		loadMatchData();
+		loadSchedule();
+
+		loadPage();
+		loadErrorPage();
+	}
+	else
+	{
+		loadMatchDataOffline();
+		loadScheduleOffline();
+
+		loadPageOffline();
+		loadErrorPageOffline();
+		
+		completeAjax();
+	}
+}
+
+function loadPage() 
 {
 	request = $.ajax({
-			url: "/?c=dataentry&do=displaymatchdata",
+			url: "/?p=dataentry&do=displaymatchdata",
 			type: "get"
 	});
 	request.done(function(response, textStatus, jqXHR) {
 		if(response == "NOT LOGGED IN")
 		{
-			window.location.replace("/?c=login");
+			window.location.replace("/?p=login");
 		}
 		else
 		{
@@ -19,13 +49,16 @@ function loadMatchDataPage()
 	});
 }
 
-function loadMatchDataPageOffline()
+function loadPageOffline()
 {
 	matchDataPage = localStorage.getItem("matchDataPage");
 }
 
-function pasteMatchDataPage(matchnumber)
+function pastePage()
 {
+	var url = new URL("http://localhost" + window.location.href);
+	matchnumber = url.searchParams.get("match");
+
 	document.title = "Match " + matchnumber + " - CRyptonite Robotics";
 	$('.index-content').empty();
 	$('.index-content').append(matchDataPage);

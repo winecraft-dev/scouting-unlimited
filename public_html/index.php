@@ -16,21 +16,21 @@ ini_set('date.timezone', 'America/Chicago');
 $fileRoot = $_SERVER['DOCUMENT_ROOT'] . '/../';
 
 function autoload($class) {
-  $fileRoot = $GLOBALS['fileRoot'];
-  
-  if (strstr($class, 'View') === 'View') {
-    $includeFolder = '/views/';
-  } else if (strstr($class, 'Model') === 'Model') {
-    $includeFolder = '/models/';
-  } else if (strstr($class, 'Controller') === 'Controller') {
-    $includeFolder = '/controllers/';
-  } else {
-    $includeFolder = '/classes/';
-  }
-  
-  if(file_exists($fileRoot . $includeFolder . $class . '.php')) {
-    include ($fileRoot . $includeFolder . $class . '.php'); 
-  }
+	$fileRoot = $GLOBALS['fileRoot'];
+	
+	if (strstr($class, 'View') === 'View') {
+		$includeFolder = '/views/';
+	} else if (strstr($class, 'Model') === 'Model') {
+		$includeFolder = '/models/';
+	} else if (strstr($class, 'Controller') === 'Controller') {
+		$includeFolder = '/controllers/';
+	} else {
+		$includeFolder = '/classes/';
+	}
+	
+	if(file_exists($fileRoot . $includeFolder . $class . '.php')) {
+		include ($fileRoot . $includeFolder . $class . '.php'); 
+	}
 }
 
 //tell PHP to use our autoload function ^
@@ -43,37 +43,40 @@ $config = new Configuration($fileRoot . 'config.ini');
 Session::setup();
 Sanitizer::sanitize();
 
-$controller = isset($_GET['c']) ? $_GET['c'] : 'index';
-$action = isset($_GET['do']) ? $_GET['do'] : 'display';
+$controller = isset($_GET['p']) ? $_GET['p'] : 'login';
+$action = isset($_GET['do']) ? $_GET['do'] : 'view';
 
 switch($controller)
 {
-  case 'login':
-    (new LoginController($action))->executeAction();
-    break;
-  case 'index':
-    (new IndexPageController($action))->executeAction();
-    break;
-  case 'dataentry':
-    (new DataEntryController($action))->executeAction();
-    break;
-  case 'teams':
-    (new TeamsListController($action))->executeAction();
-    break;
-  case 'rankings':
-    (new TeamsController('rankings'))->executeAction();
-    break;
-  case 'adminpanel':
-    (new AdminPanelController($action))->executeAction();
-    break;
-  case 'schedule':
-    (new ScheduleController($action))->executeAction();
-    break;
-  case 'offline':
-    (new OfflineClientController($action))->executeAction();
-    break;
+	case 'login':
+		(new LoginController($action))->executeAction();
+		break;
+	case 'dataentry':
+		(new DataEntryController($action))->executeAction();
+		break;
+	case 'teams':
+		(new TeamsListController($action))->executeAction();
+		break;
+	case 'teamdata':
+		(new TeamsListController('viewTeam'))->executeAction();
+		break;
+	case 'rankings':
+		(new TeamsController('rankings'))->executeAction();
+		break;
+	case 'matchdata':
+		(new DataEntryController('viewMatchData'))->executeAction();
+		break;
+	case 'adminpanel':
+		(new AdminPanelController($action))->executeAction();
+		break;
+	case 'schedule':
+		(new ScheduleController($action))->executeAction();
+		break;
+	case 'offline':
+		(new OfflineClientController($action))->executeAction();
+		break;
 	default:
-	  (new ErrorView())->render("Your URL is broken.");
+		(new ErrorView())->render("Your URL is broken.");
 		break;
 }
 

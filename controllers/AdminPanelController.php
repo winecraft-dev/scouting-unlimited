@@ -14,7 +14,19 @@ class AdminPanelController extends Controller
 		{
 			echo "NOT LOGGED IN";
 		}
-	}	
+	}
+
+	public function view()
+	{
+		if(Session::isLoggedIn())
+		{
+			(new IndexPageView('Admin Panel - CRyptonite Robotics', ['/scripts/pages/adminpanelpage.js']))->render();
+		}
+		else
+		{
+			header("Location: /?p=login");
+		}
+	}
 	
 	public function getScoutingPosition()
 	{

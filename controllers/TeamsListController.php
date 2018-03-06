@@ -16,6 +16,18 @@ class TeamsListController extends Controller
 		}
 	}
 
+	public function view()
+	{
+		if(Session::isLoggedIn())
+		{
+			(new IndexPageView('Teams List - CRyptonite Robotics', ['/scripts/pages/teamslistpage.js']))->render();
+		}
+		else
+		{
+			header("Location: /?p=login");
+		}
+	}
+
 	public function displayTeam()
 	{
 		if(Session::isLoggedIn())
@@ -28,6 +40,18 @@ class TeamsListController extends Controller
 		else
 		{
 			echo "NOT LOGGED IN";
+		}
+	}
+
+	public function viewTeam()
+	{
+		if(Session::isLoggedIn())
+		{
+			(new IndexPageView('Team - CRyptonite Robotics', ['/scripts/pages/teampage.js']))->render();
+		}
+		else
+		{
+			header("Location: /?p=login");
 		}
 	}
 

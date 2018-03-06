@@ -3,7 +3,7 @@
 function loadErrorPage() 
 {
 	request = $.ajax({
-			url: "/?c=offline&do=getErrorPage",
+			url: "/?p=offline&do=getErrorPage",
 			type: "get"
 	});
 	request.done(function (response, textStatus, jqXHR) {

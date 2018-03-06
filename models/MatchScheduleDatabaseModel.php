@@ -3,39 +3,39 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 {
 	//USE THE ABSTRACT CLASS
 	
-  public function getMatch($match_number)
-  {
-    $query = self::$conn->prepare("SELECT schedule.*
-        FROM schedule WHERE match_number=:match_number LIMIT 1");
-    $query->bindValue(':match_number', $match_number);
-    $query->execute();
+	public function getMatch($match_number)
+	{
+		$query = self::$conn->prepare("SELECT schedule.*
+				FROM schedule WHERE match_number=:match_number LIMIT 1");
+		$query->bindValue(':match_number', $match_number);
+		$query->execute();
 
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    if($result !== false)
-      return (new Match($result));
-    return false;
-  }
-  
-  public function getMatches()
-  {
-    $query = self::$conn->prepare("SELECT schedule.* FROM schedule");
-    $query->execute();
-    
-    $matches = array();
-    
-    $results = $query->fetchAll(PDO::FETCH_ASSOC);
-    
-    if($results === false)
-      return false;
-    
-    foreach($results as $result)
-    {
-      $matches[] = (new Match($result));
-    }
-    return $matches;
-  }
-  
-  public function getMatchesByTeam($team)
+		$result = $query->fetch(PDO::FETCH_ASSOC);
+		if($result !== false)
+			return (new Match($result));
+		return false;
+	}
+	
+	public function getMatches()
+	{
+		$query = self::$conn->prepare("SELECT schedule.* FROM schedule");
+		$query->execute();
+		
+		$matches = array();
+		
+		$results = $query->fetchAll(PDO::FETCH_ASSOC);
+		
+		if($results === false)
+			return false;
+		
+		foreach($results as $result)
+		{
+			$matches[] = (new Match($result));
+		}
+		return $matches;
+	}
+	
+	public function getMatchesByTeam($team)
 	{
 		$matches = $this->getMatches();
 		$matchesIncluded = array();
@@ -61,10 +61,10 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 		}
 		return $matchesIncluded;
 	}
-  
-  public function loadMatchesFromApi($eventCode)
-  {
-    $query = self::$conn->prepare("DELETE FROM schedule");
+	
+	public function loadMatchesFromApi($eventCode)
+	{
+		$query = self::$conn->prepare("DELETE FROM schedule");
 		$query->execute();
 
 		$query6 = self::$conn->prepare("DELETE FROM match_data");
@@ -77,7 +77,7 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 		$query4->bindValue(':code', $eventCode, PDO::PARAM_STR);
 		$query4->execute();
 		
-    $config = $GLOBALS['config'];
+		$config = $GLOBALS['config'];
 		
 		$auth = "Authorization: Basic " . base64_encode($config->get('api_key') . ':' . $config->get('api_password')); 
 		$opts = array(
@@ -119,6 +119,6 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 			}
 		}
 		return true;
-  }
+	}
 }
 ?>

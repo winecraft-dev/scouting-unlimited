@@ -1,7 +1,7 @@
 <?php
 class LoginController extends Controller
 {
-  public function display()
+  public function view()
   {
     if(!(Session::isLoggedIn()))
     {
@@ -16,7 +16,7 @@ class LoginController extends Controller
     }
     else
     {
-      header("Location: /");
+      header("Location: /?p=dataentry");
     }  
   }
   
@@ -44,7 +44,7 @@ class LoginController extends Controller
       }
       Session::logIn($user);
       
-      echo "/";
+      echo "/?p=dataentry";
       return;
     }
     else
@@ -87,6 +87,6 @@ class LoginController extends Controller
   public function logout()
   {
     Session::logout();
-    header("Location: /?c=login");
+    header("Location: /?p=login");
   }
 }

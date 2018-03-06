@@ -15,6 +15,18 @@ class DataEntryController extends Controller
 			echo "NOT LOGGED IN";
 		}
 	}
+
+	public function view()
+	{
+		if(Session::isLoggedIn())
+		{
+			(new IndexPageView('Data Entry - CRyptonite Robotics', ['/scripts/pages/dataformpage.js']))->render();
+		}
+		else
+		{
+			header("Location: /?p=login");
+		}
+	}
 	
 	public function displayMatchData()
 	{
@@ -28,6 +40,18 @@ class DataEntryController extends Controller
 		else
 		{
 			echo "NOT LOGGED IN";
+		}
+	}
+	
+	public function viewMatchData()
+	{
+		if(Session::isLoggedIn())
+		{
+			(new IndexPageView('Match Data - CRyptonite Robotics', ['/scripts/pages/matchdatapage.js']))->render();
+		}
+		else
+		{
+			header("Location: /?p=login");
 		}
 	}
 	

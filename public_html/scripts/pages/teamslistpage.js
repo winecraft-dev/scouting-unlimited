@@ -1,9 +1,39 @@
 var teamsListPage = "";
 
-function loadTeamsListPage() 
+function loadOffline()
+{
+	offline = !navigator.onLine;
+	setInterval(function() {
+		checkOffline();
+	}, 500);
+
+	loadOfflineMatchData();
+	loadOfflinePitNotes();
+
+	if(!offline)
+	{
+		loadTeams();
+		loadSchedule();
+
+		loadPage();
+		loadErrorPage();
+	}
+	else
+	{
+		loadTeamsOffline();
+		loadScheduleOffline();
+
+		loadPageOffline();
+		loadErrorPageOffline();
+		
+		completeAjax();
+	}
+}
+
+function loadPage() 
 {
 	request = $.ajax({
-			url: "/?c=teams&do=display",
+			url: "/?p=teams&do=display",
 			type: "get"
 	});
 	request.done(function (response, textStatus, jqXHR) {
@@ -19,12 +49,12 @@ function loadTeamsListPage()
 	});
 }
 
-function loadTeamsListPageOffline()
+function loadPageOffline()
 {
 	teamsListPage = localStorage.getItem("teamsListPage");
 }
 
-function pasteTeamsListPage()
+function pastePage()
 {
 	$('.index-content').empty().append(teamsListPage);
 

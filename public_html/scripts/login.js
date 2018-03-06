@@ -50,7 +50,7 @@ $(document).ready(function() {
             'password': password
     };
     request = $.ajax({
-        url: "/?c=login&do=login",
+        url: "/?p=login&do=login",
         type: "post",
         data: values
     });
@@ -175,7 +175,7 @@ $(document).ready(function() {
       }
     });
     setTimeout(function() {
-      $('#register.login-link').replaceWith('<a href="/?c=login" class="login-link" id="login">Back to Login</a>');
+      $('#register.login-link').replaceWith('<a href="/?p=login" class="login-link" id="login">Back to Login</a>');
       $({blurRadius: 0}).animate({blurRadius: 100}, {
         duration: 500,
         easing: 'swing', // or "linear"
@@ -198,7 +198,7 @@ $(document).ready(function() {
   	};
   	
   	request = $.ajax({
-        url: "/?c=login&do=register",
+        url: "/?p=login&do=register",
         type: "post",
         data: values
     });
@@ -207,7 +207,7 @@ $(document).ready(function() {
       console.log(response + " " + textStatus + " " + jqXHR);
       if(response == "REGISTERED")
       {
-        window.location.replace("/?c=login&register=true");
+        window.location.replace("/?p=login&register=true");
       }
       else
       {
