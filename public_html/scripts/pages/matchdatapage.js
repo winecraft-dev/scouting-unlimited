@@ -14,6 +14,7 @@ function loadOffline()
 	{
 		loadMatchData();
 		loadSchedule();
+		loadDataDefinitions();
 
 		loadPage();
 		loadErrorPage();
@@ -22,6 +23,7 @@ function loadOffline()
 	{
 		loadMatchDataOffline();
 		loadScheduleOffline();
+		loadDataDefinitionsOffline();
 
 		loadPageOffline();
 		loadErrorPageOffline();

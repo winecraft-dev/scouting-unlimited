@@ -13,6 +13,8 @@ function loadOffline()
 	if(!offline)
 	{
 		loadTeams();
+		loadMatchData();
+		loadSchedule();
 		loadPitNotesDefinitions();
 
 		loadPage();
@@ -21,6 +23,8 @@ function loadOffline()
 	else
 	{
 		loadTeamsOffline();
+		loadMatchDataOffline();
+		loadScheduleOffline();
 		loadPitNotesDefinitionsOffline();
 
 		loadPageOffline();
@@ -122,6 +126,42 @@ function pastePage()
 		var id = index.replace(/ /g, "-");
 
 		$('#' + id).text(team.averages[index]);
+	}
+
+	var i = 0;
+	var matches = getMatchesByTeam(teamPageTeam);
+	for(m of matches)
+	{
+		var append = '';
+		if(i % 2 == 0)
+		{
+			append += '<tr class="schedule-zebra-light"><td class="matches" id="' + m.match_number + '">';
+		}
+		else
+		{
+			append += '<tr class="schedule-zebra-dark"><td class="matches" id="' + m.match_number + '">';
+		}
+
+		if(getOfflineMatchData(m.match_number, teamPageTeam) != null)
+		{
+			append += '<a style="color:black;" href="/?p=matchdata&match=' + m.match_number 
+					+ '"><mark class="schedule-done-offline">' + m.match_number 
+					+ '</mark></a></td></tr>';
+		}
+		else if(getMatchData(m.match_number, teamPageTeam) != null)
+		{
+			append += '<a style="color:black;" href="/?p=matchdata&match=' + m.match_number 
+					+ '"><mark class="schedule-done">' + m.match_number 
+					+ '</mark></a></td></tr>';
+		}
+		else
+		{
+			append += '<a style="color:black;" href="/?p=matchdata&match=' + m.match_number 
+					+ '"><mark class="schedule-undone">' + m.match_number 
+					+ '</mark></a></td></tr>';
+		}
+		i ++;
+		$('#matches.schedule').append(append);
 	}
 }
 

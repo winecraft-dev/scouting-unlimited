@@ -25,19 +25,40 @@ Functions that get data, kinda like databasemodels, but only pulling from localS
 
 */
 
-function getMatchData(matchnumber, team)
+function getMatchData(m, t)
 {
 	for(match of matchData)
 	{
-		if(match.match_number == matchnumber)
+		if(match.match_number == m)
 		{
-			if(match.team_number == team)
+			if(match.team_number == t)
 			{
 				return match;
 			}
 		}
 	}
 	return null;
+}
+
+function getMatchesByTeam(t)
+{
+	matches = [];
+	for(match of schedule)
+	{
+		if(match.red_1 == t)
+			matches.push(match);
+		if(match.red_2 == t)
+			matches.push(match);
+		if(match.red_3 == t)
+			matches.push(match);
+		if(match.blue_1 == t)
+			matches.push(match);
+		if(match.blue_2 == t)
+			matches.push(match);
+		if(match.blue_3 == t)
+			matches.push(match);
+	}
+	return matches;
 }
 
 function getMatch(matchnumber)
@@ -104,6 +125,21 @@ function getOfflinePitNotes(teamnumber)
 		if(p['team_number'] == teamnumber)
 		{
 			return p;
+		}
+	}
+	return null;
+}
+
+function getOfflineMatchData(m, t)
+{
+	for(match of offlineData)
+	{
+		if(match.match_number == m)
+		{
+			if(match.team_number == t)
+			{
+				return match;
+			}
 		}
 	}
 	return null;

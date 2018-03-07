@@ -54,6 +54,9 @@ switch($controller)
 	case 'dataentry':
 		(new DataEntryController($action))->executeAction();
 		break;
+	case 'upcoming':
+		(new ScheduleController('viewUpcoming'))->executeAction();
+		break;
 	case 'teams':
 		(new TeamsListController($action))->executeAction();
 		break;

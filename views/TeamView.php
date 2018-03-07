@@ -50,6 +50,22 @@ class TeamView implements View
 				</table>
 			</div>
 		</div>
+		<div class="page-section">
+			<div class="page-section-head">
+				Matches
+			</div>
+			<div class="page-section-content">
+				<table id="matches" class="schedule">
+					<colgroup>
+						<col span="1" style="width: 35%;">
+						<col span="1" style="width: 55%;">
+					</colgroup>
+					<tr>
+						<th class="schedule-head schedule-mid">Match</th>
+					</tr>
+				</table>
+			</div>
+		</div>
 	<?php }
 
 	public function getInputByDefinition($definition)

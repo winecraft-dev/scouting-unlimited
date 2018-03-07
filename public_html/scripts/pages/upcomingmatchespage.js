@@ -1,4 +1,4 @@
-var schedulePage = "";
+var upcomingMatchesPage = "";
 
 function loadOffline()
 {
@@ -13,6 +13,8 @@ function loadOffline()
 	if(!offline)
 	{
 		loadMatchData();
+		loadTeams();
+		loadSchedule();
 
 		loadPage();
 		loadErrorPage();
@@ -20,6 +22,8 @@ function loadOffline()
 	else
 	{
 		loadMatchDataOffline();
+		loadTeams();
+		loadSchedule();
 		
 		loadPageOffline();
 		loadErrorPageOffline();
@@ -31,7 +35,7 @@ function loadOffline()
 function loadPage() 
 {
 	request = $.ajax({
-			url: "/?p=schedule&do=display",
+			url: "/?p=schedule&do=displayUpcoming",
 			type: "get"
 	});
 	request.done(function (response, textStatus, jqXHR) {
@@ -41,28 +45,18 @@ function loadPage()
 		}
 		else
 		{
-			schedulePage = response;
-			localStorage.setItem("schedulePage", schedulePage);
+			upcomingMatchesPage = response;
+			localStorage.setItem("upcomingMatchesPage", upcomingMatchesPage);
 		}
 	});
 }
 
 function loadPageOffline()
 {
-	schedulePage = localStorage.getItem("schedulePage");
+	upcomingMatchesPage = localStorage.getItem("upcomingMatchesPage");
 }
 
 function pastePage()
 {
-	$('.index-content').empty().append(schedulePage);
-	for(d of matchData)
-	{
-		$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done');
-	}
-	for(d of offlineData)
-	{
-		$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done-offline');
-	}
-
-	
+	$('.index-content').empty().append(upcomingMatchesPage);
 }
