@@ -122,10 +122,16 @@ class AdminPanelController extends Controller
 		}
 		
 		$averageDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
+		$pitNotesDefinitions = (new DataDefinitionsDatabaseModel())->getPitNotesDefinitions();
 		
 		$csv[0][] = "Number";
 		$csv[0][] = "Name";
-		
+
+		foreach($pitNotesDefinitions as $definition)
+		{
+			$csv[0][] = $definition['title'];
+		}
+
 		foreach($averageDefinitions as $definition)
 		{
 			$csv[0][] = $definition['title'];
@@ -137,6 +143,10 @@ class AdminPanelController extends Controller
 			$csv[$i][] = $team->number;
 			$csv[$i][] = $team->name;
 
+			foreach($team->pit_notes as $key => $notes)
+			{
+				$csv[$i][] = $notes;
+			}
 			foreach($team->averages as $key => $average)
 			{
 				$csv[$i][] = $average;
