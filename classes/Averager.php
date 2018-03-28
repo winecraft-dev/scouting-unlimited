@@ -28,6 +28,8 @@ class Averager
 				return $this->matchesDeadShortly();
 			case 'average':
 				return $this->average($definition['column_1']);
+			case 'percentaverage':
+				return $this->percentAverage($definition['column_1']);
 			case 'max':
 				return $this->max($definition['column_1']);
 			case 'concatstring':
@@ -100,8 +102,8 @@ class Averager
 		}
 
 		if($this->matchesPlayed() != 0)
-			return $values[$k] / $this->matchesPlayed();
-		return 0;
+			return $values[$k] / $this->matchesPlayed() * 100 . '%';
+		return '0%';
 	}
 
 	public function average($index)
@@ -115,6 +117,19 @@ class Averager
 		if($this->matchesPlayed() != 0)
 			return round($total / $this->matchesPlayed(), 2);
 		return 0;
+	}
+
+	public function percentAverage($index)
+	{
+		$total = 0;
+		foreach($this->matchData as $md) 
+		{
+			if(!$md->dead)
+				$total += $md->getData($index);
+		}
+		if($this->matchesPlayed() != 0)
+			return (round($total / $this->matchesPlayed(), 2) * 100) . '%';
+		return '0%';
 	}
 
 	public function max($index)

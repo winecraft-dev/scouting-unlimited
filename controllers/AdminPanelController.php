@@ -159,6 +159,56 @@ class AdminPanelController extends Controller
 			fputcsv($output, $row);
 		}
 	}
+
+	public function getCondensedCSV()
+	{
+		header('Content-Disposition: attachment; filename=data.csv');
+		$output = fopen('php://output', 'w');
+		$csv = [];
+		
+		$teams = (new TeamsDatabaseModel())->getTeams();
+		
+		foreach($teams as $team)
+		{
+			$team->updateAverages();
+		}
+		
+		$averageDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
+		
+		$csv[0][] = "Number";
+		$csv[0][] = "Name";
+
+		foreach($averageDefinitions as $definition)
+		{
+			if($definition['condensed_excel'] == 1)
+				$csv[0][] = $definition['title'];
+		}
+		
+		$i = 1;
+		foreach($teams as $team)
+		{
+			$csv[$i][] = $team->number;
+			$csv[$i][] = $team->name;
+
+			foreach($team->averages as $key => $average)
+			{
+				$definition = array();
+				foreach($averageDefinitions as $def)
+				{
+					if($def['title'] == $key)
+						$definition = $def;
+				}
+				if($definition['condensed_excel'] == 1)
+					$csv[$i][] = $average;
+			}
+			$i ++;
+		}
+		
+		foreach($csv as $row)
+		{
+			fputcsv($output, $row);
+		}
+	}
 	
 	public function editScoutingPosition()
 	{

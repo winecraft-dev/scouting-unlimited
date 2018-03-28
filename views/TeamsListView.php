@@ -20,7 +20,7 @@ class TeamsListView implements View
 						<th class="schedule-corner schedule-mid" onclick="sortTableInt(0)">Team Number</th>
 						<th class="schedule-head schedule-mid" onclick="sortTableString(1)">Team Name</th>
 						<?php $i = 2; foreach($definitions as $definition) { 
-							if($definition['data_type'] == 1) {?>
+							if($definition['data_type'] == 1 && $definition['condensed_excel'] == 1) {?>
 								<th class="schedule-head" onclick=<?= 'sortTableInt(' . $i. ')' ?>><?= $definition['title'] ?></th>
 							<?php $i ++; } ?>
 						<?php } ?>
@@ -38,7 +38,7 @@ class TeamsListView implements View
 									</td>
 									<td class="schedule-mid"><?= $team->name ?></td>
 									<?php foreach($definitions as $definition) { 
-										if($definition['data_type'] == 1) { ?>
+										if($definition['data_type'] == 1 && $definition['condensed_excel'] == 1) { ?>
 											<td><?= $team->getAverage($definition['title']) == null ? 0 : $team->getAverage($definition['title']) ?></td>
 										<?php } ?>
 									<?php } ?>
@@ -54,7 +54,7 @@ class TeamsListView implements View
 									</td>
 									<td class="schedule-mid"><?= $team->name ?></td>
 									<?php foreach($definitions as $definition) { 
-										if($definition['data_type'] == 1) { ?>
+										if($definition['data_type'] == 1 && $definition['condensed_excel'] == 1) { ?>
 											<td><?= $team->getAverage($definition['title']) == null ? 0 : $team->getAverage($definition['title']) ?></td>
 										<?php } ?>
 									<?php } ?>
