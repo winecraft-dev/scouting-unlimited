@@ -63,7 +63,7 @@ class TeamsListController extends Controller
 			{
 				$team = isset($_GET['team']) ? $_GET['team'] : null; ?>
 				<body style="margin: 0px; text-align: center;">
-					<img style="margin: auto;" height="80px" width="80px" src=<?= "images/teampictures/" . $team . ".png" ?>></img>
+					<img style="margin: auto;" height="80px" width="80px" src=<?= "images/teampictures/" . $team . ".JPG" ?>></img>
 				</body>
 			<?php }
 			else
