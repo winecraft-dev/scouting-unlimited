@@ -25,6 +25,8 @@ function completeAjax()
 		offlineDataLoading = false;
 		offlinePitNotesLoading = false;
 		
+		initialAjaxCompleted = true;
+		
 		pastePage();
 	}
 }

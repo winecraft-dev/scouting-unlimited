@@ -1,53 +1,53 @@
 CACHE MANIFEST
-/?p=dataentry
-/?p=teams
-/?p=adminpanel
-/?p=schedule
+#/?p=dataentry
+#/?p=teams
+#/?p=adminpanel
+#/?p=schedule
 
-CACHE:
+#CACHE:
 
-/scripts/pages/adminpanelpage.js
-/scripts/pages/dataformpage.js
-/scripts/pages/datapanelpage.js
-/scripts/pages/matchdatapage.js
-/scripts/pages/schedulepage.js
-/scripts/pages/teampage.js
-/scripts/pages/teamslistpage.js
-/scripts/pages/upcomingmatchespage.js
+#/scripts/pages/adminpanelpage.js
+#/scripts/pages/dataformpage.js
+#/scripts/pages/datapanelpage.js
+#/scripts/pages/matchdatapage.js
+#/scripts/pages/schedulepage.js
+#/scripts/pages/teampage.js
+#/scripts/pages/teamslistpage.js
+#/scripts/pages/upcomingmatchespage.js
 
-/scripts/error.js
-/scripts/index.js
-/scripts/jquery-3.3.1.min.js
-/scripts/menu.js
-/scripts/mobile-resizer.js
-/scripts/offline.js
-/scripts/session.js
+#/scripts/error.js
+#/scripts/index.js
+#/scripts/jquery-3.3.1.min.js
+#/scripts/menu.js
+#/scripts/mobile-resizer.js
+#/scripts/offline.js
+#/scripts/session.js
 
-/scripts/objects/match.js
-/scripts/objects/team.js
-/scripts/objects/matchdata.js
+#/scripts/objects/match.js
+#/scripts/objects/team.js
+#/scripts/objects/matchdata.js
 
-/images/add-one.gif
-/images/approve.png
-/images/dropdown.png
-/images/loading.gif
-/images/login-logo.png
-/images/login.jpg
-/images/minus-one.gif
-/images/trash.png
+#/images/add-one.gif
+#/images/approve.png
+#/images/dropdown.png
+#/images/loading.gif
+#/images/login-logo.png
+#/images/login.jpg
+#/images/minus-one.gif
+#/images/trash.png
 
-/fonts/IcoMoon.woff
-/fonts/IcoMoon.ttf
+#/fonts/IcoMoon.woff
+#/fonts/IcoMoon.ttf
 
-favicon.ico
+#favicon.ico
 
-SuperCSSLoader.php
+#SuperCSSLoader.php
 
 
-NETWORK:
-*
+#NETWORK:
+#*
 
-FALLBACK:
-/?p=teamdata&team= /?p=teamdata
-/?p=matchdata&match= /?p=matchdata
-/?p=upcoming&match= /?p=upcoming
+#FALLBACK:
+#/?p=teamdata&team= /?p=teamdata
+#/?p=matchdata&match= /?p=matchdata
+#/?p=upcoming&match= /?p=upcoming
