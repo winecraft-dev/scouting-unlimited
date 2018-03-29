@@ -13,6 +13,7 @@ function loadOffline()
 	if(!offline)
 	{
 		loadMatchData();
+		loadSchedule();
 
 		loadPage();
 		loadErrorPage();
@@ -20,7 +21,8 @@ function loadOffline()
 	else
 	{
 		loadMatchDataOffline();
-		
+		loadScheduleOffline();
+
 		loadPageOffline();
 		loadErrorPageOffline();
 		
@@ -64,5 +66,11 @@ function pastePage()
 		$('#' + d.match_number + '-' + d.team_number).removeClass('schedule-undone').addClass('schedule-done-offline');
 	}
 
-	
+	for(match of schedule)
+	{
+		if(!isUpcoming(match.match_number))
+		{
+			$('#' + match.match_number).attr('href', '/?=matchdata&match=' + match.match_number);
+		}
+	}
 }

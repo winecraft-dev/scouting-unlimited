@@ -34,7 +34,7 @@ class ScheduleView implements View
 						<?php } else { ?>
 							<tr class="schedule-zebra-dark">
 						<?php } ?>
-							<td class="schedule-mid schedule-match-number"><a href=<?= "/?p=matchdata&match=" . $match->match_number ?>><?= $match->match_number ?></a></td>
+							<td class="schedule-mid schedule-match-number"><a id=<?= $match->match_number ?> href=<?= "/?p=upcoming&match=" . $match->match_number ?>><?= $match->match_number ?></a></td>
 							<td class="schedule-red">
 								<a style="color: black;" href=<?= '/?p=teamdata&team=' . $match->red_1 ?>>
 									<mark class="schedule-undone" 

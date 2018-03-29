@@ -1,3 +1,5 @@
+var upcomingMatchesPage = "";
+
 $(document).ready(function() {
 	var open = false;
 	$('.menu-dropdown').hide();

@@ -150,13 +150,13 @@ function pastePage()
 		}
 		else if(getMatchData(m.match_number, teamPageTeam) != null)
 		{
-			append += '<a style="color:black;" href="/?p=matchdata&match=' + m.match_number 
+			append += '<a style="color:black;" href="/?p=upcoming&match=' + m.match_number 
 					+ '"><mark class="schedule-done">' + m.match_number 
 					+ '</mark></a></td></tr>';
 		}
 		else
 		{
-			append += '<a style="color:black;" href="/?p=matchdata&match=' + m.match_number 
+			append += '<a style="color:black;" href="/?p=upcoming&match=' + m.match_number 
 					+ '"><mark class="schedule-undone">' + m.match_number 
 					+ '</mark></a></td></tr>';
 		}

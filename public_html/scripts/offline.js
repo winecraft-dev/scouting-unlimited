@@ -25,6 +25,21 @@ Functions that get data, kinda like databasemodels, but only pulling from localS
 
 */
 
+function isUpcoming(matchnumber)
+{
+	var match = getMatch(matchnumber);
+
+	console.log('test');
+	if(getMatchData(matchnumber, match.red_1) != null
+		&& getMatchData(matchnumber, match.red_2) != null
+		&& getMatchData(matchnumber, match.red_3) != null
+		&& getMatchData(matchnumber, match.blue_1) != null
+		&& getMatchData(matchnumber, match.blue_2) != null
+		&& getMatchData(matchnumber, match.blue_3) != null)
+		return true;
+	return false;
+}
+
 function getMatchData(m, t)
 {
 	for(match of matchData)
