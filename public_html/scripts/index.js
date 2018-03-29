@@ -3,6 +3,11 @@ var initialAjaxCompleted = false;
 $(document).ready(function() {
 	loadOffline();
 	storeSession();
+
+	setInterval(function() {
+		if(!offline)
+			loadScoutingPosition();
+	}, 20000);
 });
 
 $(document).ajaxStop(completeAjax);

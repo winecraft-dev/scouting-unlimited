@@ -376,6 +376,7 @@ function loadScoutingPosition()
 		{
 			scoutingPosition = response;
 			localStorage.setItem("scoutingPosition", response);
+			console.log("Scouting Position: " + scoutingPosition);
 		}
 	});
 }

@@ -13,6 +13,7 @@ CACHE:
 /scripts/pages/schedulepage.js
 /scripts/pages/teampage.js
 /scripts/pages/teamslistpage.js
+/scripts/pages/upcomingmatchespage.js
 
 /scripts/error.js
 /scripts/index.js
@@ -49,3 +50,4 @@ NETWORK:
 FALLBACK:
 /?p=teamdata&team= /?p=teamdata
 /?p=matchdata&match= /?p=matchdata
+/?p=upcoming&match= /?p=upcoming
