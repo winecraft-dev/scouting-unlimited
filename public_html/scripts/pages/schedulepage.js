@@ -70,7 +70,7 @@ function pastePage()
 	{
 		if(!isUpcoming(match.match_number))
 		{
-			$('#' + match.match_number).attr('href', '/?=matchdata&match=' + match.match_number);
+			$('#' + match.match_number).attr('href', '/?p=matchdata&match=' + match.match_number);
 		}
 	}
 }
