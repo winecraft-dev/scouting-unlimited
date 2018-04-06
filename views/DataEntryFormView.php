@@ -8,7 +8,7 @@ class DataEntryFormView implements View
 			<div class="page-section-head">
 				Data Form
 			</div>
-			<div class="page-section-content" style="overflow-x: hide;">
+			<div class="page-section-content" style="overflow-x: auto;">
 				<div class="dataentry-form">
 					<div class="dataentry-sections">
 						<div id="prematch" class="dataentry-tab">Prematch</div>

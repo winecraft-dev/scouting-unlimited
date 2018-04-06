@@ -38,6 +38,8 @@ class Averager
 				return $this->dropdown($definition['column_1']);
 			case 'dropdownvaluepercent':
 				return $this->dropdownValuePercent($definition['column_1'], $definition['value_1']);
+			case 'successoverattempt':
+				return $this->successOverAttempt($definition['column_1'], $definition['column_2']);
 		}
 	}
 
@@ -104,6 +106,37 @@ class Averager
 		if($this->matchesPlayed() != 0)
 			return $values[$k] / $this->matchesPlayed() * 100 . '%';
 		return '0%';
+	}
+
+	public function successOverAttempt($index1, $index2)
+	{
+		$successes = 0;
+		$attempts = 0;
+
+		foreach($this->matchData as $md)
+		{
+			if($md->dead == true)
+			{
+
+			}
+			else if($md->getData($index2) == false)
+			{
+				if($md->getData($index1) > 0)
+				{
+					$successes += $md->getData($index1);
+					$attempts ++;
+				}
+			}
+			else
+			{
+				$successes += $md->getData($index1);
+				$attempts ++;
+			}
+		}
+
+		if($attempts != 0)
+			return round($successes / $attempts, 2);
+		return 0;
 	}
 
 	public function average($index)

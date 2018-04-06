@@ -33,7 +33,9 @@ class ScheduleController extends Controller
 		if(Session::isLoggedIn())
 		{
 			if(Session::getLoggedInUser()->administrator >= 0)
+			{
 				print (new UpcomingMatchesView())->render();
+			}
 			else
 				print (new ErrorView())->render("Not Enough Permissions!");
 		}

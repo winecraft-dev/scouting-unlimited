@@ -1,35 +1,20 @@
 SECTIONS:
-  0: Auton Data
-  1: Teleop Data
-  2: Endgame Data
-  
+	0: Auton Data
+	1: Teleop Data
+	2: Endgame Data
+	
 Modules:
-  0: Raw Number
-  <input id="title" type="number" class="dataentry-module-number"></input>
-  
-  1: Iterating Number
-  
-  2: Checkbox
-  <input id="title" type="checkbox" class="dataentry-module-boolean"></input>
-  
-  3: Text
-  <textarea rows="4" cols="50" id="title" class="dataentry-module-text"></textarea>
-  4: Dropdown
-  
+	0: Raw Number
+	1: Iterating Number
+	2: Checkbox
+	3: Text
+	4: Dropdown
+	5: Number only Attempted
+	
 Data Types:
-  0: Boolean
-  1: Number
-  2: comment
-  
+	0: Boolean
+	1: Number
+	2: Text
+	
 Number:
-  (The amount of datasets preceding this dataset) + 1
-  
-Formula Format
-  Some Constant Variables
-  Matches
-  Matches Dead
-  Matches Played
-  
-  (this.<DATA TITLE>) + (alliance.<DATA TITLE>) + (other.<DATA TITLE>) + (constant.Matches_Played)
-  
-  
+	(The amount of datasets preceding this dataset) + 1
