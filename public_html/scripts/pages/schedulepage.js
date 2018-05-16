@@ -54,7 +54,7 @@ function loadPageOffline()
 	schedulePage = localStorage.getItem("schedulePage");
 }
 
-function pastePage()
+async function pastePage()
 {
 	$('.index-content').empty().append(schedulePage);
 	for(d of matchData)

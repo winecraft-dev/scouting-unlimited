@@ -58,7 +58,7 @@ function loadPageOffline()
 	teamPage = localStorage.getItem("teamPage");
 }
 
-function pastePage()
+async function pastePage()
 {
 	var url = new URL("http://localhost" + window.location.href);
 	var teamPageTeam = url.searchParams.get("team");
@@ -135,31 +135,31 @@ function pastePage()
 		var append = '';
 		if(i % 2 == 0)
 		{
-			append += '<tr class="schedule-zebra-light"><td class="matches" id="' + m.match_number + '">';
+			append += '<tr class="schedule-zebra-light">';
 		}
 		else
 		{
-			append += '<tr class="schedule-zebra-dark"><td class="matches" id="' + m.match_number + '">';
+			append += '<tr class="schedule-zebra-dark">';
 		}
 
-		if(getOfflineMatchData(m.match_number, teamPageTeam) != null)
+		if(isUpcoming(m.match_number))
 		{
-			append += '<a style="color:black;" href="/?p=matchdata&match=' + m.match_number 
-					+ '"><mark class="schedule-done-offline">' + m.match_number 
-					+ '</mark></a></td></tr>';
-		}
-		else if(getMatchData(m.match_number, teamPageTeam) != null)
-		{
-			append += '<a style="color:black;" href="/?p=upcoming&match=' + m.match_number 
-					+ '"><mark class="schedule-done">' + m.match_number 
-					+ '</mark></a></td></tr>';
+			append += '<td class="schedule-mid schedule-match-number">' +
+						'<a href="/?p=upcoming&match=' + m.match_number + '">' + m.match_number + '</a></td>';
 		}
 		else
 		{
-			append += '<a style="color:black;" href="/?p=upcoming&match=' + m.match_number 
-					+ '"><mark class="schedule-undone">' + m.match_number 
-					+ '</mark></a></td></tr>';
+			append += '<td class="schedule-mid schedule-match-number">' +
+						'<a href="/?p=matchdata&match=' + m.match_number + '">' + m.match_number + '</a></td>';
 		}
+		
+		append += pasteTeamInMatch(teamPageTeam, m.match_number, m.red_1, true);
+		append += pasteTeamInMatch(teamPageTeam, m.match_number, m.red_2, true);
+		append += pasteTeamInMatch(teamPageTeam, m.match_number, m.red_3, true);
+
+		append += pasteTeamInMatch(teamPageTeam, m.match_number, m.blue_1, false);
+		append += pasteTeamInMatch(teamPageTeam, m.match_number, m.blue_2, false);
+		append += pasteTeamInMatch(teamPageTeam, m.match_number, m.blue_3, false);
 		i ++;
 		$('#matches.schedule').append(append);
 	}
@@ -202,3 +202,41 @@ $(document).on('click', '#pit_notes.dataentry-submit', function() {
 		}
 	}
 });
+
+function pasteTeamInMatch(teamPageTeam, match, team, red)
+{
+	var append = "";
+
+	if(teamPageTeam == team)
+	{
+		append += '<td class="schedule-yellow">';
+	}
+	else if(red)
+	{
+		append += '<td class="schedule-red">';
+	}
+	else
+	{
+		append += '<td class="schedule-blue">';
+	}
+	if(getOfflineMatchData(m.match_number, team) != null)
+	{
+		append += '<a style="color:black;" href="/?p=teamdata&team=' + team
+				+ '"><mark class="schedule-done-offline">' + team 
+				+ '</mark></a>';
+	}
+	else if(getMatchData(m.match_number, team) != null)
+	{
+		append += '<a style="color:black;" href="/?p=teamdata&team=' + team 
+				+ '"><mark class="schedule-done">' + team 
+				+ '</mark></a>';
+	}
+	else
+	{
+		append += '<a style="color:black;" href="/?p=teamdata&team=' + team 
+				+ '"><mark class="schedule-undone">' + team 
+				+ '</mark></a>';
+	}
+	append += '</td>';
+	return append;
+}

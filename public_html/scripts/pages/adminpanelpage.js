@@ -48,7 +48,7 @@ function loadPageOffline()
 	adminPanelPage = localStorage.getItem("adminPanelPage");
 }
 
-function pastePage()
+async function pastePage()
 {
 	if(!offline)
 	{

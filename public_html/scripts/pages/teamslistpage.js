@@ -54,7 +54,7 @@ function loadPageOffline()
 	teamsListPage = localStorage.getItem("teamsListPage");
 }
 
-function pastePage()
+async function pastePage()
 {
 	$('.index-content').empty().append(teamsListPage);
 

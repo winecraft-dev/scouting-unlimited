@@ -23,33 +23,12 @@ class TeamView implements View
 				<button id="pit_notes" class="dataentry-submit">Update Pit Data</button>
 			</div>
 		</div>
-		<div class="page-section">
-			<div class="page-section-head">
-				Averages
-			</div>
-			<div class="page-section-content">
-				<table class="schedule">
-					<colgroup>
-						<col span="1" style="width: 35%;">
-						<col span="1" style="width: 55%;">
-					</colgroup>
-					<tr>
-						<th class="schedule-head schedule-mid">Title</th>
-						<th class="schedule-head">Value</th>
-					</tr>
-					<?php 
-						$aDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions(); 
-						$i = 0;
-						foreach($aDefinitions as $definition) { ?>
-							<tr class=<?= $i % 2 == 0 ? "schedule-zebra-light" : "schedule-zebra-dark" ?>>
-								<td class="schedule-mid"><?= $definition['title'] ?></td>
-								<td id=<?= str_replace(" ", "-", $definition['title']) ?>></td>
-							</tr>
-						<?php $i ++; 
-					} ?>
-				</table>
-			</div>
-		</div>
+		<?php 
+			$averageDefinitions = (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
+			$this->section($averageDefinitions, 0);
+			$this->section($averageDefinitions, 1);
+			$this->section($averageDefinitions, 2);
+		?>
 		<div class="page-section">
 			<div class="page-section-head">
 				Matches
@@ -57,16 +36,90 @@ class TeamView implements View
 			<div class="page-section-content">
 				<table id="matches" class="schedule">
 					<colgroup>
-						<col span="1" style="width: 35%;">
-						<col span="1" style="width: 55%;">
+						<col span="1" style="width: 5%;">
+						<col span="1" style="width: 15.833333333%;">
+						<col span="1" style="width: 15.833333333%;">
+						<col span="1" style="width: 15.833333333%;">
+						<col span="1" style="width: 15.833333333%;">
+						<col span="1" style="width: 15.833333333%;">
+						<col span="1" style="width: 15.833333333%;">
 					</colgroup>
 					<tr>
-						<th class="schedule-head schedule-mid">Match</th>
+						<th class="schedule-corner schedule-mid">Match</th>
+						<th class="schedule-head">Red 1</th>
+						<th class="schedule-head">Red 2</th>
+						<th class="schedule-head schedule-mid">Red 3</th>
+						<th class="schedule-head">Blue 1</th>
+						<th class="schedule-head">Blue 2</th>
+						<th class="schedule-head">Blue 3</th>
 					</tr>
 				</table>
 			</div>
 		</div>
 	<?php }
+
+	public function section($averageDefinitions, $section)
+	{ ?>
+		<div class="page-section">
+			<div class="page-section-head">
+				<?php switch($section) { 
+					case 0:
+						echo "Auto Averages";
+						break;
+					case 1:
+						echo "Teleop Averages";
+						break;
+					case 2:
+						echo "Endgame Averages";
+				} ?>
+			</div>
+			<div class="page-section-content">
+				<?php 
+				foreach($averageDefinitions as $definition) { 
+					if($definition['section'] == $section) { ?>
+						<div style="<?php switch($section) {
+							case 0:
+								echo "background-color: rgba(255, 0, 0, .15);";
+								break;
+							case 1:
+								echo "background-color: rgba(0, 255, 0, .15);";
+								break;
+							case 2:
+								echo "background-color: rgba(0, 0, 255, .15);";
+								break;
+
+						} ?>" class="dataentry-module">
+							<?= $definition['title'] ?><br>
+							<?php $this->output($definition); ?>
+						</div>
+					<?php } ?>
+				<?php } ?>
+				</div>
+			</div>
+		</div>
+	<?php }
+
+	public function output($definition) 
+	{
+		switch($definition['method'])
+		{
+			case 'matches':
+			case 'matchesdead':
+			case 'matchesplayed':
+			case 'matchesdeadshortly':
+			case 'max':
+			case 'percentaverage':
+			case 'average':
+			case 'dropdownvaluepercent':
+			case 'successoverattempt': ?>
+				<div id=<?= str_replace(" ", "-", $definition['title'])?> class="dataentry-number"></div>
+				<?php break;
+			case 'dropdown':
+			case 'concatstring': ?>
+				<div id=<?= str_replace(" ", "-", $definition['title']) ?> class="dataentry-text"></div>
+				<?php break;
+		}
+	}
 
 	public function getInputByDefinition($definition)
 	{

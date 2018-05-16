@@ -18,6 +18,10 @@
 	background: rgba(0, 0, 255, .5);
 }
 
+.schedule-yellow {
+	background: rgba(255, 255, 0, 1);
+}
+
 .schedule td {
 	padding: 10px;
 	text-align: center;

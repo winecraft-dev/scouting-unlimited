@@ -58,7 +58,7 @@ function loadPageOffline()
 	dataFormPage = localStorage.getItem("dataFormPage");
 }
 
-function pastePage()
+async function pastePage()
 {
 	if(scoutingPosition > 6 || scoutingPosition < 1)
 	{

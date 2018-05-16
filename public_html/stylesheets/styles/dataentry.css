@@ -105,6 +105,27 @@ input {
 	background-repeat: no-repeat;
 }
 
+.dataentry-number {
+  font-size: 40px;
+  border-radius: 7px;
+  border: 1px solid black;
+  width: 110px;
+  background-color: white;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+  margin: auto;
+}
+
+.dataentry-text {
+  font-size: 10px;
+  border-radius: 7px;
+  border: 1px solid black;
+  width: auto;
+  padding: 2px;
+  background-color: white;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+  margin: auto;
+}
+
 .dataentry-module-number-arrowdown {
   margin: auto;
   display: block;

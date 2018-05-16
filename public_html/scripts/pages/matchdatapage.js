@@ -56,7 +56,7 @@ function loadPageOffline()
 	matchDataPage = localStorage.getItem("matchDataPage");
 }
 
-function pastePage()
+async function pastePage()
 {
 	var url = new URL("http://localhost" + window.location.href);
 	matchnumber = url.searchParams.get("match");

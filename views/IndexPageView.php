@@ -5,13 +5,13 @@ class IndexPageView extends PageView
 	{
 		parent::__construct($title, $script);
 	}
-  public function renderBody()
-  { ?>
-    <div class="page">
-      <div class="index-content">
-      
-      </div>
-    </div>
-  <?php }
+	public function renderBody()
+	{ ?>
+		<div class="page">
+			<div class="index-content">
+				<div class="login-pending"></div>
+			</div>
+		</div>
+	<?php }
 }
 ?>

@@ -104,7 +104,7 @@ class Averager
 		}
 
 		if($this->matchesPlayed() != 0)
-			return $values[$k] / $this->matchesPlayed() * 100 . '%';
+			return round($values[$k] / $this->matchesPlayed(), 2) * 100 . '%';
 		return '0%';
 	}
 
@@ -134,9 +134,7 @@ class Averager
 			}
 		}
 
-		if($attempts != 0)
-			return round($successes / $attempts, 2);
-		return 0;
+		return $successes . "/" . $attempts;
 	}
 
 	public function average($index)

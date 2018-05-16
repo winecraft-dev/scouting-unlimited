@@ -8,6 +8,8 @@ $(document).ready(function() {
 		if(!offline)
 			loadScoutingPosition();
 	}, 20000);
+
+	
 });
 
 $(document).ajaxStop(completeAjax);
@@ -26,7 +28,12 @@ function completeAjax()
 		offlinePitNotesLoading = false;
 		
 		initialAjaxCompleted = true;
-		
-		pastePage();
+
+		pastePage().then(function() {
+			window.scrollTo(0, localStorage.getItem("scrollHeight"));
+			setInterval(function() {
+				localStorage.setItem("scrollHeight", window.scrollY);
+			}, 100);
+		});
 	}
 }
