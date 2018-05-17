@@ -106,13 +106,17 @@ class TeamView implements View
 			case 'matches':
 			case 'matchesdead':
 			case 'matchesplayed':
-			case 'matchesdeadshortly':
+			case 'matchesdeadshortly': ?>
+				<div id=<?= str_replace(" ", "-", $definition['title'])?> class="dataentry-number"></div>
+				<?php break;
 			case 'max':
 			case 'percentaverage':
 			case 'average':
 			case 'dropdownvaluepercent':
 			case 'successoverattempt': ?>
-				<div id=<?= str_replace(" ", "-", $definition['title'])?> class="dataentry-number"></div>
+				<a teamnumber="0" class="chart-link" style="color: black;" href="#" id=<?= str_replace(" ", "-", $definition['title']) ?>>
+					<div id=<?= str_replace(" ", "-", $definition['title'])?> class="dataentry-number"></div>
+				</a>
 				<?php break;
 			case 'dropdown':
 			case 'concatstring': ?>

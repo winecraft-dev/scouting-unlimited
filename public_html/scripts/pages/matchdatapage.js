@@ -83,7 +83,7 @@ async function pastePage()
 			if(matchData.dead == 1)
 			{
 				$('#' + index + "_dead").text("True");
-				return;
+				continue;
 			}
 			else
 			{

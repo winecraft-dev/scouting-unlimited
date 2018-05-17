@@ -21,7 +21,8 @@ $mainFiles = [
 	'schedule.css',
 	'login.css',
 	'dataentry.css',
-	'teamlist.css'
+	'teamlist.css',
+	'popup.css'
 ];
 
 foreach($mainFiles as $file) {

@@ -1,4 +1,5 @@
 var teamPage = "";
+var chartView = "";
 
 function loadOffline()
 {
@@ -15,8 +16,11 @@ function loadOffline()
 		loadTeams();
 		loadMatchData();
 		loadSchedule();
+		loadDataDefinitions();
+		loadAverageDefinitions();
 		loadPitNotesDefinitions();
 
+		loadPopup();
 		loadPage();
 		loadErrorPage();
 	}
@@ -25,8 +29,11 @@ function loadOffline()
 		loadTeamsOffline();
 		loadMatchDataOffline();
 		loadScheduleOffline();
+		loadDataDefinitionsOffline();
+		loadAverageDefinitionsOffline();
 		loadPitNotesDefinitionsOffline();
 
+		loadPopupOffline();
 		loadPageOffline();
 		loadErrorPageOffline();
 		
@@ -125,7 +132,7 @@ async function pastePage()
 	{
 		var id = index.replace(/ /g, "-");
 
-		$('#' + id).text(team.averages[index]);
+		$('div#' + id).text(team.averages[index]);
 	}
 
 	var i = 0;
@@ -163,6 +170,8 @@ async function pastePage()
 		i ++;
 		$('#matches.schedule').append(append);
 	}
+
+	$('.chart-link').attr('teamnumber', teamPageTeam)
 }
 
 $(document).on('click', '#pit_notes.dataentry-submit', function() {

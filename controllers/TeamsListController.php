@@ -28,6 +28,21 @@ class TeamsListController extends Controller
 		}
 	}
 
+	public function displayChart()
+	{
+		if(Session::isLoggedIn())
+		{
+			if(Session::getLoggedInUser()->administrator >= 0)
+				print (new ChartView())->render();
+			else
+				print (new ErrorView())->render("Not Enough Permissions!");
+		}
+		else
+		{
+			echo "NOT LOGGED IN";
+		}
+	}
+
 	public function displayTeam()
 	{
 		if(Session::isLoggedIn())
@@ -47,7 +62,10 @@ class TeamsListController extends Controller
 	{
 		if(Session::isLoggedIn())
 		{
-			(new IndexPageView('Team - CRyptonite Robotics', ['/scripts/pages/teampage.js']))->render();
+			(new IndexPageView('Team - CRyptonite Robotics', [	
+					'/scripts/pages/teampage.js', 
+					'/scripts/Chart.bundle.min.js', 
+					'/scripts/chart-popup.js']))->render();
 		}
 		else
 		{

@@ -3,6 +3,7 @@ var schedule = [];
 var teams = [];
 var matchData = [];
 var dataDefinitions = [];
+var averageDefinitions = [];
 var pitNotesDefinitions = [];
 var scoutingPosition = 0;
 var offlineData = [];
@@ -14,6 +15,7 @@ var scheduleLoading = false;
 var teamsLoading = false;
 var matchDataLoading = false;
 var dataDefinitionsLoading = false;
+var averageDefinitionsLoading = false;
 var pitNotesDefinitionsLoading = false;
 var scoutingPositionLoading = false;
 var offlineDataLoading = false;
@@ -41,11 +43,11 @@ function isUpcoming(matchnumber)
 	return true;
 }
 
-function getMatchData(m, t)
+function getMatchData(ma, t)
 {
 	for(match of matchData)
 	{
-		if(match.match_number == m)
+		if(match.match_number == ma)
 		{
 			if(match.team_number == t)
 			{
@@ -127,6 +129,16 @@ function definitionDisplay(index, value)
 function getDefinition(name)
 {
 	for(definition of dataDefinitions)
+	{
+		if(definition['title'] == name)
+			return definition;
+	}
+	return null;
+}
+
+function getAverageDefinition(name)
+{
+	for(definition of averageDefinitions)
 	{
 		if(definition['title'] == name)
 			return definition;
@@ -318,6 +330,45 @@ function loadDataDefinitionsOffline()
 	var list = JSON.parse(response);
 	list.forEach(function(item, index) {
 		dataDefinitions.push(item);
+	});
+}
+
+function loadAverageDefinitions()
+{
+	averageDefinitions = [];
+	averageDefinitionsLoading = true;
+	request = $.ajax({
+		url: "/?p=offline&do=getAverageDefinitions",
+		type: "get"
+	}).done(function (response, textStatus, jqXHR) 
+	{
+		if(response == "NOT LOGGED IN")
+		{
+			window.location.replace("/?p=login");
+		}
+		else if(response == "NOT ENOUGH PERMISSIONS")
+		{
+			window.location.replace("/?p=login&do=logout");
+		}
+		else
+		{
+			var list = JSON.parse(response);
+			list.forEach(function(item, index) {
+				averageDefinitions.push(item);
+			});
+			localStorage.setItem("averageDefinitions", response);
+		}
+	});
+}
+
+function loadAverageDefinitionsOffline()
+{
+	averageDefinitions = [];
+	averageDefinitionsLoading = true;
+	response = localStorage.getItem("averageDefinitions");
+	var list = JSON.parse(response);
+	list.forEach(function(item, index) {
+		averageDefinitions.push(item);
 	});
 }
 
