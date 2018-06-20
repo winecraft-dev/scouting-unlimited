@@ -23,7 +23,7 @@ class DataEntryFormView implements View
 						</div>
 						<div class="dataentry-module">
 							Team Number<br>
-							<input style="background-color: #aaa" readonly id="team_number" type="number" class="dataentry-module-number"></input>
+							<input id="team_number" type="number" class="dataentry-module-number"></input>
 						</div>
 						<div class="dataentry-module">
 							No Show<br>

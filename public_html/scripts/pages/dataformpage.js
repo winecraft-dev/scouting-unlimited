@@ -85,6 +85,53 @@ $(document).on('click', '.dataentry-tab', function() {
 	$('#' + id + '.dataentry-tab').css('color', '#ffffff');
 });
 
+$(document).on('change', '#team_number.dataentry-module-number', function(e) {
+	var team_number = $(this).val();
+	var match_number = $('#match_number.dataentry-module-number').val();
+
+	var match = schedule[match_number - 1];
+
+	if(match.red_1 == team_number
+		|| match.red_2 == team_number
+		|| match.red_3 == team_number
+		|| match.blue_1 == team_number
+		|| match.blue_2 == team_number
+		|| match.blue_3 == team_number)
+	{
+
+	}
+	else
+	{
+		alert("Team does not play in this match");
+
+		switch(scoutingPosition)
+		{
+			case '1':
+				team_number = match.red_1;
+				break;
+			case '2':
+				team_number = match.red_2;
+				break;
+			case '3':
+				team_number = match.red_3;
+				break;
+			case '4':
+				team_number = match.blue_1;
+				break;
+			case '5':
+				team_number = match.blue_2;
+				break;
+			case '6':
+				team_number = match.blue_3;
+				break;
+			default:
+				pasteErrorPage("You have not been assigned a team by the Head Scout. When (s)he gives you a position, refresh the page.");
+				return;
+		}
+		$('#team_number.dataentry-module-number').val(team_number);
+	}
+});
+
 $(document).on('change', '#match_number.dataentry-module-number', function(e) {
 	if($(this).val() > schedule.length || $(this).val() < 1)
 	{

@@ -48,6 +48,9 @@ $action = isset($_GET['do']) ? $_GET['do'] : 'view';
 
 switch($controller)
 {
+	case 'edit':
+		(new EditDefinitionsController($action))->executeAction();
+		break;
 	case 'login':
 		(new LoginController($action))->executeAction();
 		break;

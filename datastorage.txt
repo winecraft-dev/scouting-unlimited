@@ -9,7 +9,6 @@ Modules:
 	2: Checkbox
 	3: Text
 	4: Dropdown
-	5: Number only Attempted
 	
 Data Types:
 	0: Boolean
