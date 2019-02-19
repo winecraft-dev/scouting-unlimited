@@ -48,6 +48,19 @@ function loadPage()
 		}
 	});
 }
+function reloadData()
+{
+	request = $.ajax({
+			url:"/?p=teams&do=getData",
+			type: "get"
+	});
+	request.done(function (response)){
+		if (response == "error")
+		{
+			window.location.replace("/?p=login");
+		}
+	}
+}
 
 function loadPageOffline()
 {

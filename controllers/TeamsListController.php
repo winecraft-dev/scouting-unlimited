@@ -62,9 +62,9 @@ class TeamsListController extends Controller
 	{
 		if(Session::isLoggedIn())
 		{
-			(new IndexPageView('Team - CRyptonite Robotics', [	
-					'/scripts/pages/teampage.js', 
-					'/scripts/Chart.bundle.min.js', 
+			(new IndexPageView('Team - CRyptonite Robotics', [
+					'/scripts/pages/teampage.js',
+					'/scripts/Chart.bundle.min.js',
 					'/scripts/chart-popup.js']))->render();
 		}
 		else
@@ -111,7 +111,7 @@ class TeamsListController extends Controller
 
 				$team = (new TeamsDatabaseModel())->getTeam($team_number);
 				$team->enterPitData($data);
-				
+
 				echo "SUCCESS";
 				return;
 			}
@@ -127,5 +127,16 @@ class TeamsListController extends Controller
 			return;
 		}
 	}
+	public function getData(){
+		if(Session::isLoggedIn())
+		{
+			echo (new DataDefinitionsDatabaseModel())->getAverageDefinitions();
+		return;
+		}
+		else
+		{
+			echo "Error";
+		return;
+		}
+	}
 }
-

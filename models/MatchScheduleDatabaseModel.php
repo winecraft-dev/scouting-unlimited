@@ -79,7 +79,7 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 		
 		$config = $GLOBALS['config'];
 		
-		$auth = "Authorization: Basic " . base64_encode($config->get('api_key') . ':' . $config->get('api_password')); 
+		$auth = "If-Modified-Since: " . "KbNj9FMIq2OA8QwFB0RbAGNgUgZW9jHKxamrWCxw6t3ih6aXefd8c2wYozYH4OkM"; 
 		$opts = array(
 			'http'=>array(
 			'method'=>"GET",
@@ -88,7 +88,7 @@ class MatchScheduleDatabaseModel extends DatabaseModel
 		);
 		
 		$context = stream_context_create($opts);
-		$url = "https://frc-api.firstinspires.org/v2.0/2018/schedule/" . $eventCode . "?tournamentLevel=qual";
+		$url = "https://www.thebluealliance.com/api/v3/event/" . $eventCode . "/matches/simple";
 		$response = file_get_contents($url, false, $context);
 		$json = json_decode($response, true);
 		
